@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FAF6EE" />
+  <meta name="description" content="不买研究所 V3：虚拟下单、冷静实验与未来付费功能省钱研究室交互原型。" />
+  <title>不买研究所｜BUMAI LAB V3</title>
+  <style>
+    :root{
+      --bg:#FAF6EE;
+      --card:#FFFFFF;
+      --primary:#E07856;
+      --primary-dark:#C95E3E;
+      --primary-2:#D7A260;
+      --green:#6F9365;
+      --green-soft:#EDF4E9;
+      --blue:#6688A8;
+      --text:#211F1C;
+      --muted:#8D847A;
+      --line:#EEE6DD;
+      --soft:#F6EADF;
+      --danger:#D75F4B;
+      --shadow:0 16px 45px rgba(91,66,47,.14);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:#eee;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--text)}
+    body{min-height:100vh;display:flex;justify-content:center;padding:24px}
+    button,input,textarea,select{font:inherit}
+    button{border:0;cursor:pointer}
+    button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid rgba(224,120,86,.28);outline-offset:2px}
+    .app-shell{width:min(430px,100%);height:calc(100vh - 48px);min-height:720px;max-height:920px;background:var(--bg);border-radius:32px;box-shadow:var(--shadow);overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.7)}
+    .statusbar{height:38px;padding:10px 18px 0;display:flex;align-items:flex-start;justify-content:space-between;font-size:13px;font-weight:700;position:relative;z-index:5;background:linear-gradient(to bottom,var(--bg) 78%,rgba(250,246,238,0))}
+    .status-icons{display:flex;gap:7px;align-items:center;color:#222}
+    .screen{position:absolute;inset:38px 0 78px;overflow:auto;padding:8px 16px 28px;display:none;scrollbar-width:none}
+    .screen::-webkit-scrollbar{display:none}
+    .screen.active{display:block}
+    .toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .brand-lockup{display:flex;align-items:center;gap:10px}
+    .brand-mark{width:38px;height:38px;border-radius:14px;background:linear-gradient(145deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;box-shadow:0 8px 18px rgba(224,120,86,.22)}
+    .brand-mark svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .brand-title{font-size:18px;font-weight:900;letter-spacing:-.4px}
+    .brand-en{font-size:10px;color:var(--muted);letter-spacing:1.7px;margin-top:1px}
+    .bell,.iconbtn{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.7);display:grid;place-items:center;color:var(--text)}
+    .iconbtn svg,.bell svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .search{height:48px;background:#fff;border:1px solid #F0D6C6;border-radius:24px;display:flex;align-items:center;padding:0 14px;gap:10px;box-shadow:0 4px 12px rgba(97,67,46,.04)}
+    .search svg{width:18px;height:18px;stroke:#706860;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .search input{border:0;outline:0;flex:1;background:transparent;color:var(--text);min-width:0}
+    .search input::placeholder{color:#A79D94}
+    .chips,.mood-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+    .chips{margin:14px 0}
+    .mood-chips{margin-top:11px}
+    .chips::-webkit-scrollbar,.mood-chips::-webkit-scrollbar{display:none}
+    .chip,.mood-chip{min-height:42px;white-space:nowrap;padding:10px 14px;border-radius:21px;background:#fff;border:1px solid #EED8CB;color:#8F837A}
+    .chip.active,.mood-chip.active{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:800}
+    .mood-box{background:#fff;border-radius:22px;padding:16px;margin:14px 0;border:1px solid #F0E5DC}
+    .mood-box h3{font-size:16px;margin:0 0 3px}
+    .mood-box p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+    .hero{background:linear-gradient(118deg,var(--primary),var(--primary-2));border-radius:27px;padding:20px;color:#fff;margin-bottom:18px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;width:160px;height:160px;border:1px solid rgba(255,255,255,.2);border-radius:50%;right:-65px;top:-56px}
+    .hero-label{font-size:13px;font-weight:700;opacity:.92}
+    .hero-amount{font-size:43px;font-weight:900;line-height:1.1;margin:4px 0 5px;letter-spacing:-1.4px}
+    .hero-sub{font-size:12px;opacity:.9;line-height:1.55}
+    .hero-data{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+    .hero-data div{background:rgba(255,255,255,.16);border-radius:14px;padding:10px 11px;backdrop-filter:blur(5px)}
+    .hero-data small{display:block;font-size:10px;opacity:.78;margin-bottom:3px}
+    .hero-data strong{font-size:15px}
+    .hero-actions{display:flex;gap:8px;margin-top:13px}
+    .hero-actions button{min-height:42px;padding:9px 13px;border-radius:14px;background:rgba(255,255,255,.22);color:#fff;font-weight:800;backdrop-filter:blur(4px)}
+    .hero-actions .solid{background:#fff;color:var(--primary-dark)}
+    .section-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}
+    .section-head h2{font-size:21px;margin:0}
+    .link{background:none;color:var(--primary);padding:8px 0;font-weight:700}
+    .masonry{columns:2;column-gap:10px}
+    .product-card{break-inside:avoid;background:#fff;border-radius:18px;overflow:hidden;margin-bottom:10px;box-shadow:0 8px 22px rgba(86,65,48,.08);position:relative}
+    .product-art{height:132px;display:grid;place-items:center;font-size:54px;position:relative;background:linear-gradient(135deg,#FBE1CF,#F7C9A8)}
+    .product-card:nth-child(3n+2) .product-art{height:154px;background:linear-gradient(135deg,#DCEBD3,#C4DBB4)}
+    .product-card:nth-child(3n) .product-art{height:122px;background:linear-gradient(135deg,#D9E7F7,#BED2EC)}
+    .impulse-badge{position:absolute;left:9px;top:9px;background:rgba(36,31,28,.78);color:#fff;border-radius:12px;padding:5px 8px;font-size:10px;font-weight:800;box-shadow:0 5px 14px rgba(30,25,22,.18)}
+    .wait-badge{position:absolute;right:9px;top:9px;background:rgba(255,255,255,.88);color:var(--primary-dark);border-radius:12px;padding:5px 7px;font-size:10px;font-weight:800}
+    .card-body{padding:11px 11px 12px}
+    .product-title{font-size:14px;font-weight:800;line-height:1.35;margin-bottom:4px}
+    .product-desc{font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .insight-line{font-size:10px;color:var(--primary-dark);margin-bottom:9px;font-weight:700}
+    .price-row{display:flex;align-items:center;justify-content:space-between}
+    .price{font-weight:900;color:var(--primary)}
+    .add{width:34px;height:34px;border-radius:11px;background:var(--primary);color:#fff;font-size:20px;line-height:1;display:grid;place-items:center}
+    .notice{font-size:12px;color:var(--muted);text-align:center;margin:16px 0;line-height:1.6}
+
+    .page-title{font-size:24px;font-weight:900;margin:8px 0 16px}
+    .cart-tip{background:#FFF0E8;color:var(--primary-dark);padding:11px 14px;border-radius:16px;text-align:center;font-size:13px;margin-bottom:14px}
+    .cart-list{display:flex;flex-direction:column;gap:10px}
+    .cart-item{display:grid;grid-template-columns:76px 1fr auto;gap:12px;align-items:center;background:#fff;border-radius:18px;padding:10px}
+    .cart-art{width:76px;height:68px;border-radius:14px;display:grid;place-items:center;font-size:36px;background:linear-gradient(135deg,#FBE1CF,#F6C49E)}
+    .cart-name{font-size:14px;font-weight:800;margin-bottom:5px}
+    .cart-meta{font-size:11px;color:var(--muted);line-height:1.45}
+    .qty{display:flex;align-items:center;background:#F7F4EF;border-radius:14px;overflow:hidden}
+    .qty button{width:32px;height:32px;background:transparent;color:var(--text)}
+    .qty span{min-width:25px;text-align:center;font-size:13px}
+    .cart-summary{position:sticky;bottom:0;background:rgba(250,246,238,.95);backdrop-filter:blur(12px);border-top:1px solid var(--line);margin:18px -16px -28px;padding:14px 16px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .summary-small{font-size:11px;color:var(--muted);line-height:1.45}
+    .summary-total{font-size:20px;font-weight:900}
+    .primary{min-height:44px;background:var(--primary);color:#fff;border-radius:17px;padding:12px 17px;font-weight:800;box-shadow:0 8px 18px rgba(224,120,86,.26)}
+    .primary:hover{background:var(--primary-dark)}
+    .secondary{min-height:44px;background:#fff;color:var(--primary-dark);border:1px solid #F0C7B8;border-radius:16px;padding:11px 15px;font-weight:800}
+    .ghost{min-height:44px;background:#F4EFEA;color:var(--text);border-radius:16px;padding:11px 15px;font-weight:800}
+    .success{background:var(--green);color:#fff}
+    .empty{text-align:center;padding:74px 20px;color:var(--muted)}
+    .empty .emoji{font-size:58px;margin-bottom:12px}
+    .empty h3{color:var(--text);margin:0 0 8px}
+
+    .quick-panel{background:linear-gradient(140deg,#FFF,#F9ECDD);border-radius:24px;padding:18px;margin-bottom:14px;border:1px solid #F2DFD2}
+    .quick-panel h3{margin:0 0 7px;font-size:18px}
+    .quick-panel p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+    .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .quick-card{background:#fff;border-radius:18px;padding:15px;text-align:left;min-height:116px;box-shadow:0 8px 18px rgba(79,60,45,.06);border:1px solid transparent}
+    .quick-card:hover{border-color:#F1CCBD}
+    .quick-icon{font-size:28px}
+    .quick-title{font-weight:800;margin-top:8px}
+    .quick-sub{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.45}
+    .form-card{background:#fff;border-radius:22px;padding:17px;margin:14px 0}
+    .form-card h3{margin:0 0 5px;font-size:18px}
+    .form-card .desc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:13px}
+    .field{margin-bottom:11px}
+    .field label{display:block;font-size:12px;font-weight:800;margin-bottom:6px}
+    .field input,.field textarea,.field select{width:100%;border:1px solid #EDE3DA;background:#FCFAF7;border-radius:14px;padding:12px;color:var(--text);outline:0}
+    .field textarea{min-height:70px;resize:vertical}
+    .two-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .assistant-box{background:#221F1D;color:#fff;border-radius:24px;padding:18px;margin-top:14px}
+    .assistant-box textarea{width:100%;border:0;border-radius:16px;padding:12px;margin:12px 0 8px;resize:none;outline:0;min-height:78px;background:#36312E;color:#fff}
+    .assistant-result{background:#36312E;border-radius:16px;padding:13px;font-size:13px;line-height:1.65;display:none;margin-top:10px}
+    .assistant-result .tag{display:inline-block;background:rgba(224,120,86,.18);color:#F2B39D;border-radius:10px;padding:4px 8px;font-size:11px;font-weight:800;margin-bottom:7px}
+
+    .record-filter{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+    .record-filter::-webkit-scrollbar{display:none}
+    .record-filter button{min-height:40px;padding:9px 13px;border-radius:20px;background:#fff;color:var(--muted);white-space:nowrap}
+    .record-filter button.active{background:var(--text);color:#fff;font-weight:800}
+    .order-card{background:#fff;border-radius:20px;padding:15px;margin-bottom:12px}
+    .order-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .order-id{font-weight:800;font-size:14px}
+    .order-status{font-size:11px;border-radius:10px;padding:5px 8px;font-weight:800;background:#FFF0E8;color:var(--primary-dark)}
+    .order-status.kept{background:var(--green-soft);color:var(--green)}
+    .order-status.bought{background:#F3EFEA;color:#756D66}
+    .order-items{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.55}
+    .progress{height:8px;background:#F2ECE5;border-radius:10px;margin:14px 0 7px;overflow:hidden}
+    .progress span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-2));border-radius:10px;transition:.4s}
+    .order-foot{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);gap:8px}
+    .countdown{font-size:12px;color:var(--primary-dark);font-weight:800;margin-top:9px}
+    .record-actions{display:flex;gap:8px;margin-top:12px}
+    .record-actions button{flex:1;min-height:40px}
+
+    .profile-card{background:#fff;border-radius:22px;padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:14px}
+    .avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(140deg,var(--primary),var(--primary-2));color:#fff;display:grid;place-items:center;font-size:24px;font-weight:900}
+    .profile-name{font-weight:900;font-size:18px}
+    .level{font-size:12px;color:var(--primary);margin-top:5px}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+    .stat{background:#fff;border-radius:18px;padding:15px 10px;text-align:center}
+    .stat strong{display:block;font-size:22px}
+    .stat span{font-size:11px;color:var(--muted)}
+    .insight-card{background:#fff;border-radius:22px;padding:17px;margin-bottom:14px}
+    .insight-card h3{font-size:17px;margin:0 0 12px}
+    .insight-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+    .insight-row:last-child{border-bottom:0}
+    .insight-row span:first-child{color:var(--muted)}
+    .achievement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+    .achievement{background:#fff;border-radius:18px;padding:14px;min-height:94px}
+    .achievement.locked{opacity:.48;filter:grayscale(.5)}
+    .achievement .a-icon{font-size:24px}
+    .achievement strong{display:block;font-size:13px;margin:7px 0 3px}
+    .achievement small{font-size:10px;color:var(--muted);line-height:1.4}
+    .menu{background:#fff;border-radius:20px;overflow:hidden}
+    .menu-row{width:100%;display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid var(--line);background:#fff;text-align:left;color:var(--text);min-height:52px}
+    .menu-row:last-child{border-bottom:0}
+    .menu-row .left{display:flex;align-items:center;gap:10px}
+
+    .bottom-nav{position:absolute;left:12px;right:12px;bottom:10px;height:64px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-radius:24px;box-shadow:0 10px 24px rgba(60,45,34,.15);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:0 5px;z-index:20}
+    .nav-btn{height:55px;border-radius:18px;background:transparent;color:#625B55;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;gap:3px;position:relative}
+    .nav-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .nav-btn.active{color:var(--primary);font-weight:800}
+    .nav-btn.center{width:56px;height:56px;border-radius:19px;background:var(--primary);color:#fff;justify-self:center;transform:translateY(-8px);box-shadow:0 10px 18px rgba(224,120,86,.3)}
+    .nav-btn.center.active{color:#fff}
+    .badge{position:absolute;top:4px;right:14px;background:var(--danger);color:#fff;border-radius:20px;min-width:16px;height:16px;padding:0 4px;display:grid;place-items:center;font-size:9px}
+
+    .sheet{position:absolute;inset:0;background:rgba(30,25,21,.4);display:none;align-items:flex-end;z-index:50}
+    .sheet.open{display:flex}
+    .sheet-card{width:100%;max-height:88%;overflow:auto;background:var(--bg);border-radius:28px 28px 0 0;padding:16px 18px 28px;animation:rise .24s ease}
+    @keyframes rise{from{transform:translateY(30px);opacity:.5}to{transform:none;opacity:1}}
+    .sheet-handle{width:44px;height:5px;border-radius:5px;background:#D8CFC7;margin:0 auto 14px}
+    .sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .sheet-head h3{margin:0;font-size:20px}
+    .detail-art{height:180px;border-radius:22px;display:grid;place-items:center;font-size:76px;background:linear-gradient(135deg,#FBE1CF,#F4B789);position:relative}
+    .detail-title{font-size:22px;font-weight:900;margin:14px 0 5px}
+    .detail-copy{font-size:13px;color:var(--muted);line-height:1.7}
+    .row-between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .sheet-actions{display:flex;gap:10px;margin-top:16px}
+    .sheet-actions button{flex:1}
+    .checkout-card{background:#fff;border-radius:20px;padding:16px;margin-bottom:12px}
+    .checkout-row{display:flex;justify-content:space-between;margin:8px 0;font-size:14px}
+    .checkout-row.muted{color:var(--muted)}
+    .checkout-row.total{font-size:19px;font-weight:900;border-top:1px solid var(--line);padding-top:13px;margin-top:12px}
+    .virtual-warning{background:#FFF2E9;color:#9B5B42;padding:12px 14px;border-radius:16px;font-size:12px;line-height:1.6;margin:12px 0}
+    .pay-animation{text-align:center;padding:26px 10px}
+    .spinner{width:70px;height:70px;border-radius:50%;border:7px solid #F2DFD4;border-top-color:var(--primary);margin:0 auto 18px;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .rider-map{height:170px;border-radius:22px;background:linear-gradient(135deg,#E6F0DF,#D4E4CC);position:relative;overflow:hidden;margin:12px 0}
+    .road{position:absolute;width:130%;height:22px;background:#fff;left:-15%;top:76px;transform:rotate(-9deg);border-top:2px dashed #CABFB4;border-bottom:2px dashed #CABFB4}
+    .rider{position:absolute;top:58px;left:8%;font-size:34px;animation:ride 5s linear infinite}
+    @keyframes ride{0%{left:4%}100%{left:84%}}
+    .timeline{display:flex;flex-direction:column;gap:13px}
+    .timeline-item{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start;color:var(--muted);font-size:13px}
+    .timeline-item.active{color:var(--text);font-weight:800}
+    .dot{width:12px;height:12px;border-radius:50%;background:#D8D0C8;margin-top:3px}
+    .timeline-item.active .dot{background:var(--primary);box-shadow:0 0 0 5px rgba(224,120,86,.14)}
+    .cooling-card{background:#fff;border-radius:22px;padding:18px;text-align:center}
+    .cooling-icon{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;background:var(--green-soft);font-size:34px}
+    .cooling-card h3{font-size:21px;margin:0 0 7px}
+    .cooling-card p{font-size:13px;color:var(--muted);line-height:1.65;margin:0}
+    .review-options{display:grid;gap:10px;margin-top:14px}
+    .review-option{background:#fff;border-radius:18px;padding:15px;text-align:left;border:1px solid var(--line);min-height:64px}
+    .review-option strong{display:block;font-size:14px;margin-bottom:4px}
+    .review-option small{color:var(--muted);font-size:11px;line-height:1.45}
+    .share-card{background:linear-gradient(145deg,#2C2622,#181514);border-radius:28px;padding:22px;color:#fff;text-align:center;margin-top:10px;position:relative;overflow:hidden}
+    .share-card:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:rgba(224,120,86,.19);left:-80px;top:-90px}
+    .share-card .big{font-size:46px;font-weight:900;color:#F8B385;margin:12px 0 4px}
+    .share-card .mini{font-size:12px;color:#D4C7BF}
+    .share-card .slogan{font-size:18px;font-weight:800;margin:20px 0 8px;line-height:1.5}
+    .share-card .brand{font-size:12px;color:#F1B798;margin-top:22px;letter-spacing:.7px}
+
+    .onboarding{position:absolute;inset:0;background:rgba(28,24,21,.48);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:18px}
+    .onboarding.open{display:flex}
+    .onboard-card{background:var(--bg);border-radius:30px;padding:26px 22px;width:100%;box-shadow:0 20px 60px rgba(35,27,22,.3);text-align:center}
+    .onboard-logo{width:76px;height:76px;border-radius:25px;background:linear-gradient(145deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;margin:0 auto 17px;box-shadow:0 14px 28px rgba(224,120,86,.28)}
+    .onboard-logo svg{width:42px;height:42px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .onboard-card h1{font-size:28px;margin:0 0 3px}
+    .onboard-card .en{font-size:11px;color:var(--muted);letter-spacing:2.4px;margin-bottom:18px}
+    .onboard-card .slogan{font-size:18px;font-weight:900;margin-bottom:9px}
+    .onboard-card p{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 18px}
+    .onboard-card button{width:100%;margin-top:9px}
+    .onboard-note{font-size:10px;color:#A1978E;margin-top:13px;line-height:1.5}
+    .toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%) translateY(12px);background:#221F1D;color:#fff;border-radius:14px;padding:10px 14px;font-size:12px;opacity:0;pointer-events:none;transition:.22s;z-index:220;white-space:nowrap;max-width:86%;overflow:hidden;text-overflow:ellipsis}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+
+    /* 未来付费功能：省钱研究室（不改变主导航与核心流程） */
+    .lab-entry{width:100%;border-radius:24px;padding:18px;margin:0 0 16px;text-align:left;color:#fff;background:linear-gradient(135deg,#2D2824,#514036 62%,#7B5746);box-shadow:0 14px 30px rgba(48,38,31,.18);position:relative;overflow:hidden;display:block}
+    .lab-entry:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-62px;top:-66px;background:rgba(255,255,255,.08)}
+    .lab-entry .eyebrow{font-size:10px;letter-spacing:1.4px;color:#F3C2A8;font-weight:900;margin-bottom:8px}
+    .lab-entry h3{font-size:20px;margin:0 0 7px;position:relative;z-index:1}
+    .lab-entry p{font-size:12px;color:#DED3CC;line-height:1.55;margin:0 72px 13px 0;position:relative;z-index:1}
+    .lab-entry .entry-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}
+    .lab-entry .entry-foot span:first-child{font-size:11px;color:#F0B99D;font-weight:800}
+    .lab-entry .entry-arrow{width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-size:20px}
+    .lab-lock{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);padding:5px 8px;border-radius:12px;font-size:10px;color:#F4D2C0;font-weight:800;margin-left:6px}
+    .premium-pill{display:inline-flex;align-items:center;gap:5px;background:#2B2724;color:#F6C1A5;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;letter-spacing:.3px}
+    .lab-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+    .lab-compare .compare-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+    .compare-card strong{display:block;font-size:14px;margin-bottom:7px}
+    .compare-card p{font-size:11px;color:var(--muted);line-height:1.55;margin:0}
+    .paywall-hero{background:linear-gradient(145deg,#2D2824,#171413);border-radius:24px;padding:22px;color:#fff;text-align:center;position:relative;overflow:hidden}
+    .paywall-hero:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:rgba(224,120,86,.18);left:-95px;top:-110px}
+    .paywall-icon{width:64px;height:64px;border-radius:21px;background:linear-gradient(145deg,var(--primary),var(--primary-2));display:grid;place-items:center;font-size:30px;margin:0 auto 12px;position:relative}
+    .paywall-hero h3{font-size:23px;margin:0 0 7px;position:relative}
+    .paywall-hero p{font-size:12px;color:#D3C7BF;line-height:1.6;margin:0;position:relative}
+    .price-pending{margin:15px auto 0;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:999px;color:#FFD1B8;font-size:12px;font-weight:900;position:relative}
+    .feature-list{display:grid;gap:10px;margin:14px 0}
+    .feature-item{display:flex;gap:10px;align-items:flex-start;background:#fff;border-radius:17px;padding:13px;border:1px solid var(--line)}
+    .feature-check{width:25px;height:25px;flex:0 0 25px;border-radius:9px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-weight:900}
+    .feature-item strong{display:block;font-size:13px;margin-bottom:3px}
+    .feature-item small{font-size:10px;color:var(--muted);line-height:1.5}
+    .lab-step{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+    .lab-step span{height:6px;flex:1;border-radius:8px;background:#E9E1DA}
+    .lab-step span.active{background:linear-gradient(90deg,var(--primary),var(--primary-2))}
+    .money-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .money-field{background:#fff;border:1px solid var(--line);border-radius:17px;padding:12px}
+    .money-field label{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}
+    .money-input{display:flex;align-items:center;gap:6px}
+    .money-input span{font-weight:900;color:var(--primary-dark)}
+    .money-input input{width:100%;border:0;outline:0;background:transparent;font-weight:800;color:var(--text);min-width:0}
+    .goal-chips{display:flex;gap:8px;overflow:auto;padding:2px 0 5px;scrollbar-width:none}
+    .goal-chips::-webkit-scrollbar{display:none}
+    .goal-chip{min-height:40px;white-space:nowrap;border-radius:18px;padding:9px 12px;background:#fff;border:1px solid var(--line);color:var(--muted)}
+    .goal-chip.active{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:800}
+    .report-hero{border-radius:24px;padding:20px;color:#fff;background:linear-gradient(135deg,var(--primary),var(--primary-2));margin-bottom:12px}
+    .report-hero small{font-size:10px;opacity:.85}
+    .report-hero .big-number{font-size:38px;font-weight:900;margin:4px 0}
+    .report-hero p{font-size:12px;line-height:1.55;margin:0;opacity:.92}
+    .metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:12px}
+    .metric-card{background:#fff;border-radius:17px;padding:13px;border:1px solid var(--line)}
+    .metric-card small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}
+    .metric-card strong{font-size:18px}
+    .ratio-bar{height:7px;background:#EEE7E0;border-radius:9px;overflow:hidden;margin-top:8px}
+    .ratio-bar span{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--primary),var(--primary-2))}
+    .advice-list{display:grid;gap:9px}
+    .advice-item{background:#fff;border-radius:17px;padding:14px;border:1px solid var(--line);display:grid;grid-template-columns:30px 1fr;gap:10px}
+    .advice-index{width:30px;height:30px;border-radius:10px;background:var(--soft);color:var(--primary-dark);font-weight:900;display:grid;place-items:center}
+    .advice-item strong{display:block;font-size:13px;margin-bottom:4px}
+    .advice-item p{font-size:11px;color:var(--muted);line-height:1.55;margin:0}
+    .privacy-promise{background:var(--green-soft);color:#4D6B45;border-radius:16px;padding:12px 13px;font-size:11px;line-height:1.55;margin:12px 0}
+    .prototype-note{background:#FFF0E8;color:#985A42;border-radius:15px;padding:10px 12px;font-size:10px;line-height:1.55;margin-top:11px}
+
+    @media(max-width:520px){
+      body{padding:0;background:var(--bg)}
+      .app-shell{width:100%;height:100vh;min-height:0;max-height:none;border-radius:0;border:0}
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell" id="app">
+    <div class="statusbar"><span id="clock">23:42</span><span class="status-icons">▮▮▮ ︙ ▰</span></div>
+
+    <section class="screen active" id="discover">
+      <div class="toprow">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v5l-5 8.5A3 3 0 0 0 7.6 21h8.8a3 3 0 0 0 2.6-4.5L14 8V3"/><path d="M8 15h8"/><path d="M9.5 12.5h5"/></svg>
+          </div>
+          <div><div class="brand-title">不买研究所</div><div class="brand-en">BUMAI LAB</div></div>
+        </div>
+        <button class="bell" aria-label="实验提醒" onclick="toast('暂无新的实验提醒')"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></button>
+      </div>
+
+      <label class="search" aria-label="搜索研究对象">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="searchInput" placeholder="搜索想买的东西、消费场景…" />
+      </label>
+
+      <div class="mood-box">
+        <h3>你现在为什么想买东西？</h3>
+        <p>先识别情绪，再决定这次冲动值不值得被满足。</p>
+        <div class="mood-chips" id="moodChips"></div>
+      </div>
+
+      <div class="hero">
+        <div class="hero-label">累计确认守住</div>
+        <div class="hero-amount" id="confirmedSaved">¥0</div>
+        <div class="hero-sub">只有完成冷静期并确认“最后没有买”，才会计入守住金额。</div>
+        <div class="hero-data">
+          <div><small>累计模拟消费</small><strong id="simulatedAmount">¥0</strong></div>
+          <div><small>冷静成功率</small><strong id="successRate">—</strong></div>
+        </div>
+        <div class="hero-actions">
+          <button class="solid" onclick="go('experiment')">开始冷静实验</button>
+          <button onclick="go('records')">查看实验记录</button>
+        </div>
+      </div>
+
+      <button class="lab-entry" onclick="openSavingsLab()" aria-label="打开省钱研究室">
+        <div class="eyebrow">未来付费功能预览 <span class="lab-lock" id="homeLabStatus">🔒 尚未解锁</span></div>
+        <h3>省钱研究室</h3>
+        <p>结合你主动填写的收入、支出和现有冷静记录，生成个人省钱攻略与预算建议。</p>
+        <div class="entry-foot"><span>一次购买，永久解锁核心工具 · 价格待定</span><span class="entry-arrow">›</span></div>
+      </button>
+
+      <div class="chips" id="chips"></div>
+      <div class="section-head"><h2>今日研究对象</h2><button class="link" onclick="shuffleProducts()">换一批</button></div>
+      <div class="masonry" id="productGrid"></div>
+      <p class="notice">所有商品、付款与订单均为虚拟体验，不产生真实交易，不收集真实收货地址。</p>
+    </section>
+
+    <section class="screen" id="cart">
+      <div class="toprow"><div class="page-title" style="margin:0">冷静车</div><button class="link" onclick="clearCart()">清空</button></div>
+      <div class="cart-tip" id="discountTip">把想买的东西先放进来，钱包暂时安全。</div>
+      <div id="cartContent"></div>
+    </section>
+
+    <section class="screen" id="experiment">
+      <div class="page-title">开始实验</div>
+      <div class="quick-panel">
+        <h3>选择一种消费冲动</h3>
+        <p>快速生成虚拟清单，体验一次完整的“想买—下单—冷静—复盘”。</p>
+        <div class="quick-grid">
+          <button class="quick-card" onclick="quickScenario('夜宵')"><div class="quick-icon">🍗</div><div class="quick-title">深夜外卖</div><div class="quick-sub">嘴馋、压力、熬夜时最常见的即时冲动</div></button>
+          <button class="quick-card" onclick="quickScenario('数码')"><div class="quick-icon">🎧</div><div class="quick-title">数码冲动</div><div class="quick-sub">新手机、耳机和设备，建议至少冷静 7 天</div></button>
+          <button class="quick-card" onclick="quickScenario('美妆')"><div class="quick-icon">🧴</div><div class="quick-title">美妆护肤</div><div class="quick-sub">被种草、囤货和限时优惠带来的冲动</div></button>
+          <button class="quick-card" onclick="quickScenario('潮流')"><div class="quick-icon">👟</div><div class="quick-title">潮鞋穿搭</div><div class="quick-sub">先享受搭配感，再判断是否真的会高频使用</div></button>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h3>添加真实的消费冲动</h3>
+        <div class="desc">把你此刻真正想买的东西放进冷静车。第一版只保存在本机浏览器。</div>
+        <div class="field"><label for="customName">商品名称</label><input id="customName" maxlength="40" placeholder="例如：新款降噪耳机" /></div>
+        <div class="two-fields">
+          <div class="field"><label for="customPrice">价格</label><input id="customPrice" type="number" min="0.01" step="0.01" placeholder="1899" /></div>
+          <div class="field"><label for="customCategory">类别</label><select id="customCategory"><option>数码冲动</option><option>美妆护肤</option><option>潮鞋穿搭</option><option>深夜外卖</option><option>生活囤货</option><option>其他</option></select></div>
+        </div>
+        <div class="field"><label for="customReason">为什么现在想买？</label><textarea id="customReason" maxlength="160" placeholder="例如：同事换了新耳机，我也突然很想要；旧耳机目前还能用。"></textarea></div>
+        <button class="primary" style="width:100%" onclick="addCustomItem()">放进冷静车</button>
+      </div>
+
+      <div class="assistant-box">
+        <div style="font-weight:900;font-size:18px">不买研究员 <span style="font-size:11px;color:#C8BCB4">本地规则 Demo</span></div>
+        <div style="font-size:12px;color:#C8BCB4;margin-top:5px">它不会一味劝你不买，而会给出等待、预算购买或寻找替代品等建议。</div>
+        <textarea id="assistantInput" placeholder="例如：我想买 6999 元的新手机，但现有手机还能用，主要是最近工作压力大…"></textarea>
+        <button class="primary" style="width:100%" onclick="runAssistant()">生成研究建议</button>
+        <div class="assistant-result" id="assistantResult"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="records">
+      <div class="page-title">冷静记录</div>
+      <div class="record-filter" id="recordFilters"></div>
+      <div id="orderList"></div>
+    </section>
+
+    <section class="screen" id="profile">
+      <div class="page-title">我的研究档案</div>
+      <div class="profile-card">
+        <div class="avatar">E</div>
+        <div><div class="profile-name">研究员 Evan</div><div class="level" id="researchLevel">初级理智观察员</div></div>
+        <div style="margin-left:auto;color:var(--muted)">›</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="statConfirmed">¥0</strong><span>确认守住</span></div>
+        <div class="stat"><strong id="statSimulated">¥0</strong><span>模拟消费</span></div>
+        <div class="stat"><strong id="statRate">—</strong><span>冷静成功率</span></div>
+        <div class="stat"><strong id="statStreak">1</strong><span>连续记录天数</span></div>
+      </div>
+
+      <button class="lab-entry" onclick="openSavingsLab()" aria-label="省钱研究室">
+        <div class="eyebrow">研究工具 <span class="lab-lock" id="profileLabStatus">🔒 未来付费功能</span></div>
+        <h3>省钱研究室</h3>
+        <p>个人资金概况、30 天省钱攻略、储蓄目标预测和大件消费模拟。</p>
+        <div class="entry-foot"><span id="profileLabFoot">一次购买，永久解锁核心工具</span><span class="entry-arrow">›</span></div>
+      </button>
+      <div class="insight-card">
+        <h3>消费冲动洞察</h3>
+        <div class="insight-row"><span>最常研究的类别</span><strong id="topCategory">暂无数据</strong></div>
+        <div class="insight-row"><span>当前情绪触发</span><strong id="profileMood">无聊想逛逛</strong></div>
+        <div class="insight-row"><span>已完成复盘</span><strong id="reviewedCount">0 次</strong></div>
+        <div class="insight-row"><span>仍在冷静中</span><strong id="coolingCount">0 笔</strong></div>
+      </div>
+      <div class="section-head"><h2 style="font-size:18px">研究成果</h2></div>
+      <div class="achievement-grid" id="achievementGrid"></div>
+      <div class="menu">
+        <button class="menu-row" onclick="showOnboarding()"><div class="left"><span>🧪</span><span>重新查看使用说明</span></div><span>›</span></button>
+        <button class="menu-row" onclick="exportData()"><div class="left"><span>📄</span><span>导出我的研究数据</span></div><span>›</span></button>
+        <button class="menu-row" onclick="toast('正式版本将提供隐私政策与权限管理')"><div class="left"><span>🔐</span><span>隐私与数据</span></div><span>›</span></button>
+        <button class="menu-row" onclick="resetDemo()"><div class="left"><span>↺</span><span>重置演示数据</span></div><span>›</span></button>
+        <button class="menu-row" onclick="toast('不买研究所 · BUMAI LAB')"><div class="left"><span>ℹ️</span><span>关于不买研究所</span></div><span>›</span></button>
+      </div>
+      <p class="notice">当前为 HTML 交互原型，数据仅保存在本机浏览器。不是医疗、心理治疗或财务建议。</p>
+    </section>
+
+    <nav class="bottom-nav" aria-label="主导航">
+      <button class="nav-btn active" data-screen="discover" onclick="go('discover')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 5-5 2 2-5 5-2Z"/></svg><span>发现</span></button>
+      <button class="nav-btn" data-screen="cart" onclick="go('cart')"><svg viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span>冷静车</span><span class="badge" id="cartBadge" style="display:none">0</span></button>
+      <button class="nav-btn center" data-screen="experiment" onclick="go('experiment')"><svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v5l-5 8.5A3 3 0 0 0 7.6 21h8.8a3 3 0 0 0 2.6-4.5L14 8V3"/><path d="M8 15h8"/></svg><span>实验</span></button>
+      <button class="nav-btn" data-screen="records" onclick="go('records')"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4z"/><path d="M8 3v4M16 3v4M4 10h16"/><path d="M8 14h3M8 17h6"/></svg><span>记录</span></button>
+      <button class="nav-btn" data-screen="profile" onclick="go('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>我的</span></button>
+    </nav>
+
+    <div class="sheet" id="sheet" onclick="sheetBackdrop(event)"><div class="sheet-card" id="sheetCard"></div></div>
+
+    <div class="onboarding" id="onboarding">
+      <div class="onboard-card">
+        <div class="onboard-logo"><svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v5l-5 8.5A3 3 0 0 0 7.6 21h8.8a3 3 0 0 0 2.6-4.5L14 8V3"/><path d="M8 15h8"/><path d="M9.5 12.5h5"/></svg></div>
+        <h1>不买研究所</h1>
+        <div class="en">BUMAI LAB</div>
+        <div class="slogan">想买可以，先研究一下。</div>
+        <p>把想买的东西放进冷静车，完成一次虚拟下单。不会付款、不会发货；等冷静以后，再决定它是否真的值得买。</p>
+        <button class="primary" onclick="finishOnboarding('experiment')">开始一次冷静实验</button>
+        <button class="secondary" onclick="finishOnboarding('discover')">先随便逛逛</button>
+        <div class="onboard-note">不是不让你买，是帮你先想一想。所有订单均为虚拟体验。</div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+  </main>
+
+<script>
+const baseProducts = [
+  {id:'p1',name:'黑糖珍珠奶茶',cat:'深夜外卖',emoji:'🧋',price:23.8,desc:'大杯 · 少冰 · 七分糖',mood:'甜味安慰',impulse:78,wait:12},
+  {id:'p2',name:'罪恶炸鸡桶',cat:'深夜外卖',emoji:'🍗',price:45,desc:'双人份 · 后悔概率偏高',mood:'压力释放',impulse:91,wait:12},
+  {id:'p3',name:'午夜烤肉拼盘',cat:'深夜外卖',emoji:'🥩',price:88,desc:'双人份 · 秘制酱',mood:'深夜嘴馋',impulse:86,wait:12},
+  {id:'p4',name:'草莓云朵蛋糕',cat:'深夜外卖',emoji:'🍰',price:42,desc:'6 寸 · 轻乳脂',mood:'情绪补丁',impulse:74,wait:12},
+  {id:'p5',name:'新款降噪耳机',cat:'数码冲动',emoji:'🎧',price:1899,desc:'现有耳机还能使用',mood:'被种草了',impulse:82,wait:168},
+  {id:'p6',name:'旗舰智能手机',cat:'数码冲动',emoji:'📱',price:6999,desc:'性能升级，但非刚需',mood:'想奖励自己',impulse:88,wait:168},
+  {id:'p7',name:'机械键盘限定版',cat:'数码冲动',emoji:'⌨️',price:899,desc:'配色很好看，使用频率未知',mood:'限量诱惑',impulse:76,wait:72},
+  {id:'p8',name:'便携游戏掌机',cat:'数码冲动',emoji:'🎮',price:3299,desc:'可能会吃灰，建议先借用体验',mood:'娱乐补偿',impulse:84,wait:168},
+  {id:'p9',name:'焕亮精华套装',cat:'美妆护肤',emoji:'🧴',price:699,desc:'家里已有同类产品',mood:'功效焦虑',impulse:79,wait:48},
+  {id:'p10',name:'限定色口红礼盒',cat:'美妆护肤',emoji:'💄',price:520,desc:'颜色相近，但包装很吸引人',mood:'限定诱惑',impulse:87,wait:48},
+  {id:'p11',name:'香氛身体护理组',cat:'美妆护肤',emoji:'🫧',price:399,desc:'适合作为计划内奖励',mood:'自我犒赏',impulse:65,wait:24},
+  {id:'p12',name:'复古跑鞋新配色',cat:'潮鞋穿搭',emoji:'👟',price:1299,desc:'已有三双相似用途鞋款',mood:'穿搭焦虑',impulse:83,wait:72},
+  {id:'p13',name:'设计师通勤包',cat:'潮鞋穿搭',emoji:'👜',price:2680,desc:'通勤场景明确，但价格较高',mood:'身份表达',impulse:72,wait:168},
+  {id:'p14',name:'联名连帽卫衣',cat:'潮鞋穿搭',emoji:'🧥',price:899,desc:'限量发售带来紧迫感',mood:'限时稀缺',impulse:89,wait:72},
+  {id:'p15',name:'家庭零食囤货箱',cat:'生活囤货',emoji:'📦',price:299,desc:'促销很大，但家里存量未知',mood:'满减诱惑',impulse:69,wait:24},
+  {id:'p16',name:'智能香薰加湿器',cat:'生活囤货',emoji:'🌫️',price:459,desc:'想象中的使用频率很高',mood:'生活升级',impulse:71,wait:48}
+];
+const categories = ['全部','深夜外卖','数码冲动','美妆护肤','潮鞋穿搭','生活囤货'];
+const moods = ['压力有点大','无聊想逛逛','被种草了','深夜想吃','想奖励自己'];
+const recordFilterOptions = [{id:'all',label:'全部'},{id:'cooling',label:'冷静中'},{id:'kept',label:'已守住'},{id:'bought',label:'最后买了'}];
+const STATE_KEY='bumai-lab-state-v2';
+let displayProducts=[...baseProducts];
+let activeCategory='全部';
+let recordFilter='all';
+let deliveryTimer=null;
+let lastAssistantItem=null;
+
+function defaultState(){return {cart:{},orders:[],confirmedSaved:0,simulatedAmount:0,streak:1,customProducts:[],currentMood:'无聊想逛逛',onboarded:false,savingsLabUnlocked:false,savingsProfile:null,savingsReports:[]};}
+function loadState(){
+  try{
+    const current=localStorage.getItem(STATE_KEY);
+    if(current) return {...defaultState(),...JSON.parse(current)};
+    const old=localStorage.getItem('xianbiemai-state');
+    if(old){
+      const legacy=JSON.parse(old); const orders=(legacy.orders||[]).map(o=>({...o,stage:o.status??5,decision:'kept',coolingUntil:Date.now()-1000,decidedAt:o.created||Date.now(),items:(o.items||[]).map(x=>({...x,cat:'深夜外卖'}))}));
+      return {...defaultState(),orders,confirmedSaved:Number(legacy.saved||0),simulatedAmount:orders.reduce((s,o)=>s+Number(o.amount||0),0),streak:legacy.streak||1,onboarded:true};
+    }
+  }catch(e){console.warn('读取本地数据失败',e)}
+  return defaultState();
+}
+let state=loadState();
+function persist(){try{localStorage.setItem(STATE_KEY,JSON.stringify(state));}catch(e){console.warn('保存失败',e)} updateAll();}
+function allProducts(){return [...baseProducts,...(state.customProducts||[])];}
+function productById(id){return allProducts().find(x=>x.id===id);}
+function money(n){const v=Number(n||0);return '¥'+v.toFixed(Number.isInteger(v)?0:1);}
+function formatHours(h){return h>=168?'7天':h>=72?'3天':h>=48?'48小时':h>=24?'24小时':h+'小时';}
+function cartItems(){return Object.entries(state.cart||{}).map(([id,qty])=>({p:productById(id),qty:Number(qty)})).filter(x=>x.p);}
+function cartSubtotal(){return cartItems().reduce((s,x)=>s+x.p.price*x.qty,0);}
+function discountFor(sum){return sum>=999?80:sum>=299?30:sum>=99?15:sum>=59?8:0;}
+function rationalSubsidy(sum){return sum>0?Math.min(18,Math.max(6,Math.round(sum*.02))):0;}
+function cartTotal(){const s=cartSubtotal();return Math.max(0,s-discountFor(s)-rationalSubsidy(s));}
+function decidedOrders(){return state.orders.filter(o=>o.decision==='kept'||o.decision==='bought');}
+function keptOrders(){return state.orders.filter(o=>o.decision==='kept');}
+function successRate(){const d=decidedOrders();return d.length?Math.round(keptOrders().length/d.length*100):null;}
+
+function renderMoods(){
+  document.getElementById('moodChips').innerHTML=moods.map(m=>`<button class="mood-chip ${m===state.currentMood?'active':''}" onclick="setMood('${m}')">${m}</button>`).join('');
+}
+function setMood(m){state.currentMood=m;persist();toast('已记录：'+m);}
+function renderChips(){document.getElementById('chips').innerHTML=categories.map(c=>`<button class="chip ${c===activeCategory?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join('');}
+function setCategory(c){activeCategory=c;renderChips();renderProducts();}
+function renderProducts(){
+  const q=document.getElementById('searchInput').value.trim();
+  const list=displayProducts.filter(p=>(activeCategory==='全部'||p.cat===activeCategory)&&(!q||(p.name+p.desc+p.mood+p.cat).includes(q)));
+  document.getElementById('productGrid').innerHTML=list.length?list.map(p=>`
+    <article class="product-card" onclick="openProduct('${p.id}')">
+      <div class="product-art"><span class="impulse-badge">冲动 ${p.impulse}%</span><span class="wait-badge">等 ${formatHours(p.wait)}</span>${p.emoji}</div>
+      <div class="card-body"><div class="product-title">${escapeHtml(p.name)}</div><div class="product-desc">${escapeHtml(p.mood)} · ${escapeHtml(p.desc)}</div><div class="insight-line">研究建议：先等待 ${formatHours(p.wait)}</div><div class="price-row"><span class="price">${money(p.price)}</span><button class="add" aria-label="放进冷静车" onclick="event.stopPropagation();addToCart('${p.id}')">＋</button></div></div>
+    </article>`).join(''):`<div class="empty" style="column-span:all"><div class="emoji">🔎</div><h3>没有找到研究对象</h3><p>换个关键词，或者在“实验”页面添加你真正想买的东西。</p></div>`;
+}
+function shuffleProducts(){displayProducts=[...baseProducts].sort(()=>Math.random()-.5);renderProducts();toast('已更换一批研究对象');}
+function addToCart(id,qty=1){state.cart[id]=(state.cart[id]||0)+qty;persist();toast('已放进冷静车，暂时没有花钱');}
+function changeQty(id,d){state.cart[id]=(state.cart[id]||0)+d;if(state.cart[id]<=0)delete state.cart[id];persist();}
+function clearCart(){if(!cartItems().length)return;if(confirm('清空当前冷静车？')){state.cart={};persist();}}
+
+function renderCart(){
+  const root=document.getElementById('cartContent');const items=cartItems();const subtotal=cartSubtotal();const discount=discountFor(subtotal);const subsidy=rationalSubsidy(subtotal);
+  document.getElementById('discountTip').textContent=subtotal>=999?'虚拟实验补贴已达到最高档':subtotal>=299?'再增加 '+money(999-subtotal)+' 可解锁更高虚拟补贴':subtotal>=99?'再增加 '+money(299-subtotal)+' 可升级虚拟补贴':subtotal>=59?'再增加 '+money(99-subtotal)+' 可升级虚拟补贴':'把想买的东西先放进来，钱包暂时安全。';
+  if(!items.length){root.innerHTML=`<div class="empty"><div class="emoji">🧺</div><h3>冷静车还是空的</h3><p>先去研究一个让你心动的东西，或者添加真实消费冲动。</p><div style="display:flex;gap:8px;justify-content:center"><button class="secondary" onclick="go('discover')">去发现</button><button class="primary" onclick="go('experiment')">添加冲动</button></div></div>`;return;}
+  root.innerHTML=`<div class="cart-list">${items.map(({p,qty})=>`
+    <div class="cart-item"><div class="cart-art">${p.emoji}</div><div><div class="cart-name">${escapeHtml(p.name)}</div><div class="cart-meta">${escapeHtml(p.desc)}<br>建议冷静 ${formatHours(p.wait)}</div><div class="price" style="margin-top:5px">${money(p.price)}</div></div><div class="qty"><button onclick="changeQty('${p.id}',-1)">−</button><span>${qty}</span><button onclick="changeQty('${p.id}',1)">＋</button></div></div>`).join('')}</div>
+    <div class="cart-summary"><div><div class="summary-small">本次模拟金额 · 虚拟补贴 ${money(discount+subsidy)}<br>真实支付始终为 ¥0</div><div class="summary-total">${money(cartTotal())}</div></div><button class="primary" onclick="openCheckout()">开始实验(${items.reduce((s,x)=>s+x.qty,0)})</button></div>`;
+}
+
+function openProduct(id){
+  const p=productById(id);if(!p)return;
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>研究对象详情</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="detail-art"><span class="impulse-badge">冲动指数 ${p.impulse}%</span><span class="wait-badge">建议等待 ${formatHours(p.wait)}</span>${p.emoji}</div><div class="detail-title">${escapeHtml(p.name)}</div><div class="row-between"><span class="price" style="font-size:24px">${money(p.price)}</span><span style="color:var(--primary-dark);font-weight:800">${escapeHtml(p.mood)}</span></div><p class="detail-copy">${escapeHtml(p.desc)}。当前情绪触发是“${escapeHtml(state.currentMood)}”。把它放进冷静车，并不代表你永远不能买，只是给决定留出一点时间。</p><div class="sheet-actions"><button class="secondary" onclick="closeSheet()">再看看</button><button class="primary" onclick="addToCart('${p.id}');closeSheet();go('cart')">放进冷静车</button></div>`);
+}
+function openCheckout(){
+  const subtotal=cartSubtotal(),discount=discountFor(subtotal),subsidy=rationalSubsidy(subtotal),total=cartTotal();
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>创建冷静实验</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="checkout-card"><div class="checkout-row"><span>商品标价合计</span><strong>${money(subtotal)}</strong></div><div class="checkout-row muted"><span>虚拟满减</span><span>−${money(discount)}</span></div><div class="checkout-row muted"><span>理智实验补贴</span><span>−${money(subsidy)}</span></div><div class="checkout-row total"><span>本次模拟消费</span><span>${money(total)}</span></div><div class="checkout-row"><span>真实支付</span><strong style="color:var(--green)">¥0</strong></div></div><div class="virtual-warning">这笔金额暂时只会计入“模拟消费”，不会立刻计入“确认守住”。完成冷静期并确认没有真实购买后，才会成为守住金额。</div><div class="sheet-actions"><button class="secondary" onclick="startPretendPay(true)">跳过配送</button><button class="primary" onclick="startPretendPay(false)">快速体验 10 秒</button></div>`);
+}
+function startPretendPay(skip){
+  document.getElementById('sheetCard').innerHTML=`<div class="pay-animation"><div class="spinner"></div><h3>正在生成虚拟实验…</h3><p style="color:var(--muted)">没有连接任何真实支付方式，钱包保持安全。</p></div>`;
+  setTimeout(()=>createOrder(skip),900);
+}
+function createOrder(skip){
+  const items=cartItems();const amount=cartTotal();
+  const maxWait=Math.max(...items.map(x=>x.p.wait),24);
+  const order={id:'BL'+Date.now().toString().slice(-8),amount,originalAmount:cartSubtotal(),items:items.map(x=>({id:x.p.id,name:x.p.name,emoji:x.p.emoji,qty:x.qty,cat:x.p.cat})),stage:skip?5:0,created:Date.now(),coolingUntil:Date.now()+maxWait*3600000,decision:null,reason:state.currentMood,extensions:0};
+  state.orders.unshift(order);state.simulatedAmount+=amount;state.cart={};persist();showDelivery(order.id,!skip);
+}
+function showDelivery(id,autoplay=true){
+  clearInterval(deliveryTimer);const order=state.orders.find(o=>o.id===id);if(!order)return;
+  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验 ${order.id}</h3><button class="iconbtn" onclick="closeSheet();go('records')">✕</button></div><div class="rider-map"><div class="road"></div><div class="rider">🛵</div></div><div class="timeline" id="timeline"></div><div class="sheet-actions"><button class="secondary" id="skipDelivery" onclick="skipDelivery('${order.id}')">跳过动画</button><button class="primary" id="deliveryNext" onclick="showCoolingCreated('${order.id}')" ${order.stage<5?'disabled style="opacity:.45"':''}>进入冷静期</button></div>`;
+  renderTimeline(order);
+  if(autoplay&&order.stage<5){deliveryTimer=setInterval(()=>{if(order.stage<5){order.stage++;persist();renderTimeline(order);const next=document.getElementById('deliveryNext');if(order.stage>=5&&next){next.disabled=false;next.style.opacity='1';}}else clearInterval(deliveryTimer);},1400);}
+}
+function renderTimeline(order){
+  const steps=['研究对象已登记','虚拟订单已生成','理智研究员已接单','冲动正在经过观察区','真实支付保持为 ¥0','冷静实验准备完成'];
+  const root=document.getElementById('timeline');if(root)root.innerHTML=steps.map((s,i)=>`<div class="timeline-item ${i<=order.stage?'active':''}"><span class="dot"></span><span>${s}</span></div>`).join('');
+}
+function skipDelivery(id){const o=state.orders.find(x=>x.id===id);if(!o)return;o.stage=5;persist();showDelivery(id,false);}
+function showCoolingCreated(id){
+  clearInterval(deliveryTimer);const o=state.orders.find(x=>x.id===id);if(!o)return;
+  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>冷静实验已开始</h3><p>本次模拟消费 ${money(o.amount)}，真实支付 ¥0。建议在 ${formatHours(Math.round((o.coolingUntil-o.created)/3600000))} 后重新判断：你想要的是商品，还是当时的情绪出口？</p></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">稍后再看</button><button class="primary" onclick="openReview('${o.id}')">立即复盘（Demo）</button></div>`;
+}
+
+function renderRecordFilters(){document.getElementById('recordFilters').innerHTML=recordFilterOptions.map(f=>`<button class="${recordFilter===f.id?'active':''}" onclick="setRecordFilter('${f.id}')">${f.label}</button>`).join('');}
+function setRecordFilter(f){recordFilter=f;renderRecordFilters();renderOrders();}
+function orderStatus(o){if(o.decision==='kept')return {label:'已成功守住',cls:'kept'};if(o.decision==='bought')return {label:'最后还是买了',cls:'bought'};return {label:'冷静中',cls:''};}
+function countdownText(o){
+  const diff=o.coolingUntil-Date.now();if(diff<=0)return '建议现在进行复盘';
+  const hours=Math.ceil(diff/3600000);return hours>48?`还剩约 ${Math.ceil(hours/24)} 天`:`还剩约 ${hours} 小时`;
+}
+function renderOrders(){
+  const root=document.getElementById('orderList');let list=[...state.orders];if(recordFilter!=='all')list=list.filter(o=>recordFilter==='cooling'?!o.decision:o.decision===recordFilter);
+  if(!list.length){root.innerHTML=`<div class="empty"><div class="emoji">🧪</div><h3>这里还没有相应记录</h3><p>完成一次冷静实验后，你可以在这里复盘真实决定。</p><button class="primary" onclick="go('experiment')">开始第一次实验</button></div>`;return;}
+  root.innerHTML=list.map(o=>{const st=orderStatus(o);return `<div class="order-card"><div class="order-top"><div><div class="order-id">${o.id}</div><div style="font-size:10px;color:var(--muted);margin-top:4px">${new Date(o.created).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})} · ${escapeHtml(o.reason||'未记录情绪')}</div></div><div class="order-status ${st.cls}">${st.label}</div></div><div class="order-items">${o.items.map(x=>x.emoji+escapeHtml(x.name)+' × '+x.qty).join('、')}</div><div class="progress"><span style="width:${o.decision?100:Math.max(18,Math.min(92,(Date.now()-o.created)/(o.coolingUntil-o.created)*100))}%"></span></div><div class="order-foot"><span>模拟 ${money(o.amount)}</span><span>${o.decision==='kept'?'确认守住 '+money(o.amount):o.decision==='bought'?'已如实记录':'等待最终决定'}</span></div>${!o.decision?`<div class="countdown">${countdownText(o)}</div><div class="record-actions"><button class="ghost" onclick="openOrder('${o.id}')">查看过程</button><button class="primary" onclick="openReview('${o.id}')">立即复盘</button></div>`:`<div class="record-actions"><button class="secondary" onclick="showFinalReport('${o.id}')">查看实验报告</button></div>`}</div>`;}).join('');
+}
+function openOrder(id){const o=state.orders.find(x=>x.id===id);if(!o)return;if(o.decision)showFinalReport(id);else if(o.stage<5){openSheet('<div></div>');showDelivery(id,true);}else{openSheet('<div></div>');showCoolingCreated(id);}}
+function openReview(id){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;if(o.decision){showFinalReport(id);return;}
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验复盘</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="checkout-card"><div style="font-size:12px;color:var(--muted)">本来想花</div><div style="font-size:34px;font-weight:900;color:var(--primary);margin:4px 0">${money(o.amount)}</div><div style="font-size:13px;line-height:1.6">冷静以后，你最后做了什么决定？如实记录比追求“全都不买”更重要。</div></div><div class="review-options"><button class="review-option" onclick="decideOrder('${o.id}','kept')"><strong>没有买，成功守住</strong><small>这笔金额将计入“确认守住”，并生成成果报告。</small></button><button class="review-option" onclick="decideOrder('${o.id}','bought')"><strong>最后还是买了</strong><small>这不是失败。记录真实结果，未来才能看见自己的消费模式。</small></button><button class="review-option" onclick="extendCooling('${o.id}')"><strong>我还没决定，再冷静 3 天</strong><small>延长观察期，不急着给自己一个答案。</small></button></div>`);
+}
+function decideOrder(id,decision){
+  const o=state.orders.find(x=>x.id===id);if(!o||o.decision)return;o.decision=decision;o.decidedAt=Date.now();if(decision==='kept')state.confirmedSaved+=o.amount;persist();showFinalReport(id);
+}
+function extendCooling(id){const o=state.orders.find(x=>x.id===id);if(!o)return;o.coolingUntil=Math.max(Date.now(),o.coolingUntil)+72*3600000;o.extensions=(o.extensions||0)+1;persist();closeSheet();go('records');toast('冷静期已延长 3 天');}
+function showFinalReport(id){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;const kept=o.decision==='kept';
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验报告</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="share-card" id="shareCard"><div class="mini">${kept?'本次确认守住':'本次真实决定'}</div><div class="big">${kept?money(o.amount):'已购买'}</div><div class="mini">模拟消费 ${money(o.amount)} · 真实记录</div><div class="slogan">${kept?'本来想花这笔钱，<br>最后决定再等一等。':'理性消费不是永远不买，<br>而是知道自己为什么买。'}</div><div class="mini">${escapeHtml(o.reason||'一次消费冲动')} · ${o.items.length} 类研究对象</div><div class="brand">不买研究所 · BUMAI LAB</div></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('experiment')">开始新实验</button><button class="primary" onclick="downloadPoster('${o.id}')">保存实验报告</button></div>`);
+}
+function downloadPoster(id){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;const kept=o.decision==='kept';const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1440;const c=canvas.getContext('2d');
+  const g=c.createLinearGradient(0,0,1080,1440);g.addColorStop(0,'#2C2622');g.addColorStop(1,'#161311');c.fillStyle=g;c.fillRect(0,0,1080,1440);
+  c.fillStyle='rgba(224,120,86,.22)';c.beginPath();c.arc(80,120,330,0,Math.PI*2);c.fill();
+  c.textAlign='center';c.fillStyle='#D9CEC6';c.font='38px sans-serif';c.fillText(kept?'本次确认守住':'本次真实决定',540,250);
+  c.fillStyle='#F5A47F';c.font=kept?'bold 128px sans-serif':'bold 92px sans-serif';c.fillText(kept?money(o.amount):'最后还是买了',540,440);
+  c.fillStyle='#D9CEC6';c.font='36px sans-serif';c.fillText(`模拟消费 ${money(o.amount)} · 真实记录`,540,525);
+  c.fillStyle='#FFFFFF';c.font='bold 50px sans-serif';c.fillText(kept?'本来想花这笔钱，':'理性消费不是永远不买，',540,755);c.fillText(kept?'最后决定再等一等。':'而是知道自己为什么买。',540,835);
+  c.fillStyle='#CDBFB5';c.font='31px sans-serif';c.fillText((o.reason||'一次消费冲动').slice(0,24),540,970);
+  c.fillStyle='#F5A47F';c.font='bold 42px sans-serif';c.fillText('不买研究所',540,1195);c.fillStyle='#BDAEA4';c.font='28px sans-serif';c.fillText('BUMAI LAB · 想买可以，先研究一下',540,1260);
+  const a=document.createElement('a');a.download=`不买研究所-${o.id}.png`;a.href=canvas.toDataURL('image/png');a.click();toast('实验报告已生成');
+}
+
+function quickScenario(type){
+  const map={夜宵:['p1','p2','p3'],数码:['p5','p6','p7'],美妆:['p9','p10','p11'],潮流:['p12','p13','p14']};state.cart={};(map[type]||map.夜宵).forEach(id=>state.cart[id]=1);persist();go('cart');toast('已生成“'+type+'”冷静清单');
+}
+function addCustomItem(){
+  const name=document.getElementById('customName').value.trim();const price=Number(document.getElementById('customPrice').value);const cat=document.getElementById('customCategory').value;const reason=document.getElementById('customReason').value.trim();
+  if(!name){toast('请填写商品名称');return;}if(!price||price<=0){toast('请填写有效价格');return;}
+  const emojiMap={'数码冲动':'🎧','美妆护肤':'🧴','潮鞋穿搭':'👟','深夜外卖':'🍜','生活囤货':'📦','其他':'🛍️'};
+  const wait=price>=5000?168:price>=1000?72:price>=300?48:24;const impulse=Math.min(95,58+Math.round(Math.log10(price+1)*9));
+  const item={id:'c'+Date.now(),name,cat,emoji:emojiMap[cat]||'🛍️',price,desc:reason||'用户自定义研究对象',mood:state.currentMood,impulse,wait,custom:true};
+  state.customProducts.unshift(item);state.cart[item.id]=1;persist();document.getElementById('customName').value='';document.getElementById('customPrice').value='';document.getElementById('customReason').value='';go('cart');toast('已放进冷静车');
+}
+function runAssistant(){
+  const text=document.getElementById('assistantInput').value.trim();const out=document.getElementById('assistantResult');if(!text){toast('先描述你想买的东西');return;}
+  const nums=(text.match(/\d+(?:\.\d+)?/g)||[]).map(Number).sort((a,b)=>b-a);const price=nums[0]||0;const needKeywords=['坏了','刚需','必须','工作需要','必需','没有替代'];const need=needKeywords.some(k=>text.includes(k));
+  let tag='建议等待 24 小时',advice='先把它放进冷静车，明天白天再重新判断。';
+  if(need&&price<3000){tag='可以进入预算评估';advice='描述中出现了明确需求。先比较至少两个替代方案，并确认这笔支出在本月预算内；满足条件后可以购买。';}
+  else if(price>=5000){tag='建议等待 7 天';advice='这是一笔高金额消费。检查现有物品是否仍可用、是否影响未来三个月现金流，并等待 7 天后再次判断。';}
+  else if(price>=1000){tag='建议等待 48–72 小时';advice='把价格换算成可自由支配收入，并问自己：一个月后还会高频使用吗？';}
+  else if(/限时|最后|抢|限定|秒杀/.test(text)){tag='先移除稀缺感';advice='当前冲动可能由限时与稀缺信息触发。先离开页面 24 小时，再判断商品本身是否仍然重要。';}
+  lastAssistantItem={name:text.slice(0,22)+(text.length>22?'…':''),price:price||99,reason:text};
+  out.style.display='block';out.innerHTML=`<span class="tag">${tag}</span><br><strong>研究建议：</strong>${advice}<br><br><strong>提醒：</strong>我们的目标不是所有东西都不买，而是把冲动决定变成有意识的决定。<br><button class="secondary" style="width:100%;margin-top:10px;background:#fff" onclick="addAssistantItem()">把它放进冷静车</button>`;
+}
+function addAssistantItem(){if(!lastAssistantItem)return;document.getElementById('customName').value=lastAssistantItem.name;document.getElementById('customPrice').value=lastAssistantItem.price;document.getElementById('customReason').value=lastAssistantItem.reason;document.getElementById('customCategory').value='其他';addCustomItem();}
+
+
+/* 省钱研究室：未来付费功能原型。主应用保持不变，本模块仅作为独立入口。 */
+let selectedSavingsGoal='减少冲动消费';
+function openSavingsLab(){
+  if(!state.savingsLabUnlocked){showSavingsPaywall();return;}
+  renderSavingsLabHome();
+}
+function showSavingsPaywall(){
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>未来付费功能</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
+    <div class="paywall-hero"><div class="paywall-icon">🧭</div><h3>省钱研究室</h3><p>它不会改变“不买研究所”的核心体验，只在你需要更完整的资金规划时，提供一份独立的个人省钱攻略。</p><div class="price-pending">一次购买 · 永久解锁核心工具 · 价格待定</div></div>
+    <div class="lab-compare">
+      <div class="compare-card"><strong>基础不买功能</strong><p>虚拟下单、冷静实验、守住金额和消费冲动复盘继续正常使用。</p></div>
+      <div class="compare-card"><strong>付费研究工具</strong><p>资金概况、预算建议、30 天省钱攻略、储蓄目标与大件消费模拟。</p></div>
+    </div>
+    <div class="feature-list">
+      <div class="feature-item"><span class="feature-check">✓</span><div><strong>3 分钟资金概况</strong><small>根据用户主动填写的信息计算可支配金额、支出结构和储蓄空间。</small></div></div>
+      <div class="feature-item"><span class="feature-check">✓</span><div><strong>结合不买记录</strong><small>参考最常出现的冲动类别、确认守住金额和冷静成功率。</small></div></div>
+      <div class="feature-item"><span class="feature-check">✓</span><div><strong>可执行省钱攻略</strong><small>输出三条核心建议、30 天行动方向与目标预测，而不是泛泛说教。</small></div></div>
+    </div>
+    <div class="privacy-promise"><strong>数据承诺：</strong>财务信息由用户主动填写，正式产品应支持跳过、修改和删除，不用于诱导消费。</div>
+    <div class="prototype-note">当前为交互原型，不接入真实支付。下面的“模拟解锁”只用于体验未来功能，正式售价与 AI 使用额度仍待商榷。</div>
+    <div class="sheet-actions"><button class="secondary" onclick="closeSheet()">暂不体验</button><button class="primary" onclick="unlockSavingsLabDemo()">原型演示：模拟解锁</button></div>`);
+}
+function unlockSavingsLabDemo(){state.savingsLabUnlocked=true;persist();renderSavingsLabHome();toast('已模拟解锁省钱研究室');}
+function renderSavingsLabHome(){
+  const latest=(state.savingsReports||[])[0];
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><span class="premium-pill">研究工具 · 已解锁</span><h3 style="margin-top:8px">省钱研究室</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div>
+    <div class="quick-panel"><h3>把省钱变成一个具体计划</h3><p>填写的信息只用于本次原型分析。它提供预算与消费规划建议，不推荐具体股票、基金或投资产品。</p></div>
+    ${latest?`<div class="insight-card"><h3>最近一次省钱攻略</h3><div class="insight-row"><span>每月预计可留下</span><strong>${money(latest.monthlyPotential)}</strong></div><div class="insight-row"><span>主要目标</span><strong>${escapeHtml(latest.goal)}</strong></div><div class="insight-row"><span>生成时间</span><strong>${new Date(latest.createdAt).toLocaleDateString('zh-CN')}</strong></div><button class="secondary" style="width:100%;margin-top:10px" onclick="showSavingsReport('${latest.id}')">查看完整攻略</button></div>`:''}
+    <div class="quick-grid">
+      <button class="quick-card" onclick="renderSavingsLabForm()"><div class="quick-icon">🧾</div><div class="quick-title">生成省钱攻略</div><div class="quick-sub">收入、支出、储蓄目标与不买记录综合分析</div></button>
+      <button class="quick-card" onclick="openBigPurchaseSimulator()"><div class="quick-icon">🧮</div><div class="quick-title">大件消费模拟</div><div class="quick-sub">看看一次购买会怎样影响本月可用资金与目标</div></button>
+    </div>
+    <div class="privacy-promise"><strong>边界说明：</strong>这是省钱与预算规划工具，不构成证券、基金、保险或其他金融产品建议。</div>
+    <button class="ghost" style="width:100%" onclick="lockSavingsLabDemo()">重置为未解锁状态（原型演示）</button>`);
+}
+function lockSavingsLabDemo(){state.savingsLabUnlocked=false;persist();closeSheet();toast('已恢复未解锁状态');}
+function renderSavingsLabForm(){
+  const p=state.savingsProfile||{};selectedSavingsGoal=p.goal||'减少冲动消费';
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>3 分钟资金概况</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
+    <div class="lab-step"><span class="active"></span><span class="active"></span><span></span></div>
+    <div class="virtual-warning">不需要填写银行卡号、身份证或真实账户。金额可以使用大概数值，所有字段仅保存在当前浏览器。</div>
+    <div class="money-grid">
+      ${moneyField('labIncome','每月税后收入',p.income||'', '10000')}
+      ${moneyField('labOtherIncome','其他稳定收入',p.otherIncome||'', '0')}
+      ${moneyField('labFixed','固定支出',p.fixed||'', '4500')}
+      ${moneyField('labVariable','日常可变支出',p.variable||'', '2500')}
+      ${moneyField('labDebtPay','每月固定还款',p.debtPay||'', '0')}
+      ${moneyField('labSavings','当前储蓄',p.savings||'', '20000')}
+      ${moneyField('labDebt','当前负债余额',p.debt||'', '0')}
+      ${moneyField('labGoalAmount','目标金额',p.goalAmount||'', '12000')}
+    </div>
+    <div class="field" style="margin-top:14px"><label>当前最重要的目标</label><div class="goal-chips" id="goalChips">${['减少冲动消费','建立应急金','存旅行基金','偿还负债','购买大件'].map(g=>`<button class="goal-chip ${g===selectedSavingsGoal?'active':''}" onclick="selectSavingsGoal('${g}')">${g}</button>`).join('')}</div></div>
+    <button class="primary" style="width:100%;margin-top:14px" onclick="generateSavingsPlan()">生成我的省钱攻略</button>
+    <div class="prototype-note">原型采用确定性计算 + 规则建议模拟。正式版本可在此基础上调用合规的 AI 服务进行自然语言解释。</div>`);
+}
+function moneyField(id,label,value,placeholder){return `<div class="money-field"><label for="${id}">${label}</label><div class="money-input"><span>¥</span><input id="${id}" type="number" min="0" step="100" value="${escapeHtml(value)}" placeholder="${placeholder}"></div></div>`;}
+function selectSavingsGoal(goal){selectedSavingsGoal=goal;document.querySelectorAll('#goalChips .goal-chip').forEach(b=>b.classList.toggle('active',b.textContent===goal));}
+function numberValue(id){const el=document.getElementById(id);return Math.max(0,Number(el?.value||0));}
+function generateSavingsPlan(){
+  const profile={income:numberValue('labIncome'),otherIncome:numberValue('labOtherIncome'),fixed:numberValue('labFixed'),variable:numberValue('labVariable'),debtPay:numberValue('labDebtPay'),savings:numberValue('labSavings'),debt:numberValue('labDebt'),goalAmount:numberValue('labGoalAmount'),goal:selectedSavingsGoal};
+  const totalIncome=profile.income+profile.otherIncome;
+  if(totalIncome<=0){toast('请至少填写每月收入');return;}
+  const outflow=profile.fixed+profile.variable+profile.debtPay;
+  const disposable=Math.max(0,totalIncome-outflow);
+  const fixedRatio=Math.round((profile.fixed+profile.debtPay)/totalIncome*100);
+  const variableRatio=Math.round(profile.variable/totalIncome*100);
+  const essential=Math.max(1,profile.fixed+profile.debtPay+profile.variable*.55);
+  const emergencyMonths=profile.savings/essential;
+  const behaviourCut=Math.min(profile.variable*.15,Math.max(0,state.confirmedSaved/Math.max(1,decidedOrders().length)||0));
+  const monthlyPotential=Math.max(0,Math.round(disposable+behaviourCut));
+  const monthsToGoal=profile.goalAmount>0&&monthlyPotential>0?Math.ceil(profile.goalAmount/monthlyPotential):null;
+  const topCat=getTopCategory();
+  const advices=[];
+  if(fixedRatio>=65)advices.push({title:'先检查固定支出压力',text:`固定支出与还款约占月收入 ${fixedRatio}%。先从房租、长期合约和固定订阅中寻找可调整项。`});
+  else advices.push({title:'给可支配金额设定边界',text:`扣除当前支出后，本月约有 ${money(disposable)} 可自主安排。建议先划出目标储蓄，再决定非必要消费额度。`});
+  if(profile.debt>0)advices.push({title:'把负债还款设为明确目标',text:`当前填写负债余额 ${money(profile.debt)}。避免新增高成本负债，并把额外结余优先用于降低利息压力。`});
+  else if(emergencyMonths<3)advices.push({title:'优先补足应急资金',text:`现有储蓄约能覆盖 ${emergencyMonths.toFixed(1)} 个月基础支出，可先以覆盖 3 个月为阶段目标。`});
+  else advices.push({title:'保持应急资金独立',text:`现有储蓄约能覆盖 ${emergencyMonths.toFixed(1)} 个月基础支出，建议与日常消费账户分开管理。`});
+  advices.push({title:`重点观察“${topCat}”冲动`,text:`结合当前不买记录，${topCat==='暂无数据'?'还没有足够记录，建议先完成几次冷静复盘。':`“${topCat}”出现最频繁。为此类消费设置更长冷静期，会比全面压缩生活质量更容易坚持。`}`});
+  const report={id:'sr'+Date.now(),createdAt:Date.now(),...profile,totalIncome,outflow,disposable,fixedRatio,variableRatio,emergencyMonths,monthlyPotential,monthsToGoal,topCat,advices};
+  state.savingsProfile=profile;state.savingsReports=[report,...(state.savingsReports||[])].slice(0,10);persist();showSavingsReport(report.id);
+}
+function getTopCategory(){const cats={};state.orders.forEach(o=>o.items.forEach(x=>cats[x.cat]=(cats[x.cat]||0)+(x.qty||1)));const top=Object.entries(cats).sort((a,b)=>b[1]-a[1])[0];return top?top[0]:'暂无数据';}
+function showSavingsReport(id){
+  const r=(state.savingsReports||[]).find(x=>x.id===id);if(!r)return;
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><span class="premium-pill">个人省钱攻略</span><h3 style="margin-top:8px">${escapeHtml(r.goal)}</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div>
+    <div class="report-hero"><small>每月预计可留下</small><div class="big-number">${money(r.monthlyPotential)}</div><p>${r.monthsToGoal?`按照当前填写的数据，目标金额 ${money(r.goalAmount)} 约需 ${r.monthsToGoal} 个月。`:'先完善目标金额，系统会给出时间预测。'}</p></div>
+    <div class="metric-grid">
+      <div class="metric-card"><small>月总收入</small><strong>${money(r.totalIncome)}</strong><div class="ratio-bar"><span style="width:100%"></span></div></div>
+      <div class="metric-card"><small>当前总支出</small><strong>${money(r.outflow)}</strong><div class="ratio-bar"><span style="width:${Math.min(100,Math.round(r.outflow/r.totalIncome*100))}%"></span></div></div>
+      <div class="metric-card"><small>固定支出占比</small><strong>${r.fixedRatio}%</strong><div class="ratio-bar"><span style="width:${Math.min(100,r.fixedRatio)}%"></span></div></div>
+      <div class="metric-card"><small>应急资金覆盖</small><strong>${r.emergencyMonths.toFixed(1)} 月</strong><div class="ratio-bar"><span style="width:${Math.min(100,r.emergencyMonths/6*100)}%"></span></div></div>
+    </div>
+    <div class="section-head"><h2 style="font-size:18px">本月三条建议</h2></div>
+    <div class="advice-list">${r.advices.map((a,i)=>`<div class="advice-item"><div class="advice-index">${i+1}</div><div><strong>${escapeHtml(a.title)}</strong><p>${escapeHtml(a.text)}</p></div></div>`).join('')}</div>
+    <div class="insight-card" style="margin-top:12px"><h3>30 天执行方向</h3><div class="insight-row"><span>第 1 周</span><strong>整理固定支出与订阅</strong></div><div class="insight-row"><span>第 2 周</span><strong>为高频冲动设置冷静期</strong></div><div class="insight-row"><span>第 3 周</span><strong>先存目标金额，再安排娱乐预算</strong></div><div class="insight-row"><span>第 4 周</span><strong>复盘守住金额与真实购买</strong></div></div>
+    <div class="privacy-promise"><strong>说明：</strong>此报告用于预算管理、消费习惯分析和一般财务教育，不构成具体投资建议。</div>
+    <div class="sheet-actions"><button class="secondary" onclick="renderSavingsLabForm()">重新填写</button><button class="primary" onclick="downloadSavingsReport('${r.id}')">保存文字报告</button></div>`);
+}
+function openBigPurchaseSimulator(){
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>大件消费模拟</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
+    <div class="quick-panel"><h3>先看看买完会发生什么</h3><p>它不会直接告诉你“买”或“不买”，而是把对本月资金和目标的影响算清楚。</p></div>
+    <div class="field"><label for="bigItemName">商品名称</label><input id="bigItemName" placeholder="例如：新款手机"></div>
+    <div class="two-fields"><div class="field"><label for="bigItemPrice">商品价格</label><input id="bigItemPrice" type="number" min="0" placeholder="6999"></div><div class="field"><label for="bigWaitDays">已考虑多久</label><select id="bigWaitDays"><option value="0">今天突然想买</option><option value="3">3 天左右</option><option value="7">1 周以上</option><option value="30">1 个月以上</option></select></div></div>
+    <button class="primary" style="width:100%" onclick="runBigPurchaseSimulator()">计算购买影响</button>
+    <div id="bigPurchaseResult"></div>`);
+}
+function runBigPurchaseSimulator(){
+  const name=document.getElementById('bigItemName').value.trim()||'这件商品';const price=Math.max(0,Number(document.getElementById('bigItemPrice').value||0));const days=Number(document.getElementById('bigWaitDays').value||0);const p=state.savingsProfile;
+  if(!price){toast('请填写商品价格');return;}if(!p){toast('请先生成一次省钱攻略');renderSavingsLabForm();return;}
+  const income=(p.income||0)+(p.otherIncome||0);const disposable=Math.max(0,income-(p.fixed||0)-(p.variable||0)-(p.debtPay||0));const remain=disposable-price;const ratio=income?Math.round(price/income*100):0;
+  const wait=price>=income*.5?7:price>=income*.15?3:1;const verdict=remain<0?'会超过本月当前可支配金额':ratio>=50?'会占用超过半个月收入':ratio>=20?'会明显影响本月结余':'对本月现金流影响相对可控';
+  document.getElementById('bigPurchaseResult').innerHTML=`<div class="insight-card" style="margin-top:14px"><h3>${escapeHtml(name)} · 购买影响</h3><div class="insight-row"><span>价格占月收入</span><strong>${ratio}%</strong></div><div class="insight-row"><span>购买后可支配余额</span><strong>${money(remain)}</strong></div><div class="insight-row"><span>建议最低等待</span><strong>${Math.max(wait,days>=7?0:wait)} 天</strong></div><div class="virtual-warning"><strong>研究结论：</strong>${verdict}。${days===0?'这次念头出现时间很短，建议先退出商品页面并完成一次冷静实验。':'你已经考虑了一段时间，可以继续检查使用频率和替代方案。'}</div><button class="secondary" style="width:100%" onclick="closeSheet();go('experiment')">加入一次冷静实验</button></div>`;
+}
+function downloadSavingsReport(id){
+  const r=(state.savingsReports||[]).find(x=>x.id===id);if(!r)return;const lines=[`不买研究所｜省钱研究室`,`生成日期：${new Date(r.createdAt).toLocaleString('zh-CN')}`,`目标：${r.goal}`,`每月预计可留下：${money(r.monthlyPotential)}`,`月总收入：${money(r.totalIncome)}`,`当前总支出：${money(r.outflow)}`,`固定支出占比：${r.fixedRatio}%`,`应急资金覆盖：${r.emergencyMonths.toFixed(1)} 个月`,'',...r.advices.flatMap((a,i)=>[`${i+1}. ${a.title}`,a.text,'']),'说明：本报告用于预算管理、消费习惯分析和一般财务教育，不构成具体投资建议。'];
+  const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='不买研究所-个人省钱攻略.txt';a.click();URL.revokeObjectURL(a.href);toast('文字报告已保存');
+}
+function updateSavingsLabStatus(){
+  const unlocked=!!state.savingsLabUnlocked;
+  const home=document.getElementById('homeLabStatus'),profile=document.getElementById('profileLabStatus'),foot=document.getElementById('profileLabFoot');
+  if(home)home.textContent=unlocked?'✓ 已模拟解锁':'🔒 尚未解锁';
+  if(profile)profile.textContent=unlocked?'✓ 已模拟解锁':'🔒 未来付费功能';
+  if(foot)foot.textContent=unlocked?'进入省钱研究室':'一次购买，永久解锁核心工具';
+}
+
+function renderProfile(){
+  const rate=successRate();document.getElementById('statConfirmed').textContent=money(state.confirmedSaved);document.getElementById('statSimulated').textContent=money(state.simulatedAmount);document.getElementById('statRate').textContent=rate===null?'—':rate+'%';document.getElementById('statStreak').textContent=state.streak;
+  document.getElementById('profileMood').textContent=state.currentMood;document.getElementById('reviewedCount').textContent=decidedOrders().length+' 次';document.getElementById('coolingCount').textContent=state.orders.filter(o=>!o.decision).length+' 笔';
+  const topCategory=getTopCategory();document.getElementById('topCategory').textContent=topCategory;
+  const kept=keptOrders().length;document.getElementById('researchLevel').textContent=kept>=10?'高级消费研究员':kept>=3?'理智实验员':'初级理智观察员';
+  const achievements=[
+    {icon:'🧪',title:'第一次实验',desc:'创建第一笔冷静记录',ok:state.orders.length>=1},
+    {icon:'🛡️',title:'第一次守住',desc:'确认放弃一次冲动购买',ok:kept>=1},
+    {icon:'💯',title:'守住一百元',desc:'累计确认守住 ¥100',ok:state.confirmedSaved>=100},
+    {icon:'🌙',title:'深夜理智王',desc:'完成 3 次以上冷静复盘',ok:decidedOrders().length>=3}
+  ];
+  document.getElementById('achievementGrid').innerHTML=achievements.map(a=>`<div class="achievement ${a.ok?'':'locked'}"><div class="a-icon">${a.icon}</div><strong>${a.title}</strong><small>${a.desc}</small></div>`).join('');
+}
+function exportData(){
+  const payload={exportedAt:new Date().toISOString(),brand:'不买研究所 BUMAI LAB',summary:{confirmedSaved:state.confirmedSaved,simulatedAmount:state.simulatedAmount,successRate:successRate()},orders:state.orders,customProducts:state.customProducts};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='不买研究所-研究数据.json';a.click();URL.revokeObjectURL(a.href);toast('研究数据已导出');
+}
+function resetDemo(){if(confirm('确定重置所有本地演示数据吗？')){state=defaultState();state.onboarded=true;persist();go('discover');toast('演示数据已重置');}}
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.nav-btn').forEach(x=>x.classList.toggle('active',x.dataset.screen===id));
+  if(id==='cart')renderCart();if(id==='records'){renderRecordFilters();renderOrders();}if(id==='profile')renderProfile();
+}
+function updateHero(){const rate=successRate();document.getElementById('confirmedSaved').textContent=money(state.confirmedSaved);document.getElementById('simulatedAmount').textContent=money(state.simulatedAmount);document.getElementById('successRate').textContent=rate===null?'等待首次复盘':rate+'%';}
+function updateAll(){
+  const count=cartItems().reduce((s,x)=>s+x.qty,0),badge=document.getElementById('cartBadge');badge.textContent=count;badge.style.display=count?'grid':'none';renderMoods();updateHero();renderCart();renderRecordFilters();renderOrders();renderProfile();updateSavingsLabStatus();
+}
+function openSheet(html){document.getElementById('sheetCard').innerHTML=html;document.getElementById('sheet').classList.add('open');}
+function closeSheet(){clearInterval(deliveryTimer);document.getElementById('sheet').classList.remove('open');}
+function sheetBackdrop(e){if(e.target.id==='sheet')closeSheet();}
+function showOnboarding(){document.getElementById('onboarding').classList.add('open');}
+function finishOnboarding(target){state.onboarded=true;persist();document.getElementById('onboarding').classList.remove('open');go(target);}
+let toastTimer;function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1900);}
+function escapeHtml(str){return String(str??'').replace(/[&<>'"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[s]));}
+
+document.getElementById('searchInput').addEventListener('input',renderProducts);
+setInterval(()=>{const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',hour12:false});if(document.getElementById('records').classList.contains('active'))renderOrders();},1000);
+renderChips();renderMoods();renderProducts();updateAll();if(!state.onboarded)showOnboarding();
+</script>
+</body>
+</html>

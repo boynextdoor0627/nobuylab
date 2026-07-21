@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#22C55E" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <meta name="description" content="不买研究所 V11.5：默认极简日用模式，10 秒记下想买，省钱广场支持图文分享和本地评论。" />
-  <title>不买研究所｜NO BUY LAB V11.5</title>
+  <meta name="description" content="不买研究所 V11.7：生成虚拟订单时加入地图路线模拟与冷静配送动效。" />
+  <title>不买研究所｜NO BUY LAB V11.7</title>
   <style>
     :root{
       --bg:#F7FAF5;
@@ -73,7 +73,7 @@
     .hero-actions{display:flex;gap:8px;margin-top:13px}
     .hero-actions button{min-height:42px;padding:9px 13px;border-radius:14px;background:rgba(255,255,255,.22);color:#fff;font-weight:800;backdrop-filter:blur(4px)}
     .hero-actions .solid{background:#fff;color:var(--primary-dark)}
-    .section-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}
+    .section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 0 12px}
     .section-head h2{font-size:21px;margin:0}
     .link{background:none;color:var(--primary);padding:8px 0;font-weight:700}
     .masonry{columns:2;column-gap:10px}
@@ -133,7 +133,7 @@
     .empty .emoji{font-size:58px;margin-bottom:12px}
     .empty h3{color:var(--text);margin:0 0 8px}
 
-    .quick-panel{background:linear-gradient(140deg,#FFF,#EAF9E7);border-radius:24px;padding:18px;margin-bottom:14px;border:1px solid #D9EEDA}
+    .quick-panel{background:linear-gradient(140deg,#FFF,#EAF9E7);border-radius:24px;padding:18px;margin:14px 0;border:1px solid #D9EEDA}
     .quick-panel h3{margin:0 0 7px;font-size:18px}
     .quick-panel p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
     .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
@@ -142,12 +142,13 @@
     .quick-icon{font-size:28px}
     .quick-title{font-weight:800;margin-top:8px}
     .quick-sub{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.45}
-    .form-card{background:#fff;border-radius:22px;padding:17px;margin:14px 0}
+    .form-card{background:#fff;border-radius:22px;padding:17px;margin:16px 0}
     .form-card h3{margin:0 0 5px;font-size:18px}
     .form-card .desc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:13px}
     .field{margin-bottom:11px}
     .field label{display:block;font-size:12px;font-weight:800;margin-bottom:6px}
-    .field input,.field textarea,.field select{width:100%;border:1px solid #EDE3DA;background:#FCFAF7;border-radius:14px;padding:12px;color:var(--text);outline:0}
+    .field input,.field textarea,.field select{width:100%;border:1px solid #DDEBDD;background:#FCFAF7;border-radius:14px;padding:12px;color:var(--text);outline:0;box-shadow:none;-webkit-appearance:none;appearance:none}
+    .field input:focus,.field textarea:focus,.field select:focus,.comment-compose textarea:focus,.instant-fields input:focus{border-color:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.12);background:#fff}
     .field textarea{min-height:70px;resize:vertical}
     .two-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .assistant-box{background:#221F1D;color:#fff;border-radius:24px;padding:18px;margin-top:14px}
@@ -227,10 +228,25 @@
     .pay-animation{text-align:center;padding:26px 10px}
     .spinner{width:70px;height:70px;border-radius:50%;border:7px solid #F2DFD4;border-top-color:var(--primary);margin:0 auto 18px;animation:spin 1s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .rider-map{height:170px;border-radius:22px;background:linear-gradient(135deg,#E6F0DF,#D4E4CC);position:relative;overflow:hidden;margin:12px 0}
-    .road{position:absolute;width:130%;height:22px;background:#fff;left:-15%;top:76px;transform:rotate(-9deg);border-top:2px dashed #CABFB4;border-bottom:2px dashed #CABFB4}
-    .rider{position:absolute;top:58px;left:8%;font-size:34px;animation:ride 5s linear infinite}
-    @keyframes ride{0%{left:4%}100%{left:84%}}
+    .route-card{background:#fff;border:1px solid #E1EBDD;border-radius:23px;padding:12px;margin:12px 0;box-shadow:0 10px 24px rgba(27,93,49,.07)}
+    .route-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .route-head strong{font-size:14px}.route-head span{font-size:10px;color:#5C7160;font-weight:900;background:#F0F8EC;border-radius:999px;padding:5px 8px}
+    .rider-map{height:220px;border-radius:18px;background:#EAF2E7;position:relative;overflow:hidden;isolation:isolate;border:1px solid #D8E7D3}
+    .rider-map:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.56) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.72) 1px,transparent 1px);background-size:54px 54px;z-index:0}
+    .map-road{position:absolute;z-index:1;background:#fff;border:1px solid rgba(137,154,130,.24);box-shadow:0 4px 12px rgba(69,99,72,.05)}
+    .map-road.h1{left:0;right:0;top:64px;height:22px}.map-road.h2{left:0;right:0;bottom:47px;height:22px}.map-road.v1{left:86px;top:0;bottom:0;width:22px}.map-road.v2{right:83px;top:0;bottom:0;width:22px}
+    .map-block{position:absolute;border-radius:14px;background:rgba(255,255,255,.68);border:1px solid rgba(196,212,188,.82);z-index:1}
+    .map-block.b1{width:58px;height:42px;left:18px;top:17px}.map-block.b2{width:96px;height:43px;right:126px;top:16px}.map-block.b3{width:70px;height:58px;left:18px;bottom:82px}.map-block.b4{width:82px;height:78px;right:18px;bottom:82px}
+    .map-street{position:absolute;z-index:2;font-size:8px;color:#8B9A87;font-weight:900;background:rgba(234,242,231,.78);padding:2px 5px;border-radius:999px}
+    .map-street.s1{left:120px;top:66px}.map-street.s2{right:112px;bottom:49px}.map-street.s3{left:88px;top:104px;writing-mode:vertical-rl}.map-street.s4{right:86px;top:94px;writing-mode:vertical-rl}
+    .route-svg{position:absolute;inset:0;z-index:3;overflow:visible}.route-base{fill:none;stroke:#fff;stroke-width:15;stroke-linecap:round;stroke-linejoin:round}.route-shadow{fill:none;stroke:rgba(18,82,39,.14);stroke-width:19;stroke-linecap:round;stroke-linejoin:round}.route-active{fill:none;stroke:#18B957;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;transition:stroke-dashoffset .45s ease}
+    .map-pin{position:absolute;z-index:5;display:grid;place-items:center;width:33px;height:33px;border-radius:50%;font-size:11px;font-weight:900;box-shadow:0 8px 16px rgba(33,70,42,.16)}
+    .map-pin.origin{left:22px;top:151px;background:#111B14;color:#C9FF5E}.map-pin.dest{right:24px;top:37px;background:#fff;color:#0B8D41;border:2px solid #18B957}
+    .route-marker{position:absolute;z-index:6;width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 10px 18px rgba(27,93,49,.22);left:calc(var(--marker-x,13) * 1% - 19px);top:calc(var(--marker-y,76) * 1% - 19px);transition:left .55s ease,top .55s ease;font-size:22px}
+    .map-label{position:absolute;z-index:5;background:rgba(255,255,255,.88);backdrop-filter:blur(6px);border:1px solid rgba(213,226,207,.9);border-radius:12px;padding:6px 8px;font-size:9px;color:#4F5E50;line-height:1.35;font-weight:800;max-width:120px}
+    .map-label.origin{left:18px;bottom:14px}.map-label.dest{right:18px;top:74px;text-align:right}
+    .route-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+    .route-stat{background:#F6FAF4;border-radius:14px;padding:9px 7px;text-align:center}.route-stat strong{display:block;font-size:13px}.route-stat span{font-size:9px;color:var(--muted);font-weight:800}
     .timeline{display:flex;flex-direction:column;gap:13px}
     .timeline-item{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start;color:var(--muted);font-size:13px}
     .timeline-item.active{color:var(--text);font-weight:800}
@@ -392,47 +408,46 @@
     .hall-tab{min-height:42px;border-radius:14px;background:transparent;color:var(--muted);font-weight:900;display:flex;align-items:center;justify-content:center;gap:6px}
     .hall-tab.active{background:#fff;color:var(--primary-dark);box-shadow:0 5px 14px rgba(85,61,45,.09)}
     .hall-tab .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.75}
-    .plaza-hero{background:linear-gradient(135deg,#292522,#4A3A31);color:#fff;border-radius:27px;padding:20px;position:relative;overflow:hidden;margin-bottom:14px}
-    .plaza-hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-90px;top:-100px;background:radial-gradient(circle,rgba(185,243,61,.38),transparent 68%)}
-    .plaza-hero .eyebrow{font-size:10px;color:#F3B49C;font-weight:900;letter-spacing:1px;position:relative;z-index:1}
-    .plaza-hero h2{font-size:27px;line-height:1.15;margin:7px 0 7px;position:relative;z-index:1}
-    .plaza-hero p{font-size:12px;line-height:1.65;color:#D8CCC4;margin:0;max-width:290px;position:relative;z-index:1}
-    .plaza-hero-actions{display:flex;gap:8px;margin-top:15px;position:relative;z-index:1}
-    .plaza-hero-actions button{min-height:40px;border-radius:14px;padding:9px 12px;font-size:11px;font-weight:900}
-    .plaza-hero-actions .light{background:#fff;color:#2B2623}.plaza-hero-actions .warm{background:var(--primary);color:#fff}
-    .plaza-principle{background:#F0FBEA;border:1px solid #D4EBCF;color:#3D6B47;border-radius:18px;padding:12px 13px;font-size:11px;line-height:1.6;margin:12px 0}
-    .plaza-chips{display:flex;gap:8px;overflow:auto;scrollbar-width:none;padding:2px 0 8px}.plaza-chips::-webkit-scrollbar{display:none}
-    .plaza-chip{min-height:39px;white-space:nowrap;padding:8px 13px;border-radius:18px;background:#fff;border:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:800}
-    .plaza-chip.active{background:#26221F;color:#fff;border-color:#26221F}
-    .plaza-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 14px}
-    .plaza-stat{background:#fff;border-radius:16px;padding:12px 8px;text-align:center;border:1px solid #F0E7DF}
-    .plaza-stat strong{display:block;font-size:17px}.plaza-stat span{display:block;font-size:9px;color:var(--muted);margin-top:3px}
-    .plaza-feed{display:grid;gap:12px}
-    .post-card{background:#fff;border-radius:22px;border:1px solid #F0E7DF;overflow:hidden;box-shadow:0 8px 22px rgba(80,60,45,.06)}
+    .plaza-hero{background:#fff;color:#211D1A;border-radius:20px;padding:15px;border:1px solid #E2ECE2;box-shadow:0 9px 26px rgba(27,93,49,.06);margin-bottom:10px}
+    .plaza-hero:after{display:none}
+    .plaza-hero .eyebrow{font-size:10px;color:#15A54D;font-weight:900;letter-spacing:.8px}
+    .plaza-hero h2{font-size:24px;line-height:1.15;margin:5px 0 5px}
+    .plaza-hero p{font-size:12px;line-height:1.55;color:#6D655D;margin:0;max-width:none}
+    .plaza-title-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+    .plaza-compose{width:44px;height:44px;border-radius:50%;background:#111B14;color:#C9FF5E;font-size:22px;font-weight:900;box-shadow:0 10px 20px rgba(10,90,42,.2)}
+    .plaza-sub-actions{display:flex;align-items:center;gap:9px;margin-top:11px;color:#7B726A;font-size:10px;font-weight:800}
+    .plaza-sub-actions button{height:30px;border-radius:999px;padding:6px 10px;background:#F4F8F1;color:#0F8844;font-size:10px;font-weight:900}
+    .plaza-principle{display:none}
+    .plaza-chips{display:flex;gap:9px;overflow:auto;scrollbar-width:none;padding:4px 0 11px;margin:0 -2px}.plaza-chips::-webkit-scrollbar{display:none}
+    .plaza-chip{min-height:34px;white-space:nowrap;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid #DCE9DD;color:#59665B;font-size:11px;font-weight:900}
+    .plaza-chip.active{background:#111B14;color:#C9FF5E;border-color:#111B14}
+    .plaza-stats{display:none}
+    .plaza-feed{display:grid;gap:14px;background:transparent;border:0;border-radius:0;overflow:visible;box-shadow:none}
+    .post-card{background:#fff;border:1px solid #E2ECE2;border-radius:20px;overflow:hidden;box-shadow:0 9px 26px rgba(27,93,49,.06)}
     .post-cover{height:138px;padding:17px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(135deg,#22C55E,#B9F33D)}
     .post-cover.green{background:linear-gradient(135deg,#16A34A,#66E59B)}.post-cover.blue{background:linear-gradient(135deg,#627F9A,#91ADC1)}.post-cover.purple{background:linear-gradient(135deg,#776D91,#AAA0BC)}.post-cover.dark{background:linear-gradient(135deg,#2C2825,#5A4B43)}.post-cover.yellow{background:linear-gradient(135deg,#85B71B,#D8EF64)}
     .post-cover:after{content:"";position:absolute;width:130px;height:130px;border:1px solid rgba(255,255,255,.24);border-radius:50%;right:-45px;top:-55px}
     .post-cover .post-icon{font-size:34px;position:absolute;right:16px;bottom:14px;filter:drop-shadow(0 5px 10px rgba(0,0,0,.15))}
     .post-type{display:inline-flex;align-self:flex-start;border-radius:10px;padding:5px 8px;background:rgba(255,255,255,.18);backdrop-filter:blur(5px);font-size:9px;font-weight:900;margin-bottom:7px}
     .post-type.ad{background:#fff;color:#4A362C}.post-cover h3{font-size:18px;line-height:1.3;margin:0;max-width:285px;position:relative;z-index:1}
-    .post-body{padding:14px}
+    .post-body{padding:13px 14px 8px}
     .post-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted);margin-bottom:8px}
-    .post-author{display:flex;align-items:center;gap:7px;font-weight:800;color:#675E57}.post-avatar{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--primary-dark);font-size:11px;font-weight:900}
-    .post-summary{font-size:12px;color:#645B55;line-height:1.65;margin:0 0 11px}
+    .post-author{display:flex;align-items:center;gap:8px;font-weight:900;color:#302B27}.post-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#111B14;color:#C9FF5E;font-size:11px;font-weight:900}
+    .post-summary{font-size:13px;color:#3D3731;line-height:1.58;margin:0 0 9px}
     .post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}.post-tag{font-size:9px;background:#F6F1EC;color:#756A62;padding:5px 7px;border-radius:10px}
-    .post-gallery{display:grid;grid-template-columns:1.25fr .75fr;gap:7px;padding:10px 10px 0}
-    .post-shot{min-height:106px;border-radius:16px;padding:12px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,#22C55E,#B9F33D)}
+    .post-gallery{display:grid;grid-template-columns:1fr;gap:7px;padding:0 14px 10px}
+    .post-shot{min-height:112px;border-radius:14px;padding:12px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,#22C55E,#B9F33D)}
     .post-shot:after{content:"";position:absolute;width:92px;height:92px;border:1px solid rgba(255,255,255,.28);border-radius:50%;right:-34px;top:-34px}
-    .post-shot.secondary{min-height:70px;background:linear-gradient(145deg,#2C2825,#746358)}
+    .post-shot.secondary{display:none}
     .post-shot.dark{background:linear-gradient(145deg,#2C2825,#5A4B43)}.post-shot.green{background:linear-gradient(145deg,#16A34A,#66E59B)}.post-shot.blue{background:linear-gradient(145deg,#627F9A,#91ADC1)}.post-shot.purple{background:linear-gradient(145deg,#776D91,#AAA0BC)}.post-shot.yellow{background:linear-gradient(145deg,#85B71B,#D8EF64)}.post-shot.coral{background:linear-gradient(145deg,#D65D4B,#F0A56B)}
-    .shot-icon{font-size:28px;line-height:1}.shot-caption{position:relative;z-index:1;font-size:11px;font-weight:900;line-height:1.35;text-shadow:0 1px 9px rgba(0,0,0,.12)}
-    .post-social{border-top:1px solid #F2E9E1;padding:10px 14px 12px;background:#FFFCF8}
-    .comment-preview{display:grid;gap:5px;margin-top:8px}.comment-line{font-size:10px;line-height:1.45;color:#655D57}.comment-line strong{color:#312C28}
-    .post-actions{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
-    .post-actions button{height:42px;background:#fff;color:#776E67;font-size:10px;display:flex;align-items:center;justify-content:center;gap:4px;border-right:1px solid var(--line)}.post-actions button:last-child{border-right:0}.post-actions button.active{color:var(--primary-dark);font-weight:900;background:#FFF8F3}
+    .shot-icon{font-size:28px;line-height:1}.shot-caption{position:relative;z-index:1;font-size:12px;font-weight:900;line-height:1.35;text-shadow:0 1px 9px rgba(0,0,0,.12)}
+    .post-social{display:none}
+    .post-actions{display:flex;align-items:center;gap:15px;border-top:0;padding:0 14px 12px}
+    .post-actions button{height:28px;background:#fff;color:#4D453F;font-size:12px;display:flex;align-items:center;justify-content:center;gap:4px;border-right:0;padding:0}.post-actions button:last-child{margin-left:auto}.post-actions button.active{color:#0E8840;font-weight:900;background:#fff}
+    .post-action-dot{font-size:14px}
     .post-article{display:grid;gap:10px;margin:12px 0}.post-article p{background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px;font-size:12px;line-height:1.7;color:#5F574F;margin:0}
-    .comment-section{display:grid;gap:9px;margin-top:12px}.comment-bubble{background:#fff;border:1px solid var(--line);border-radius:15px;padding:10px 12px}.comment-bubble strong{display:block;font-size:11px;color:#332D28;margin-bottom:4px}.comment-bubble p{font-size:11px;line-height:1.55;color:#645B55;margin:0}
-    .comment-compose{display:grid;gap:8px;background:#F7F2EC;border-radius:17px;padding:11px;margin-top:10px}.comment-compose textarea{min-height:72px}
+    .comment-section{display:grid;gap:14px;margin-top:18px}.comment-bubble{background:#fff;border:1px solid #E5ECE1;border-radius:15px;padding:13px 14px;box-shadow:0 5px 14px rgba(27,93,49,.04)}.comment-bubble strong{display:block;font-size:11px;color:#332D28;margin-bottom:6px}.comment-bubble p{font-size:11px;line-height:1.7;color:#645B55;margin:0}
+    .comment-compose{display:grid;gap:8px;background:#F7FAF4;border:1px solid #E4EEE1;border-radius:17px;padding:11px;margin-top:12px}.comment-compose textarea{min-height:72px;border:1px solid #DDEBDD;background:#fff;border-radius:14px;outline:0;box-shadow:none}
     .coupon-zone{background:linear-gradient(135deg,#F4FDE8,#E5F8C8);border:1px solid #C9E78C;border-radius:23px;padding:16px;margin:15px 0}
     .coupon-zone h3{font-size:18px;margin:0}.coupon-zone>p{font-size:11px;color:#587043;line-height:1.55;margin:5px 0 12px}
     .coupon-list{display:grid;gap:8px}.coupon-card{background:rgba(255,255,255,.82);border:1px dashed #A7CF4F;border-radius:17px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
@@ -441,6 +456,9 @@
     .draft-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#F2EFEA;color:#756B64;font-size:9px;font-weight:900}
     .template-choice{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.template-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:13px;text-align:left}.template-card.active{border-color:var(--primary);box-shadow:0 0 0 3px rgba(34,197,94,.12)}.template-card strong{display:block;font-size:13px}.template-card small{display:block;font-size:9px;color:var(--muted);line-height:1.45;margin-top:4px}
     .visual-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 12px}.visual-option{min-height:74px;border-radius:16px;color:#fff;padding:9px;text-align:left;font-weight:900;font-size:11px;display:flex;flex-direction:column;justify-content:space-between}.visual-option.active{outline:3px solid rgba(34,197,94,.22);box-shadow:0 0 0 1px #22C55E inset}.visual-option span{font-size:22px}
+    .topic-choice{display:flex;gap:8px;overflow:auto;scrollbar-width:none;margin:8px 0 12px}.topic-choice::-webkit-scrollbar{display:none}
+    .topic-pill{min-height:34px;border-radius:999px;background:#F4F8F1;border:1px solid #DCE9DD;color:#59665B;padding:7px 11px;font-size:11px;font-weight:900;white-space:nowrap}.topic-pill.active{background:#111B14;color:#C9FF5E;border-color:#111B14}
+    .composer-note{font-size:10px;color:#827970;line-height:1.5;margin:6px 0 12px}
     .checkbox-row{display:flex;align-items:flex-start;gap:8px;background:#F6F1EC;border-radius:14px;padding:10px;font-size:10px;color:#655D57;line-height:1.5;margin:10px 0}.checkbox-row input{margin-top:2px}
     .coupon-steps{display:grid;gap:8px;margin:12px 0}.coupon-step{display:grid;grid-template-columns:27px 1fr;gap:9px;background:#fff;border-radius:15px;padding:11px;border:1px solid var(--line)}.coupon-step span{width:27px;height:27px;border-radius:9px;background:var(--soft);color:var(--primary-dark);font-weight:900;display:grid;place-items:center}.coupon-step strong{display:block;font-size:12px}.coupon-step small{display:block;font-size:9px;color:var(--muted);line-height:1.45;margin-top:3px}
 
@@ -483,10 +501,10 @@
     .cart-tip{border:1px solid #CDEECC}
     .assistant-box{background:#12291C}.assistant-box textarea,.assistant-result{background:#1E3B2A}
     .avatar{background:#fff url('assets/logo-mark.svg') center/88% no-repeat;font-size:0;border:1px solid #DCEBDD}
-    .plaza-hero{background:linear-gradient(138deg,#10291B,#0A8E42 58%,#B7E937);padding-right:104px}
-    .plaza-mascot{position:absolute;width:98px;right:8px;bottom:8px;filter:drop-shadow(0 10px 12px rgba(0,0,0,.2));z-index:2}
+    .plaza-hero{background:#fff;padding-right:15px}
+    .plaza-mascot{display:none}
     .plaza-hero>div,.plaza-hero>h2,.plaza-hero>p{position:relative;z-index:3}
-    .plaza-hero:after{background:radial-gradient(circle,rgba(232,255,75,.45),transparent 68%)}
+    .plaza-hero:after{display:none}
     .post-cover{background:linear-gradient(135deg,#11A64C,#9FE32C)}
     .post-cover.green{background:linear-gradient(135deg,#0E8B42,#5DE58A)}
     .post-cover.blue{background:linear-gradient(135deg,#168A79,#7DE1CE)}
@@ -559,6 +577,7 @@
     .mode-card strong{font-size:13px}
     .mode-card p{font-size:11px;color:#55734F;line-height:1.55;margin:5px 0 10px}
     .mode-card button{width:100%}
+    .screen>.mode-card,.screen>.menu,.screen>.profile-card,.screen>.stats,.screen>.insight-card,.screen>.quick-panel,.screen>.form-card,.category-overview,.habit-card,.plaza-hero,.plaza-feed{margin-top:16px;margin-bottom:16px}
     .app-shell.simple-mode .hall-tabs,
     .app-shell.simple-mode .mood-box,
     .app-shell.simple-mode #dailyChecklistSection,
@@ -593,7 +612,7 @@
       <div class="toprow">
         <div class="brand-lockup">
           <div class="brand-mark" aria-hidden="true"><img src="assets/logo-mark.svg" alt=""></div>
-          <div><div class="brand-title">不买研究所 <span class="vtag">V11.5 · DAILY</span></div><div class="brand-en">NO BUY LAB · PAUSE TODAY</div></div>
+          <div><div class="brand-title">不买研究所 <span class="vtag">V11.7 · DAILY</span></div><div class="brand-en">NO BUY LAB · PAUSE TODAY</div></div>
         </div>
         <button class="bell" aria-label="实验提醒" onclick="toast('暂无新的实验提醒')"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></button>
       </div>
@@ -704,21 +723,18 @@
       <div id="plazaHallPanel" style="display:none">
         <div class="plaza-hero">
           <img class="plaza-mascot" src="assets/logo-mark.svg" alt="不买研究所 IP">
-          <div class="eyebrow">NO BUY SQUARE · 轻社区原型</div>
-          <h2>省钱广场</h2>
-          <p>看看别人如何少花、延迟、替代和避坑。这里不晒炫耀账单，也不把“种草”伪装成省钱。</p>
-          <div class="plaza-hero-actions"><button class="warm" onclick="openPublishTemplate()">发一条图文</button><button class="light" onclick="openPlazaDrafts()">我的图文草稿</button></div>
+          <div class="plaza-title-row">
+            <div>
+              <div class="eyebrow">NO BUY SQUARE</div>
+              <h2>省钱广场</h2>
+              <p>看看大家今天差点买了什么。短动态、轻评论，给冲动消费一个缓冲区。</p>
+            </div>
+            <button class="plaza-compose" aria-label="发一条动态" onclick="openPublishTemplate()">＋</button>
+          </div>
+          <div class="plaza-sub-actions"><span>不导购，不比惨，只帮你冷静一下。</span><button onclick="openPlazaDrafts()">草稿</button></div>
         </div>
-        <div class="plaza-principle"><strong>广场原则：</strong>能不买时帮你不买；确实需要买时，再帮你少花。含推广链接的内容必须清楚标注“广告”。</div>
         <div class="plaza-chips" id="plazaCategoryChips"></div>
-        <div class="plaza-stats">
-          <div class="plaza-stat"><strong id="plazaOfficialCount">0</strong><span>图文动态</span></div>
-          <div class="plaza-stat"><strong id="plazaFavoriteCount">0</strong><span>我的收藏</span></div>
-          <div class="plaza-stat"><strong id="plazaDraftCount">0</strong><span>本地草稿</span></div>
-        </div>
         <div class="plaza-feed" id="plazaFeed"></div>
-        <div id="plazaCouponArea"></div>
-        <div class="moderation-card"><strong>社区 V1 说明：</strong>当前图文、评论和草稿都保存在本机，用来验证互动体验；正式版本上线前会补充账号、审核、举报处置、商业推广标识和隐私授权。</div>
       </div>
     </section>
 
@@ -804,7 +820,7 @@
       <div class="menu">
         <button class="menu-row" onclick="showOnboarding()"><div class="left"><span>🧪</span><span>重新查看使用说明</span></div><span>›</span></button>
         <button class="menu-row" onclick="switchHallTab('plaza');go('discover')"><div class="left"><span>🧩</span><span>进入省钱广场</span></div><span>›</span></button>
-        <button class="menu-row" onclick="openPlazaDrafts()"><div class="left"><span>✍️</span><span>我的广场图文草稿</span></div><span>›</span></button>
+        <button class="menu-row" onclick="openPlazaDrafts()"><div class="left"><span>✍️</span><span>我的广场动态草稿</span></div><span>›</span></button>
         <button class="menu-row" onclick="setExperienceMode(state.experienceMode==='full'?'simple':'full')"><div class="left"><span>👁</span><span id="modeMenuLabel">切换完整模式</span></div><span>›</span></button>
         <button class="menu-row internal-only" onclick="showMigrationSheet()"><div class="left"><span>🧭</span><span>小程序迁移准备</span></div><span>›</span></button>
         <button class="menu-row" onclick="exportData()"><div class="left"><span>📄</span><span>导出我的研究数据</span></div><span>›</span></button>
@@ -858,7 +874,7 @@ const pauseChoices=[
 ];
 let selectedPauseChoice='food';
 
-const plazaCategories=['推荐','省钱攻略','今天忍住了','冷静挑战','踩坑避雷','优惠情报'];
+const plazaCategories=['推荐','差点买了','还好没买','下班冲动','种草灭火','提问'];
 const plazaVisualPresets=[
   {id:'green',label:'清单',icon:'📋',caption:'今日少花清单'},
   {id:'dark',label:'数码',icon:'🎧',caption:'想买前先冷静'},
@@ -867,15 +883,15 @@ const plazaVisualPresets=[
   {id:'blue',label:'旅行',icon:'🧳',caption:'预算留给体验'},
   {id:'coral',label:'日常',icon:'🧋',caption:'把顺手买停一下'}
 ];
+const plazaTopicOptions=['差点买了','还好没买','下班冲动','种草灭火','提问'];
 const plazaPosts=[
-  {id:'sq-001',cat:'今天忍住了',icon:'🎧',tone:'dark',author:'不买研究所',official:true,title:'本来准备换耳机，盘点后决定再用三个月',summary:'旧耳机仍能正常通话和降噪。把“新品发布带来的想要”与“真实使用问题”分开后，先设了 30 天观察期。',tags:['数码冲动','等待30天','守住¥1899'],likes:286,saves:94,minutes:4,body:['先检查旧设备是否真的影响使用，而不是只看新品参数。','把想买的原因写下来：性能不足、损坏，还是单纯被发布会刺激。','设置明确复盘日；复盘前不反复刷测评。']},
-  {id:'sq-002',cat:'省钱攻略',icon:'📋',tone:'green',author:'研究所编辑部',official:true,title:'清理自动续费：20 分钟找回每月被忽略的小支出',summary:'从视频、音乐、云盘到修图工具，先列出全部续费，再按“每周是否使用”判断保留。',tags:['订阅整理','固定支出','可执行清单'],likes:512,saves:368,minutes:6,body:['打开常用支付工具和应用商店，查找自动续费项目。','保留每周使用且不可替代的服务；其余先取消续费，不等于立即失去已付费权益。','把下次续费日期写进日历，在到期前再次判断。']},
-  {id:'sq-003',cat:'踩坑避雷',icon:'⚠️',tone:'yellow',author:'不买研究所',official:true,title:'“满减差一点”最容易让你多买一件并不需要的东西',summary:'为了省 20 元多买 49 元商品，本质仍然多花了 29 元。先看最终支出，而不是优惠金额。',tags:['满减误区','外卖','购物车'],likes:403,saves:215,minutes:3,body:['先记录没有凑单时的原始金额。','再比较凑单后的最终付款额，而不是只看“已优惠”。','凑单商品如果不在原始需求清单里，默认删除。']},
-  {id:'sq-004',cat:'冷静挑战',icon:'🔥',tone:'purple',author:'不买研究所',official:true,title:'7 天夜间不冲动下单挑战',summary:'每天 22:00 后产生的非必要消费，先记录、等到第二天中午再决定。',tags:['7天挑战','深夜消费','打卡'],likes:637,saves:289,minutes:5,body:['夜间想买时先创建一次冷静实验。','第二天中午复盘：还想买吗？是否影响预算？','挑战目标不是零消费，而是把决定从情绪高峰移开。'],challenge:true},
-  {id:'sq-005',cat:'省钱攻略',icon:'🧳',tone:'blue',author:'研究所编辑部',official:true,title:'旅行预算先分三层，装备才不会越买越多',summary:'把必要交通住宿、体验预算和可替代装备分开。装备不要吞掉真正的旅行体验。',tags:['旅行预算','装备冲动','预算分层'],likes:194,saves:122,minutes:5,body:['第一层：交通、住宿、证件等不可缺少支出。','第二层：餐饮、景点和当地体验。','第三层：摄影、穿搭和露营装备先暂停新增，把预算留给真正的旅行体验。']},
-  {id:'sq-006',cat:'今天忍住了',icon:'🧋',tone:'green',author:'不买研究所',official:true,title:'不是戒奶茶，而是把“每天顺手买”改成主动选择',summary:'先把频率从每天改成每周两次，再保留真正想喝的那一杯。',tags:['奶茶预算','频率管理','非极端节省'],likes:328,saves:176,minutes:4,body:['记录一周中每次想喝的时间和原因。','把“口渴”“犯困”和“想奖励自己”分别找替代方案。','保留最喜欢的两次，不用把省钱做成惩罚。']},
-  {id:'sq-007',cat:'优惠情报',icon:'🎟️',tone:'yellow',author:'不买研究所权益组',official:true,ad:true,title:'生活刚需优惠区即将开放：先确认需要，再找正规优惠',summary:'未来仅接入官方或可验证渠道。平台获得佣金时会显著标注“广告”，不隐藏商业关系。',tags:['广告','权益预告','生活刚需'],likes:88,saves:61,minutes:2,body:['优惠入口不会出现在冷静倒计时和“确认守住”页面。','用户主动确认确实需要后，才可进入找优惠流程。','正式上线前会展示来源、有效期、使用门槛和佣金说明。']},
-  {id:'sq-008',cat:'踩坑避雷',icon:'🧴',tone:'purple',author:'研究所编辑部',official:true,title:'囤货的隐形成本：占空间、忘记使用与过期',summary:'单价便宜不等于总成本更低。先算消耗速度和家里现有库存。',tags:['美妆护肤','囤货','库存盘点'],likes:251,saves:143,minutes:4,body:['按实际使用速度估算一件产品能用多久。','盘点同类未开封库存和保质期。','如果库存覆盖超过三个月，不因“历史低价”继续购买。']}
+  {id:'sq-001',cat:'差点买了',icon:'🎧',tone:'dark',author:'阿眠',official:false,title:'差点为了新品发布会换耳机',summary:'旧耳机其实还能用。我把“想拥有新东西”和“真的不能用了”分开写了一下，突然冷静。',tags:['数码','守住¥1899','等30天'],likes:286,saves:94,minutes:4,body:['旧耳机还能通话、降噪也正常，唯一的问题是我刷了太多新品测评。','先放进冷静车，30 天后如果还是每天都觉得影响使用，再重新判断。'],sampleComments:[{name:'小满',text:'新品发布会真的很会制造焦虑。'},{name:'十一',text:'先不刷测评这个太关键了。'}]},
+  {id:'sq-002',cat:'还好没买',icon:'📋',tone:'green',author:'研究所编辑',official:true,title:'刚取消 4 个自动续费',summary:'不是“大额省钱”，但每个月少漏一点血。建议大家今天顺手查一下订阅。',tags:['订阅','固定支出','轻清理'],likes:512,saves:368,minutes:6,body:['视频、音乐、云盘、修图工具各查一遍。每周没打开过的，先取消自动续费。','取消续费不等于马上失去权益，只是把下一次付款权拿回来。'],sampleComments:[{name:'Echo',text:'我昨天才发现两个重复云盘。'},{name:'北北',text:'这个比记账更容易立刻行动。'}]},
+  {id:'sq-003',cat:'种草灭火',icon:'⚠️',tone:'yellow',author:'小林',official:false,title:'满减差 49，我差点多买一瓶身体乳',summary:'为了省 20 多花 49，这个数学题每次大促都重考一次。',tags:['满减','大促','别凑单'],likes:403,saves:215,minutes:3,body:['我先看了不凑单的付款额，再看凑单后的付款额，发现所谓优惠只是让我多买。','最后删掉凑单商品，购物车瞬间安静。'],sampleComments:[{name:'Momo',text:'“购物车瞬间安静”好真实。'},{name:'晴天',text:'我需要大促前每天看一遍。'}]},
+  {id:'sq-004',cat:'下班冲动',icon:'🌙',tone:'purple',author:'不买研究所',official:true,title:'22:00 以后想下单，先睡一觉',summary:'深夜的购买欲经常不是需要，是累、烦、想奖励自己。第二天中午再看，通常会少一半。',tags:['下班后','报复性消费','挑战'],likes:637,saves:289,minutes:5,body:['今天开始试 7 天：22:00 后产生的非必要消费，只记录，不付款。','第二天中午只问一句：我现在还想买吗？'],challenge:true,sampleComments:[{name:'阿予',text:'我最危险的时间就是洗完澡躺床上。'},{name:'KK',text:'这个挑战可以常驻。'}]},
+  {id:'sq-005',cat:'提问',icon:'🧳',tone:'blue',author:'山竹',official:false,title:'旅行前到底要不要买运动相机？',summary:'下个月去海岛，已经开始被各种设备种草。有人真的高频用吗？',tags:['旅行','装备','求劝退'],likes:194,saves:122,minutes:5,body:['我现在的手机够拍日常，但是刷到别人 vlog 又开始心动。','想听听买过的人：是长期使用，还是旅行回来就吃灰？'],sampleComments:[{name:'橙子',text:'如果不是经常潜水或骑行，租一次更适合。'},{name:'研究所编辑',text:'先把预算留给行程体验，设备可以最后一天再决定。'}]},
+  {id:'sq-006',cat:'还好没买',icon:'🧋',tone:'coral',author:'今天不喝也行',official:false,title:'把每天奶茶改成每周两杯，没想象中痛苦',summary:'不是戒掉快乐，是把“顺手买”改回“真的想喝才买”。',tags:['奶茶','频率管理','日常'],likes:328,saves:176,minutes:4,body:['我发现很多时候只是困、口渴、想逃离工位五分钟。','现在保留最想喝的两杯，其他时候先喝水或出去走一圈。'],sampleComments:[{name:'小满',text:'“不是戒掉快乐”这句让我舒服很多。'},{name:'Nana',text:'我也不想把省钱做成惩罚。'}]},
+  {id:'sq-007',cat:'种草灭火',icon:'🧴',tone:'purple',author:'研究所编辑',official:true,title:'囤货最贵的地方不是单价',summary:'占空间、忘记用、过期、换肤质。历史低价不等于适合现在的你。',tags:['护肤','囤货','库存'],likes:251,saves:143,minutes:4,body:['买之前先看家里同类库存能用多久。超过三个月，就把“历史低价”当作普通广告。','省钱不是把未来半年都塞进柜子里。'],sampleComments:[{name:'Echo',text:'我柜子里还有去年双十一的面膜。'},{name:'阿眠',text:'被“适合现在的你”打醒。'}]}
 ];
 const couponOffers=[
   {id:'cp-life',title:'生活刚需优惠提醒',copy:'外卖、超市与日用品；正式版仅接入可验证的官方渠道。',type:'生活刚需'},
@@ -1050,14 +1066,14 @@ function renderHabitModules(){renderDailyChecklist();renderChallenge();renderSea
 
 
 
-/* V11：省钱广场、图文分享与权益决策原型 */
+/* V11：省钱广场、轻动态社区与权益决策原型 */
 function switchHallTab(tab,save=true){
   const next=!isSimpleMode()&&tab==='plaza'?'plaza':'research';state.hallTab=next;
   const research=document.getElementById('researchHallPanel'),plaza=document.getElementById('plazaHallPanel');
   if(research)research.style.display=next==='research'?'block':'none';if(plaza)plaza.style.display=next==='plaza'?'block':'none';
   document.getElementById('researchHallTab')?.classList.toggle('active',next==='research');document.getElementById('plazaHallTab')?.classList.toggle('active',next==='plaza');
   if(save)saveStateOnly();if(next==='plaza')renderPlaza();
-  document.getElementById('discover')?.scrollTo({top:0,behavior:'smooth'});
+  if(save)document.getElementById('discover')?.scrollTo({top:0,behavior:'smooth'});
 }
 function renderPlaza(){renderPlazaCategories();renderPlazaFeed();renderCouponZone();
   const official=document.getElementById('plazaOfficialCount'),fav=document.getElementById('plazaFavoriteCount'),draft=document.getElementById('plazaDraftCount');
@@ -1066,30 +1082,30 @@ function renderPlaza(){renderPlazaCategories();renderPlazaFeed();renderCouponZon
 function renderPlazaCategories(){const root=document.getElementById('plazaCategoryChips');if(!root)return;root.innerHTML=plazaCategories.map(c=>`<button class="plaza-chip ${state.plazaCategory===c?'active':''}" onclick="setPlazaCategory('${c}')">${c}</button>`).join('');}
 function setPlazaCategory(cat){state.plazaCategory=cat;saveStateOnly();renderPlaza();}
 function plazaVisualFor(p){return plazaVisualPresets.find(x=>x.id===(p.visual||p.tone))||plazaVisualPresets[0];}
-function draftToPlazaPost(d){const preset=plazaVisualPresets.find(x=>x.id===d.visual)||plazaVisualPresets[0];const tags=(d.tags&&d.tags.length?d.tags:(d.amount?[`守住¥${d.amount}`]:['本地草稿']));return {id:d.id,cat:d.type==='kept'?'今天忍住了':'省钱攻略',icon:d.icon||preset.icon,tone:d.visual||preset.id,visual:d.visual||preset.id,author:'我',official:false,draft:true,title:d.title||'未命名图文',summary:d.content||'还没有正文。',tags,likes:0,saves:0,minutes:2,body:String(d.content||'').split(/\n+/).filter(Boolean),comments:0};}
+function draftToPlazaPost(d){const preset=plazaVisualPresets.find(x=>x.id===d.visual)||plazaVisualPresets[0],cat=d.cat||(d.type==='kept'?'还好没买':d.type==='tips'?'种草灭火':d.type)||'差点买了';const tags=(d.tags&&d.tags.length?d.tags:(d.amount?[`守住¥${d.amount}`]:['本地草稿']));return {id:d.id,cat,icon:d.icon||preset.icon,tone:d.visual||preset.id,visual:d.visual||preset.id,author:'我',official:false,draft:true,title:d.title||'刚刚发了一条冷静动态',summary:d.content||'还没有正文。',tags,likes:0,saves:0,minutes:1,body:String(d.content||'').split(/\n+/).filter(Boolean),comments:0};}
 function allPlazaPosts(){return [...(state.plazaDrafts||[]).map(draftToPlazaPost),...plazaPosts];}
 function filteredPlazaPosts(){const cat=state.plazaCategory||'推荐',posts=allPlazaPosts();if(cat==='推荐')return posts;return posts.filter(p=>p.cat===cat);}
 function findPlazaPost(id){return allPlazaPosts().find(x=>x.id===id);}
 function plazaLocalComments(id){state.plazaComments=state.plazaComments||{};return state.plazaComments[id]||[];}
-function plazaSampleComments(p){if(p.sampleComments)return p.sampleComments;if(p.ad)return [{name:'小林',text:'广告标识放前面这一点挺重要的。'},{name:'阿予',text:'希望正式版能显示有效期和门槛。'}];if(p.cat==='今天忍住了')return [{name:'北北',text:'这种“先等等”的记录很有代入感。'},{name:'Echo',text:'我也需要一个复盘日期提醒。'}];if(p.cat==='踩坑避雷')return [{name:'Momo',text:'看完立刻删掉了凑单商品。'},{name:'十一',text:'终于有人把“省了多少”换成“多花多少”来算。'}];return [{name:'小满',text:'这个可以直接放进我的下周清单。'},{name:'晴天',text:'比单纯推荐买什么更像真的帮我省钱。'}];}
+function plazaSampleComments(p){if(p.sampleComments)return p.sampleComments;if(p.cat==='提问')return [{name:'小满',text:'我会先租一次试试。'},{name:'研究所编辑',text:'先问使用频率，不问折扣。'}];if(p.cat==='差点买了')return [{name:'北北',text:'这种“先等等”的记录很有代入感。'},{name:'Echo',text:'我也需要一个复盘日期提醒。'}];if(p.cat==='种草灭火')return [{name:'Momo',text:'看完立刻删掉了购物车。'},{name:'十一',text:'被劝退了，谢谢。'}];return [{name:'小满',text:'这个可以直接放进我的下周清单。'},{name:'晴天',text:'比推荐买什么更像真的帮我省钱。'}];}
 function plazaCommentsFor(p){return [...plazaSampleComments(p),...plazaLocalComments(p.id)];}
 function plazaCommentCount(p){return (p.comments||0)+plazaCommentsFor(p).length;}
-function renderPostGallery(p){const preset=plazaVisualFor(p),tone=p.visual||p.tone||preset.id;return `<div class="post-gallery" onclick="openPlazaPost('${p.id}')"><div class="post-shot ${tone}"><span class="shot-icon">${p.icon||preset.icon}</span><span class="shot-caption">${escapeHtml(p.title)}</span></div><div class="post-shot secondary"><span class="shot-icon">💬</span><span class="shot-caption">${plazaCommentCount(p)} 条讨论</span></div></div>`;}
-function renderCommentPreview(p){return `<div class="comment-preview">${plazaCommentsFor(p).slice(0,2).map(c=>`<div class="comment-line"><strong>${escapeHtml(c.name)}：</strong>${escapeHtml(c.text)}</div>`).join('')}</div>`;}
-function plazaPostCard(p){const liked=(state.plazaLikes||[]).includes(p.id),saved=(state.plazaFavorites||[]).includes(p.id);return `<article class="post-card">${renderPostGallery(p)}<div class="post-body"><div class="post-meta"><div class="post-author"><span class="post-avatar">${p.draft?'我':p.official?'研':'用'}</span>${escapeHtml(p.author)} · ${p.draft?'本地图文草稿':'图文分享'}</div><span>${p.draft?'未公开':`约 ${p.minutes} 分钟`}</span></div><p class="post-summary">${escapeHtml(p.summary)}</p><div class="post-tags">${(p.tags||[]).map(t=>`<span class="post-tag">#${escapeHtml(t)}</span>`).join('')}</div></div><div class="post-social">${renderCommentPreview(p)}</div><div class="post-actions"><button class="${liked?'active':''}" onclick="togglePlazaLike('${p.id}')">♡ ${p.likes+(liked?1:0)}</button><button onclick="openPlazaPost('${p.id}')">💬 ${plazaCommentCount(p)}</button><button class="${saved?'active':''}" onclick="togglePlazaFavorite('${p.id}')">☆ ${saved?'已收藏':'收藏'}</button><button onclick="sharePlazaPost('${p.id}')">↗ 分享</button></div></article>`;}
+function renderPostGallery(p){const preset=plazaVisualFor(p),tone=p.visual||p.tone||preset.id;return `<div class="post-gallery" onclick="openPlazaPost('${p.id}')"><div class="post-shot ${tone}"><span class="shot-icon">${p.icon||preset.icon}</span><span class="shot-caption">${escapeHtml(p.title)}</span></div></div>`;}
+function plazaPostCard(p){const liked=(state.plazaLikes||[]).includes(p.id),saved=(state.plazaFavorites||[]).includes(p.id),likeCount=p.likes+(liked?1:0);return `<article class="post-card"><div class="post-body"><div class="post-meta"><div class="post-author"><span class="post-avatar">${p.draft?'我':p.official?'研':(p.author||'用').slice(0,1)}</span><span>${escapeHtml(p.author)}</span><span style="color:#A09890;font-weight:800">· ${p.draft?'本机草稿':`${p.minutes} 分钟前`}</span></div><button class="link" onclick="reportPlazaPost('${p.id}')">···</button></div><p class="post-summary"><strong>${escapeHtml(p.title)}</strong><br>${escapeHtml(p.summary)}</p><div class="post-tags">${(p.tags||[]).map(t=>`<span class="post-tag">#${escapeHtml(t)}</span>`).join('')}</div></div>${renderPostGallery(p)}<div class="post-actions"><button class="${liked?'active':''}" onclick="togglePlazaLike('${p.id}')"><span class="post-action-dot">${liked?'♥':'♡'}</span>${likeCount}</button><button onclick="openPlazaPost('${p.id}')"><span class="post-action-dot">💬</span>${plazaCommentCount(p)}</button><button class="${saved?'active':''}" onclick="togglePlazaFavorite('${p.id}')"><span class="post-action-dot">${saved?'★':'☆'}</span></button><button onclick="sharePlazaPost('${p.id}')"><span class="post-action-dot">↗</span></button></div></article>`;}
 function renderPlazaFeed(){const root=document.getElementById('plazaFeed');if(!root)return;const posts=filteredPlazaPosts();root.innerHTML=posts.length?posts.map(plazaPostCard).join(''):`<div class="empty" style="padding:36px 20px"><div class="emoji">🧾</div><h3>这个板块还在整理</h3><p>正式版本会持续补充经过审核的内容。</p></div>`;}
 function toggleInList(key,id){const list=new Set(state[key]||[]);list.has(id)?list.delete(id):list.add(id);state[key]=[...list];saveStateOnly();renderPlaza();}
 function togglePlazaLike(id){toggleInList('plazaLikes',id);}
 function togglePlazaFavorite(id){toggleInList('plazaFavorites',id);toast((state.plazaFavorites||[]).includes(id)?'已收藏到研究档案':'已取消收藏');}
 function renderPlazaComments(p){return `<div class="comment-section"><div class="habit-eyebrow">COMMENTS · ${plazaCommentCount(p)}</div>${plazaCommentsFor(p).map(c=>`<div class="comment-bubble"><strong>${escapeHtml(c.name)}</strong><p>${escapeHtml(c.text)}</p></div>`).join('')}</div>`;}
-function openPlazaPost(id){const p=findPlazaPost(id);if(!p)return;const saved=(state.plazaFavorites||[]).includes(id),article=(p.body&&p.body.length?p.body:[p.summary]);openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">${p.ad?'ADVERTISEMENT · 明确标识':escapeHtml(p.cat)} · 图文详情</div><h3>${p.icon} ${escapeHtml(p.title)}</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div>${renderPostGallery(p)}<div class="quick-panel"><h3>${escapeHtml(p.summary)}</h3><p>由 ${escapeHtml(p.author)} 分享。${p.draft?'这条内容仅保存在本机，方便预览图文社区体验。':p.ad?'该内容为商业模式预告，不包含真实优惠链接。':''}</p></div><div class="post-article">${article.map(x=>`<p>${escapeHtml(x)}</p>`).join('')}</div>${p.challenge?'<button class="primary" style="width:100%;margin-top:12px" onclick="closeSheet();startChallenge();switchHallTab(\'research\');">加入 7 天冷静挑战</button>':''}${p.cat==='优惠情报'?'<button class="secondary" style="width:100%;margin-top:10px" onclick="closeSheet();openCouponDecision(\'cp-life\')">体验“确认需要后找优惠”</button>':''}${renderPlazaComments(p)}<div class="comment-compose"><textarea id="plazaCommentInput-${p.id}" maxlength="120" placeholder="写一句真实反馈，例：我也遇到过 / 这个方法我想试试"></textarea><button class="primary" onclick="addPlazaComment('${p.id}')">发表评论</button></div><div class="sheet-actions"><button class="secondary" onclick="togglePlazaFavorite('${p.id}');openPlazaPost('${p.id}')">${saved?'取消收藏':'收藏内容'}</button><button class="primary" onclick="sharePlazaPost('${p.id}')">分享</button></div><button class="link" style="width:100%;margin-top:8px" onclick="reportPlazaPost('${p.id}')">举报内容问题</button>`);}
+function openPlazaPost(id){const p=findPlazaPost(id);if(!p)return;const saved=(state.plazaFavorites||[]).includes(id),article=(p.body&&p.body.length?p.body:[p.summary]);openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">${escapeHtml(p.cat)} · 动态详情</div><h3>${p.icon} ${escapeHtml(p.title)}</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="quick-panel"><h3>${escapeHtml(p.summary)}</h3><p>由 ${escapeHtml(p.author)} 分享。${p.draft?'这条动态只保存在本机，用来预览轻社区体验。':'广场内容只讨论冷静消费，不做导购推荐。'}</p></div>${renderPostGallery(p)}<div class="post-article">${article.map(x=>`<p>${escapeHtml(x)}</p>`).join('')}</div>${p.challenge?'<button class="primary" style="width:100%;margin-top:12px" onclick="closeSheet();startChallenge();switchHallTab(\'research\');">加入 7 天冷静挑战</button>':''}${renderPlazaComments(p)}<div class="comment-compose"><textarea id="plazaCommentInput-${p.id}" maxlength="120" placeholder="写一句真实反馈，例：我也遇到过 / 这个方法我想试试"></textarea><button class="primary" onclick="addPlazaComment('${p.id}')">发表评论</button></div><div class="sheet-actions"><button class="secondary" onclick="togglePlazaFavorite('${p.id}');openPlazaPost('${p.id}')">${saved?'取消收藏':'收藏动态'}</button><button class="primary" onclick="sharePlazaPost('${p.id}')">分享</button></div><button class="link" style="width:100%;margin-top:8px" onclick="reportPlazaPost('${p.id}')">举报内容问题</button>`);}
 function addPlazaComment(id){const input=document.getElementById(`plazaCommentInput-${id}`),text=input?.value.trim();if(!text){toast('先写一句评论');return;}state.plazaComments=state.plazaComments||{};state.plazaComments[id]=[...(state.plazaComments[id]||[]),{name:'我',text,createdAt:Date.now()}];saveStateOnly();renderPlaza();openPlazaPost(id);toast('评论已保存在本机');}
 async function sharePlazaPost(id){const p=findPlazaPost(id);if(!p)return;const text=`不买研究所｜${p.title}\n${p.summary}`;try{if(navigator.share)await navigator.share({title:p.title,text});else if(navigator.clipboard){await navigator.clipboard.writeText(text);toast('分享文案已复制');}else toast('当前浏览器不支持直接分享');}catch(e){if(e?.name!=='AbortError')toast('分享没有完成');}}
 function reportPlazaPost(id){if((state.plazaReports||[]).includes(id)){toast('你已经提交过这条内容的反馈');return;}if(confirm('确认提交内容问题反馈吗？原型会把记录保存在本机。')){state.plazaReports=[...(state.plazaReports||[]),id];saveStateOnly();toast('反馈已记录，正式版本将进入审核队列');}}
 function selectPlazaVisual(id){document.getElementById('plazaDraftVisual').value=id;document.querySelectorAll('.visual-option').forEach(btn=>btn.classList.toggle('active',btn.dataset.visual===id));}
-function openPublishTemplate(){const defaultVisual='green',picker=plazaVisualPresets.map(v=>`<button class="visual-option post-shot ${v.id} ${v.id===defaultVisual?'active':''}" data-visual="${v.id}" onclick="selectPlazaVisual('${v.id}')"><span>${v.icon}</span>${v.label}</button>`).join('');openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">PHOTO POST · 本地原型</div><h3>发一条图文</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div><input id="plazaDraftType" type="hidden" value="post"><input id="plazaDraftVisual" type="hidden" value="${defaultVisual}"><div class="field"><label>选择封面氛围</label><div class="visual-picker">${picker}</div></div><div class="field"><label for="plazaDraftTitle">标题</label><input id="plazaDraftTitle" maxlength="50" placeholder="例如：今晚差点下单，最后只存进冷静车"></div><div class="field"><label for="plazaDraftContent">正文</label><textarea id="plazaDraftContent" maxlength="500" placeholder="像发朋友圈一样写：当时想买什么、你怎么停下来的、最后感受如何。"></textarea></div><div class="two-fields"><div class="field"><label for="plazaDraftAmount">可选：守住金额</label><input id="plazaDraftAmount" type="number" min="0" placeholder="1899"></div><div class="field"><label for="plazaDraftTags">可选：标签</label><input id="plazaDraftTags" maxlength="32" placeholder="数码, 深夜"></div></div><div class="checkbox-row"><input type="checkbox" id="plazaNoPromo"><label for="plazaNoPromo">我确认内容不包含返利码、外部群聊、私下交易或未标注的商业推广。正式版本如包含商业合作，必须显著标明“广告”。</label></div><div class="moderation-card"><strong>原型限制：</strong>这条图文会保存成本机草稿，并显示在你的广场信息流顶部；不会真正上传，也不会被别人看到。</div><button class="primary" style="width:100%" onclick="savePlazaDraft()">保存图文草稿</button>`);}
-function savePlazaDraft(){const title=document.getElementById('plazaDraftTitle')?.value.trim(),content=document.getElementById('plazaDraftContent')?.value.trim(),type=document.getElementById('plazaDraftType')?.value||'post',visual=document.getElementById('plazaDraftVisual')?.value||'green',agree=document.getElementById('plazaNoPromo')?.checked;if(!title||!content){toast('请填写标题和正文');return;}if(!agree){toast('请确认社区发布规范');return;}const preset=plazaVisualPresets.find(x=>x.id===visual)||plazaVisualPresets[0],amount=Number(document.getElementById('plazaDraftAmount')?.value||0),customTags=String(document.getElementById('plazaDraftTags')?.value||'').split(/[，,\s#]+/).map(x=>x.trim()).filter(Boolean).slice(0,3),tags=[...customTags,...(amount?[`守住¥${amount}`]:[])];const draft={id:'draft-'+Date.now(),type,title,content,amount,visual,icon:preset.icon,tags:tags.length?tags:['本地图文'],createdAt:Date.now(),status:'本地图文草稿'};state.plazaDrafts=[draft,...(state.plazaDrafts||[])];saveStateOnly();closeSheet();renderPlaza();toast('图文草稿已加入广场顶部');}
-function openPlazaDrafts(){const drafts=state.plazaDrafts||[];openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">MY PHOTO POSTS</div><h3>我的图文草稿</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div>${drafts.length?drafts.map(d=>`<div class="order-card"><div class="row-between"><div><span class="draft-badge">${escapeHtml(d.status||'本地图文草稿')}</span><div class="order-id" style="margin-top:7px">${escapeHtml(d.title)}</div></div><button class="link" onclick="deletePlazaDraft('${d.id}')">删除</button></div><div class="order-items">${escapeHtml(d.content)}</div><div class="order-foot"><span>${(d.tags||['本地图文']).map(t=>`#${escapeHtml(t)}`).join(' ')}</span><span>${new Date(d.createdAt).toLocaleString('zh-CN')}</span></div><button class="secondary" style="width:100%;margin-top:10px" onclick="openPlazaPost('${d.id}')">预览图文和评论</button></div>`).join(''):`<div class="empty" style="padding:48px 20px"><div class="emoji">✍️</div><h3>还没有图文草稿</h3><p>先用本机草稿验证发布体验，等正式版本再接入账号、图片上传和内容审核。</p><button class="primary" onclick="openPublishTemplate()">创建第一条图文</button></div>`}`);}
+function selectPlazaTopic(cat){document.getElementById('plazaDraftTopic').value=cat;document.querySelectorAll('.topic-pill').forEach(btn=>btn.classList.toggle('active',btn.dataset.topic===cat));}
+function openPublishTemplate(){const defaultVisual='green',defaultTopic='差点买了',topics=plazaTopicOptions.map(t=>`<button class="topic-pill ${t===defaultTopic?'active':''}" data-topic="${t}" onclick="selectPlazaTopic('${t}')">${t}</button>`).join(''),picker=plazaVisualPresets.map(v=>`<button class="visual-option post-shot ${v.id} ${v.id===defaultVisual?'active':''}" data-visual="${v.id}" onclick="selectPlazaVisual('${v.id}')"><span>${v.icon}</span>${v.label}</button>`).join('');openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">NEW POST · 本地原型</div><h3>发一条动态</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div><input id="plazaDraftTopic" type="hidden" value="${defaultTopic}"><input id="plazaDraftVisual" type="hidden" value="${defaultVisual}"><div class="field"><label>选择话题</label><div class="topic-choice">${topics}</div></div><div class="field"><label for="plazaDraftContent">今天差点买了什么？</label><textarea id="plazaDraftContent" maxlength="360" placeholder="例如：刚下班刷到一只通勤包，差点付款。先放冷静车，明天午休再看。"></textarea></div><div class="field"><label for="plazaDraftTitle">可选标题</label><input id="plazaDraftTitle" maxlength="38" placeholder="不填也可以"></div><div class="two-fields"><div class="field"><label for="plazaDraftAmount">可选金额</label><input id="plazaDraftAmount" type="number" min="0" placeholder="399"></div><div class="field"><label for="plazaDraftTags">可选标签</label><input id="plazaDraftTags" maxlength="32" placeholder="通勤包, 下班"></div></div><details><summary style="font-size:11px;font-weight:900;color:#56665B;margin:4px 0 8px">封面氛围</summary><div class="visual-picker">${picker}</div></details><p class="composer-note">这只是本机原型动态，不会真正发布。正式版本需要账号、审核、举报和图片上传。</p><button class="primary" style="width:100%" onclick="savePlazaDraft()">保存到广场顶部</button>`);}
+function savePlazaDraft(){const content=document.getElementById('plazaDraftContent')?.value.trim(),rawTitle=document.getElementById('plazaDraftTitle')?.value.trim(),cat=document.getElementById('plazaDraftTopic')?.value||'差点买了',visual=document.getElementById('plazaDraftVisual')?.value||'green';if(!content){toast('先写一句动态');return;}const preset=plazaVisualPresets.find(x=>x.id===visual)||plazaVisualPresets[0],amount=Number(document.getElementById('plazaDraftAmount')?.value||0),customTags=String(document.getElementById('plazaDraftTags')?.value||'').split(/[，,\s#]+/).map(x=>x.trim()).filter(Boolean).slice(0,3),tags=[...customTags,...(amount?[`守住¥${amount}`]:[])],title=rawTitle||content.replace(/\s+/g,' ').slice(0,26);const draft={id:'draft-'+Date.now(),type:cat,cat,title,content,amount,visual,icon:preset.icon,tags:tags.length?tags:[cat],createdAt:Date.now(),status:'本地动态草稿'};state.plazaDrafts=[draft,...(state.plazaDrafts||[])];saveStateOnly();closeSheet();renderPlaza();toast('已放到广场顶部');}
+function openPlazaDrafts(){const drafts=state.plazaDrafts||[];openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">MY POSTS</div><h3>我的动态草稿</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div>${drafts.length?drafts.map(d=>`<div class="order-card"><div class="row-between"><div><span class="draft-badge">${escapeHtml(d.status||'本地动态草稿')}</span><div class="order-id" style="margin-top:7px">${escapeHtml(d.title)}</div></div><button class="link" onclick="deletePlazaDraft('${d.id}')">删除</button></div><div class="order-items">${escapeHtml(d.content)}</div><div class="order-foot"><span>${(d.tags||['本地动态']).map(t=>`#${escapeHtml(t)}`).join(' ')}</span><span>${new Date(d.createdAt).toLocaleString('zh-CN')}</span></div><button class="secondary" style="width:100%;margin-top:10px" onclick="openPlazaPost('${d.id}')">预览动态和评论</button></div>`).join(''):`<div class="empty" style="padding:48px 20px"><div class="emoji">✍️</div><h3>还没有动态草稿</h3><p>先用本机草稿验证发布体验，等正式版本再接入账号、图片上传和内容审核。</p><button class="primary" onclick="openPublishTemplate()">创建第一条动态</button></div>`}`);}
 function deletePlazaDraft(id){state.plazaDrafts=(state.plazaDrafts||[]).filter(x=>x.id!==id);saveStateOnly();openPlazaDrafts();renderPlaza();}
 function renderCouponZone(){const root=document.getElementById('plazaCouponArea');if(!root)return;root.innerHTML=`<div class="coupon-zone"><div class="habit-head"><div><div class="habit-eyebrow" style="color:#83662D">RIGHTS PREVIEW · 商业化占位</div><h3>确认需要后，再帮你找优惠</h3><p>当前不接入真实平台或优惠券；这里只演示未来的合规决策路径。</p></div></div><div class="coupon-list">${couponOffers.map(c=>`<div class="coupon-card"><div><strong>${escapeHtml(c.title)}</strong><small>${escapeHtml(c.copy)}</small></div><button onclick="openCouponDecision('${c.id}')">先判断</button></div>`).join('')}</div></div>`;}
 function openCouponDecision(id){const c=couponOffers.find(x=>x.id===id);if(!c)return;openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">NEED CHECK · ${escapeHtml(c.type)}</div><h3>${escapeHtml(c.title)}</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="coupon-steps"><div class="coupon-step"><span>1</span><div><strong>确认真实需求</strong><small>没有这张券，你是否仍然会购买或使用这项服务？</small></div></div><div class="coupon-step"><span>2</span><div><strong>检查预算影响</strong><small>优惠不能把非必要消费自动变成必要消费。</small></div></div><div class="coupon-step"><span>3</span><div><strong>只看可验证渠道</strong><small>正式版会展示来源、门槛、有效期与平台佣金说明。</small></div></div></div><div class="field"><label for="couponReason">为什么这次确实需要？</label><textarea id="couponReason" maxlength="160" placeholder="例如：本周确实需要采购日用品，已列好清单。"></textarea></div><div class="checkbox-row"><input type="checkbox" id="couponNeedConfirm"><label for="couponNeedConfirm">即使没有优惠，我也有明确需求；我不是为了领券临时增加消费。</label></div><button class="primary" style="width:100%" onclick="confirmCouponNeed('${c.id}')">完成需要性判断</button><div class="prototype-note">此原型不会跳转真实电商或产生佣金。正式上线后，任何含购买链接的内容都必须显著标识“广告”。</div>`);}
@@ -1154,7 +1170,8 @@ function renderProducts(){
 }
 function loadMoreProducts(){visibleProductLimit+=36;renderProducts();}
 function shuffleProducts(){displayProducts=[...allProducts()].sort(()=>Math.random()-.5);visibleProductLimit=36;renderProducts();toast('已从全部品类更换一批研究对象');}
-function addToCart(id,qty=1){state.cart[id]=(state.cart[id]||0)+qty;markDailyCompleted(id);persist();toast('已放进冷静车，暂时没有花钱');}
+function updateCartBadge(){const count=cartItems().reduce((s,x)=>s+x.qty,0),badge=document.getElementById('cartBadge');if(!badge)return;badge.textContent=count;badge.style.display=count?'grid':'none';}
+function addToCart(id,qty=1){state.cart[id]=(state.cart[id]||0)+qty;markDailyCompleted(id);saveStateOnly();updateCartBadge();updateSimpleHome();if(document.getElementById('cart')?.classList.contains('active'))renderCart();toast('已放进冷静车，暂时没有花钱');}
 function changeQty(id,d){state.cart[id]=(state.cart[id]||0)+d;if(state.cart[id]<=0)delete state.cart[id];persist();}
 function clearCart(){if(!cartItems().length)return;if(confirm('清空当前冷静车？')){state.cart={};persist();}}
 
@@ -1190,18 +1207,32 @@ function createOrder(skip){
 }
 function showDelivery(id,autoplay=true){
   clearInterval(deliveryTimer);const order=state.orders.find(o=>o.id===id);if(!order)return;
-  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验 ${order.id}</h3><button class="iconbtn" onclick="closeSheet();go('records')">✕</button></div><div class="rider-map"><div class="road"></div><div class="rider">🛵</div></div><div class="timeline" id="timeline"></div><div class="sheet-actions"><button class="secondary" id="skipDelivery" onclick="skipDelivery('${order.id}')">跳过动画</button><button class="primary" id="deliveryNext" onclick="showCoolingCreated('${order.id}')" ${order.stage<5?'disabled style="opacity:.45"':''}>进入冷静期</button></div>`;
+  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验 ${order.id}</h3><button class="iconbtn" onclick="closeSheet();go('records')">✕</button></div>${renderRouteMap(order)}<div class="timeline" id="timeline"></div><div class="sheet-actions"><button class="secondary" id="skipDelivery" onclick="skipDelivery('${order.id}')">跳过路线</button><button class="primary" id="deliveryNext" onclick="showCoolingCreated('${order.id}')" ${order.stage<5?'disabled style="opacity:.45"':''}>进入冷静期</button></div>`;
   renderTimeline(order);
   if(autoplay&&order.stage<5){deliveryTimer=setInterval(()=>{if(order.stage<5){order.stage++;persist();renderTimeline(order);const next=document.getElementById('deliveryNext');if(order.stage>=5&&next){next.disabled=false;next.style.opacity='1';}}else clearInterval(deliveryTimer);},1400);}
 }
+function routeProgress(order){return Math.max(0,Math.min(100,Math.round((order.stage||0)/5*100)));}
+function routeMeta(order){
+  const cat=order.items?.[0]?.cat||'消费冲动';
+  const map={深夜外卖:['夜宵店','冷静舱'],奶茶甜品:['甜品店','冷静舱'],咖啡烘焙:['咖啡馆','冷静舱'],数码影音:['数码城','冷静舱'],电脑办公:['办公区','冷静舱'],美妆护肤:['种草柜台','冷静舱'],旅行出行:['出发前清单','冷静舱'],家居软装:['家居展厅','冷静舱']};
+  const pair=map[cat]||['冲动现场','冷静舱'];
+  return {from:pair[0],to:pair[1],distance:(1.8+(String(order.id).charCodeAt(2)%8)/10).toFixed(1),eta:Math.max(0,(5-(order.stage||0))*2)};
+}
+function routeMarkerPoint(order){return [{x:14,y:77},{x:31,y:77},{x:31,y:35},{x:59,y:35},{x:59,y:25},{x:88,y:25}][Math.max(0,Math.min(5,order.stage||0))];}
+function routeMapInner(order){
+  const progress=routeProgress(order),meta=routeMeta(order),point=routeMarkerPoint(order);
+  return `<div class="route-head"><strong>理智研究员正在规划路线</strong><span>${progress}% · ${meta.eta?`约 ${meta.eta} 分钟`:'已到达'}</span></div><div class="rider-map" style="--route-progress:${progress};--marker-x:${point.x};--marker-y:${point.y}"><div class="map-road h1"></div><div class="map-road h2"></div><div class="map-road v1"></div><div class="map-road v2"></div><div class="map-street s1">理智路</div><div class="map-street s2">冷静大道</div><div class="map-street s3">观察巷</div><div class="map-street s4">暂停街</div><div class="map-block b1"></div><div class="map-block b2"></div><div class="map-block b3"></div><div class="map-block b4"></div><svg class="route-svg" viewBox="0 0 340 220" preserveAspectRatio="none" aria-hidden="true"><path class="route-shadow" d="M47 169 L105 169 L105 77 L201 77 L201 55 L299 55"/><path class="route-base" d="M47 169 L105 169 L105 77 L201 77 L201 55 L299 55"/><path class="route-active" pathLength="100" style="stroke-dashoffset:${100-progress}" d="M47 169 L105 169 L105 77 L201 77 L201 55 L299 55"/></svg><div class="map-pin origin">起</div><div class="map-pin dest">冷</div><div class="route-marker">🛵</div><div class="map-label origin">${escapeHtml(meta.from)}<br>冲动发生地</div><div class="map-label dest">${escapeHtml(meta.to)}<br>真实支付 ¥0</div></div><div class="route-stats"><div class="route-stat"><strong>${meta.distance} km</strong><span>模拟距离</span></div><div class="route-stat"><strong>${meta.eta?meta.eta+' min':'完成'}</strong><span>预计到达</span></div><div class="route-stat"><strong>¥0</strong><span>真实支付</span></div></div>`;
+}
+function renderRouteMap(order){return `<div class="route-card" id="deliveryRouteWrap">${routeMapInner(order)}</div>`;}
 function renderTimeline(order){
-  const steps=['研究对象已登记','虚拟订单已生成','理智研究员已接单','冲动正在经过观察区','真实支付保持为 ¥0','冷静实验准备完成'];
+  const map=document.getElementById('deliveryRouteWrap');if(map)map.innerHTML=routeMapInner(order);
+  const steps=['研究对象已登记','虚拟订单已生成','路线已规划','理智研究员已接单','冲动送往冷静舱','冷静实验准备完成'];
   const root=document.getElementById('timeline');if(root)root.innerHTML=steps.map((s,i)=>`<div class="timeline-item ${i<=order.stage?'active':''}"><span class="dot"></span><span>${s}</span></div>`).join('');
 }
 function skipDelivery(id){const o=state.orders.find(x=>x.id===id);if(!o)return;o.stage=5;persist();showDelivery(id,false);}
 function showCoolingCreated(id){
   clearInterval(deliveryTimer);const o=state.orders.find(x=>x.id===id);if(!o)return;
-  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>冷静实验已开始</h3><p>本次模拟消费 ${money(o.amount)}，真实支付 ¥0。建议在 ${formatHours(Math.round((o.coolingUntil-o.created)/3600000))} 后重新判断：你想要的是商品，还是当时的情绪出口？</p></div><div class="virtual-warning">V11.5 默认使用极简日用模式；完整模式仍保留虚拟结算仪式，但只有冷静后确认没有真实购买，金额才会计入“确认守住”。</div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">查看记录</button><button class="primary" onclick="openReview('${o.id}',true)">原型演示复盘</button></div>`;
+  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>冷静实验已开始</h3><p>本次模拟消费 ${money(o.amount)}，真实支付 ¥0。建议在 ${formatHours(Math.round((o.coolingUntil-o.created)/3600000))} 后重新判断：你想要的是商品，还是当时的情绪出口？</p></div><div class="virtual-warning">V11.7 默认使用极简日用模式；完整模式仍保留虚拟结算仪式，但只有冷静后确认没有真实购买，金额才会计入“确认守住”。</div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">查看记录</button><button class="primary" onclick="openReview('${o.id}',true)">原型演示复盘</button></div>`;
 }
 
 function renderRecordFilters(){document.getElementById('recordFilters').innerHTML=recordFilterOptions.map(f=>`<button class="${recordFilter===f.id?'active':''}" onclick="setRecordFilter('${f.id}')">${f.label}</button>`).join('');}
@@ -1497,7 +1528,7 @@ function renderProfile(){
 }
 function showMigrationSheet(){
   openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>小程序迁移准备</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
-    <div class="quick-panel"><h3>V11.5 先稳住日用主循环</h3><p>当前仍是单页 HTML 原型。迁移微信小程序时，建议优先拆出“今天先不买、冷静记录、复盘”三条核心路径，再迁移深度内容。</p></div>
+    <div class="quick-panel"><h3>V11.7 先稳住日用主循环</h3><p>当前仍是单页 HTML 原型。迁移微信小程序时，建议优先拆出“今天先不买、冷静记录、复盘”三条核心路径，再迁移深度内容。</p></div>
     <div class="feature-list">
       <div class="feature-item"><span class="feature-check">1</span><div><strong>页面拆分</strong><small>发现、冷静车、实验、记录、我的、省钱广场、省钱研究室分别成为小程序页面或分包页面。</small></div></div>
       <div class="feature-item"><span class="feature-check">2</span><div><strong>数据模块</strong><small>商品库、广场内容、冷静订单、每日清单、挑战、省钱报告拆成独立数据文件，先继续使用本地存储。</small></div></div>
@@ -1510,13 +1541,13 @@ function showMigrationSheet(){
 function showPrivacySheet(){
   const daily=ensureDailyChecklist();
   openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>隐私与数据</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
-    <div class="quick-panel"><h3>当前版本只保存在本机</h3><p>V11.5 是纯前端 HTML 原型，不接入账号、云端数据库、真实支付、公开发帖或第三方 AI 服务。你的冷静记录、私人商品、省钱研究室资料、广场评论和图文草稿只写入当前浏览器的本地存储。</p></div>
+    <div class="quick-panel"><h3>当前版本只保存在本机</h3><p>V11.7 是纯前端 HTML 原型，不接入账号、云端数据库、真实支付、地图定位、公开发帖或第三方 AI 服务。你的冷静记录、私人商品、省钱研究室资料、广场评论和动态草稿只写入当前浏览器的本地存储。</p></div>
     <div class="insight-card">
       <h3>当前会保存</h3>
       <div class="insight-row"><span>冷静实验记录</span><strong>${state.orders.length} 笔</strong></div>
       <div class="insight-row"><span>私人研究对象</span><strong>${(state.customProducts||[]).length} 个</strong></div>
       <div class="insight-row"><span>每日研究清单</span><strong>${(daily.completedIds||[]).length}/${daily.ids.length}</strong></div>
-      <div class="insight-row"><span>广场图文草稿</span><strong>${(state.plazaDrafts||[]).length} 条</strong></div>
+      <div class="insight-row"><span>广场动态草稿</span><strong>${(state.plazaDrafts||[]).length} 条</strong></div>
       <div class="insight-row"><span>省钱研究室资料</span><strong>${state.savingsProfile?'已填写':'未填写'}</strong></div>
       <div class="insight-row"><span>本地存储键名</span><strong>${STATE_KEY}</strong></div>
     </div>
@@ -1525,7 +1556,7 @@ function showPrivacySheet(){
 }
 function showAboutSheet(){
   openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>关于不买研究所</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
-    <div class="paywall-hero"><div class="paywall-icon">🛍️</div><h3>不买研究所</h3><p>NO BUY LAB V11.5 默认使用极简日用模式，把第一步收敛到“今天先不买一下”；完整模式仍保留 V11 的深度内容。</p><div class="price-pending">V11.5 · DAILY PAUSE · HTML Prototype</div></div>
+    <div class="paywall-hero"><div class="paywall-icon">🛍️</div><h3>不买研究所</h3><p>NO BUY LAB V11.7 默认使用极简日用模式，把第一步收敛到“今天先不买一下”；完整模式仍保留 V11 的深度内容。</p><div class="price-pending">V11.7 · DAILY PAUSE · HTML Prototype</div></div>
     <div class="feature-list">
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>核心体验</strong><small>虚拟下单、冷静实验、冷静记录、守住金额、挑战清单和真实决定复盘。</small></div></div>
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>品牌与内容</strong><small>商品品牌、型号、商品图和省钱广场内容均为原型设定，不代表真实交易或真实品牌。</small></div></div>
@@ -1535,7 +1566,7 @@ function showAboutSheet(){
     <button class="primary" style="width:100%" onclick="closeSheet();go('experiment')">开始一次冷静实验</button>`);
 }
 function exportData(){
-  const payload={exportedAt:new Date().toISOString(),brand:'不买研究所 NO BUY LAB',version:'V11.5',experienceMode:state.experienceMode,summary:{confirmedSaved:state.confirmedSaved,simulatedAmount:state.simulatedAmount,successRate:successRate()},orders:state.orders,customProducts:state.customProducts,dailyChecklist:state.dailyChecklist,challenge:state.challenge,savingsProfile:state.savingsProfile,savingsReports:state.savingsReports,plaza:{favorites:state.plazaFavorites,drafts:state.plazaDrafts,comments:state.plazaComments,reports:state.plazaReports,couponIntent:state.couponIntent}};
+  const payload={exportedAt:new Date().toISOString(),brand:'不买研究所 NO BUY LAB',version:'V11.7',experienceMode:state.experienceMode,summary:{confirmedSaved:state.confirmedSaved,simulatedAmount:state.simulatedAmount,successRate:successRate()},orders:state.orders,customProducts:state.customProducts,dailyChecklist:state.dailyChecklist,challenge:state.challenge,savingsProfile:state.savingsProfile,savingsReports:state.savingsReports,plaza:{favorites:state.plazaFavorites,drafts:state.plazaDrafts,comments:state.plazaComments,reports:state.plazaReports,couponIntent:state.couponIntent}};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='不买研究所-研究数据.json';a.click();URL.revokeObjectURL(a.href);toast('研究数据已导出');
 }
 function resetDemo(){if(confirm('确定重置所有本地演示数据吗？')){state=defaultState();state.onboarded=true;persist();closeSheet();go('discover');toast('演示数据已重置');}}
@@ -1546,7 +1577,7 @@ function go(id){
 }
 function updateHero(){const rate=successRate();document.getElementById('confirmedSaved').textContent=money(state.confirmedSaved);document.getElementById('simulatedAmount').textContent=money(state.simulatedAmount);document.getElementById('successRate').textContent=rate===null?'等待首次复盘':rate+'%';}
 function updateAll(){
-  const count=cartItems().reduce((s,x)=>s+x.qty,0),badge=document.getElementById('cartBadge');badge.textContent=count;badge.style.display=count?'grid':'none';updateExperienceMode();renderMoods();renderCategoryRail();updateHero();updateSimpleHome();renderHabitModules();renderPlaza();renderCart();renderRecordFilters();renderOrders();renderProfile();updateSavingsLabStatus();switchHallTab(isSimpleMode()?'research':state.hallTab||'research',false);
+  updateCartBadge();updateExperienceMode();renderMoods();renderCategoryRail();updateHero();updateSimpleHome();renderHabitModules();renderPlaza();renderCart();renderRecordFilters();renderOrders();renderProfile();updateSavingsLabStatus();switchHallTab(isSimpleMode()?'research':state.hallTab||'research',false);
 }
 function openSheet(html){document.getElementById('sheetCard').innerHTML=html;document.getElementById('sheet').classList.add('open');}
 function closeSheet(){clearInterval(deliveryTimer);document.getElementById('sheet').classList.remove('open');}

@@ -1,0 +1,126 @@
+.hero {
+  position: relative;
+  min-height: 360rpx;
+  overflow: hidden;
+  background: linear-gradient(145deg, #10271B, #16A34A);
+  color: #FFFFFF;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  width: 66%;
+}
+
+.hero .eyebrow {
+  color: #B9F33D;
+}
+
+.hero .muted {
+  color: #DDF4E4;
+}
+
+.hero-img {
+  position: absolute;
+  right: -34rpx;
+  bottom: -20rpx;
+  width: 260rpx;
+  height: 260rpx;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18rpx;
+}
+
+.option {
+  min-height: 190rpx;
+  padding: 22rpx;
+  border: 1rpx solid #E1EBDD;
+  border-radius: 26rpx;
+  background: #FFFFFF;
+  text-align: left;
+  box-shadow: 0 10rpx 28rpx rgba(27, 93, 49, .05);
+}
+
+.option.active {
+  background: #10271B;
+  border-color: #10271B;
+  color: #B9F33D;
+}
+
+.option-icon {
+  display: block;
+  font-size: 42rpx;
+}
+
+.option-title {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  font-weight: 900;
+}
+
+.option-copy {
+  display: block;
+  margin-top: 8rpx;
+  color: #6D655D;
+  font-size: 21rpx;
+  line-height: 1.45;
+}
+
+.option.active .option-copy {
+  color: #D7F0C9;
+}
+
+.submit {
+  margin-top: 24rpx;
+}
+
+.daily-title {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 32rpx;
+  font-weight: 900;
+}
+
+.daily-count {
+  flex: 0 0 auto;
+  color: #16A34A;
+  font-size: 24rpx;
+  font-weight: 900;
+}
+
+.dot-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10rpx;
+  margin: 24rpx 0;
+}
+
+.dot {
+  height: 54rpx;
+  border-radius: 18rpx;
+  background: #F0F5EB;
+  color: #82907E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  font-weight: 900;
+}
+
+.dot.done {
+  background: #B9F33D;
+  color: #10271B;
+}
+
+.notice {
+  padding: 22rpx 24rpx;
+  border-radius: 24rpx;
+  background: #EEF8EA;
+  color: #526650;
+  font-size: 22rpx;
+  line-height: 1.6;
+}

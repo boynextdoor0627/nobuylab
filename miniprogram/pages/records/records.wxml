@@ -1,0 +1,68 @@
+<view class="page safe-bottom">
+  <view class="summary card">
+    <text class="eyebrow">COOLING RECORDS</text>
+    <text class="h1">把冲动留到情绪过去以后。</text>
+    <view class="stats-row">
+      <view>
+        <text class="stat-num">{{stats.total}}</text>
+        <text class="stat-label">累计暂停</text>
+      </view>
+      <view>
+        <text class="stat-num">{{stats.cooling}}</text>
+        <text class="stat-label">冷静中</text>
+      </view>
+      <view>
+        <text class="stat-num">¥{{stats.confirmedSaved}}</text>
+        <text class="stat-label">确认守住</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="filter-row section">
+    <button class="filter {{filter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">全部</button>
+    <button class="filter {{filter === 'cooling' ? 'active' : ''}}" bindtap="setFilter" data-filter="cooling">冷静中</button>
+    <button class="filter {{filter === 'reviewed' ? 'active' : ''}}" bindtap="setFilter" data-filter="reviewed">已复盘</button>
+  </view>
+
+  <view wx:if="{{records.length}}">
+    <view class="record card section" wx:for="{{records}}" wx:key="id">
+      <view class="row-between">
+        <view>
+          <text class="record-name">{{item.icon}} {{item.name}}</text>
+          <text class="record-meta">{{item.type}} · {{item.dateText}}</text>
+        </view>
+        <text class="status {{item.statusClass}}">{{item.statusLabel}}</text>
+      </view>
+
+      <view class="route-map">
+        <view class="road h1"></view>
+        <view class="road h2"></view>
+        <view class="road v1"></view>
+        <view class="road v2"></view>
+        <view class="pin origin">起</view>
+        <view class="pin dest">冷</view>
+        <view class="route-line base"></view>
+        <view class="route-line active w{{item.routeStage}}"></view>
+        <view class="route-marker s{{item.routeStage}}">🛵</view>
+        <view class="map-label left">{{item.route.from}}</view>
+        <view class="map-label right">{{item.route.to}}</view>
+      </view>
+
+      <view class="route-foot">
+        <text>{{item.route.distance}} km · 约 {{item.route.eta}} 分钟</text>
+        <text>不采集定位</text>
+      </view>
+
+      <view class="action-row">
+        <button class="ghost-btn" bindtap="advanceRoute" data-id="{{item.id}}" wx:if="{{item.routeStage < 5}}">推进模拟路线</button>
+        <button class="secondary-btn" bindtap="openReview" data-id="{{item.id}}">{{item.decision ? '查看复盘' : '开始复盘'}}</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-title">还没有冷静记录</text>
+    <text class="muted">回到“今日”，点一次暂停，就会在这里生成一条记录。</text>
+    <button class="primary-btn empty-btn" bindtap="goToday">去暂停一次</button>
+  </view>
+</view>

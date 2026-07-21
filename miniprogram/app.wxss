@@ -1,0 +1,159 @@
+page {
+  background: #F7FAF5;
+  color: #211D1A;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  font-size: 28rpx;
+}
+
+view, text, button, input, textarea {
+  box-sizing: border-box;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  line-height: 1.2;
+}
+
+button::after {
+  border: 0;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 28rpx 28rpx 44rpx;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.section {
+  margin: 24rpx 0;
+}
+
+.card {
+  background: #FFFFFF;
+  border: 1rpx solid #E1EBDD;
+  border-radius: 28rpx;
+  padding: 28rpx;
+  box-shadow: 0 14rpx 34rpx rgba(27, 93, 49, .07);
+}
+
+.eyebrow {
+  color: #16A34A;
+  font-size: 20rpx;
+  font-weight: 900;
+  letter-spacing: 1.6rpx;
+}
+
+.h1 {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 48rpx;
+  font-weight: 900;
+  line-height: 1.14;
+}
+
+.h2 {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.muted {
+  color: #6D655D;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.primary-btn {
+  min-height: 92rpx;
+  border-radius: 28rpx;
+  background: #16A34A;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 900;
+  box-shadow: 0 14rpx 26rpx rgba(22, 163, 74, .22);
+}
+
+.secondary-btn {
+  min-height: 84rpx;
+  border-radius: 26rpx;
+  background: #EEF8EA;
+  color: #0F7438;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  font-weight: 900;
+}
+
+.ghost-btn {
+  min-height: 72rpx;
+  border-radius: 24rpx;
+  background: #F4F8F1;
+  color: #516050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.field {
+  margin-top: 18rpx;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 10rpx;
+  color: #3E3731;
+  font-size: 24rpx;
+  font-weight: 900;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: 1rpx solid #DDEBDD;
+  border-radius: 24rpx;
+  background: #FCFAF7;
+  padding: 22rpx 24rpx;
+  color: #211D1A;
+  font-size: 28rpx;
+}
+
+.textarea {
+  min-height: 150rpx;
+}
+
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999rpx;
+  padding: 10rpx 18rpx;
+  background: #F0F8EC;
+  color: #0F8844;
+  font-size: 22rpx;
+  font-weight: 900;
+}
+
+.empty {
+  padding: 80rpx 24rpx;
+  text-align: center;
+  color: #756D66;
+}

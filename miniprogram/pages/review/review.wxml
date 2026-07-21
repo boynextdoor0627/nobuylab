@@ -1,0 +1,33 @@
+<view class="page safe-bottom">
+  <view class="card review-head" wx:if="{{record}}">
+    <text class="eyebrow">REVIEW</text>
+    <text class="h1">{{record.icon}} {{record.name}}</text>
+    <text class="muted">当时想花 ¥{{record.amountText}}。现在重新问自己：这是需要，还是情绪出口？</text>
+  </view>
+
+  <view class="card section" wx:if="{{record}}">
+    <text class="h2">最后结果</text>
+    <view class="choice-list">
+      <button class="choice {{decision === 'kept' ? 'active' : ''}}" bindtap="selectDecision" data-decision="kept">
+        <text class="choice-title">没有买，成功守住</text>
+        <text class="choice-copy">金额会计入确认守住。</text>
+      </button>
+      <button class="choice {{decision === 'bought' ? 'active' : ''}}" bindtap="selectDecision" data-decision="bought">
+        <text class="choice-title">最后还是买了</text>
+        <text class="choice-copy">真实记录比假装成功更重要。</text>
+      </button>
+    </view>
+
+    <view class="field">
+      <text class="field-label">一句复盘</text>
+      <textarea class="textarea" placeholder="例：我其实只是下班太累了，不是真的需要它。" value="{{reviewText}}" bindinput="onTextInput" maxlength="160" />
+    </view>
+
+    <button class="primary-btn submit" bindtap="submitReview">保存复盘</button>
+    <button class="secondary-btn extend" bindtap="extendCooling">还没决定，再冷静 3 天</button>
+  </view>
+
+  <view class="notice section">
+    <text>正式版会把复盘做成长期留存入口：提醒、周报和趋势分析都基于这里，但 MVP 先保证记录真实。</text>
+  </view>
+</view>

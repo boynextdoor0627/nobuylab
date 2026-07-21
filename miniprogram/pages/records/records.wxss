@@ -1,0 +1,223 @@
+.summary {
+  background: linear-gradient(145deg, #FFFFFF, #EAF9E7);
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14rpx;
+  margin-top: 26rpx;
+}
+
+.stats-row > view {
+  padding: 18rpx 12rpx;
+  border-radius: 22rpx;
+  background: rgba(255, 255, 255, .78);
+  text-align: center;
+}
+
+.stat-num {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 900;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 6rpx;
+  color: #6D655D;
+  font-size: 21rpx;
+}
+
+.filter-row {
+  display: flex;
+  gap: 14rpx;
+}
+
+.filter {
+  height: 68rpx;
+  padding: 0 26rpx;
+  border-radius: 999rpx;
+  background: #FFFFFF;
+  color: #59665B;
+  font-size: 24rpx;
+  font-weight: 900;
+}
+
+.filter.active {
+  background: #10271B;
+  color: #B9F33D;
+}
+
+.record-name {
+  display: block;
+  font-size: 31rpx;
+  font-weight: 900;
+}
+
+.record-meta {
+  display: block;
+  margin-top: 8rpx;
+  color: #746C65;
+  font-size: 22rpx;
+}
+
+.status {
+  flex: 0 0 auto;
+  border-radius: 999rpx;
+  padding: 10rpx 16rpx;
+  font-size: 21rpx;
+  font-weight: 900;
+}
+
+.status.cooling {
+  background: #EEF8EA;
+  color: #0F8844;
+}
+
+.status.ready {
+  background: #FFF3DE;
+  color: #9A6517;
+}
+
+.status.kept {
+  background: #10271B;
+  color: #B9F33D;
+}
+
+.status.bought {
+  background: #F2EFEA;
+  color: #716961;
+}
+
+.route-map {
+  height: 260rpx;
+  margin: 24rpx 0 14rpx;
+  border: 1rpx solid #D8E7D3;
+  border-radius: 26rpx;
+  background: #EAF2E7;
+  position: relative;
+  overflow: hidden;
+}
+
+.route-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,.55) 1rpx, transparent 1rpx), linear-gradient(0deg, rgba(255,255,255,.65) 1rpx, transparent 1rpx);
+  background-size: 70rpx 70rpx;
+}
+
+.road {
+  position: absolute;
+  background: #FFFFFF;
+  border: 1rpx solid rgba(137,154,130,.22);
+}
+
+.road.h1 { left: 0; right: 0; top: 76rpx; height: 28rpx; }
+.road.h2 { left: 0; right: 0; bottom: 56rpx; height: 28rpx; }
+.road.v1 { left: 166rpx; top: 0; bottom: 0; width: 28rpx; }
+.road.v2 { right: 156rpx; top: 0; bottom: 0; width: 28rpx; }
+
+.pin {
+  position: absolute;
+  z-index: 5;
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21rpx;
+  font-weight: 900;
+}
+
+.pin.origin { left: 38rpx; bottom: 36rpx; background: #111B14; color: #B9F33D; }
+.pin.dest { right: 38rpx; top: 42rpx; background: #FFFFFF; color: #0B8D41; border: 4rpx solid #18B957; }
+
+.route-line {
+  position: absolute;
+  z-index: 3;
+  left: 62rpx;
+  bottom: 78rpx;
+  height: 10rpx;
+  border-radius: 999rpx;
+  background: #FFFFFF;
+}
+
+.route-line.base {
+  width: 520rpx;
+  opacity: .9;
+}
+
+.route-line.active {
+  background: #18B957;
+}
+
+.route-line.w0 { width: 28rpx; }
+.route-line.w1 { width: 118rpx; }
+.route-line.w2 { width: 210rpx; }
+.route-line.w3 { width: 320rpx; }
+.route-line.w4 { width: 430rpx; }
+.route-line.w5 { width: 520rpx; }
+
+.route-marker {
+  position: absolute;
+  z-index: 6;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12rpx 24rpx rgba(27, 93, 49, .22);
+}
+
+.route-marker.s0 { left: 44rpx; bottom: 54rpx; }
+.route-marker.s1 { left: 132rpx; bottom: 54rpx; }
+.route-marker.s2 { left: 224rpx; bottom: 54rpx; }
+.route-marker.s3 { left: 334rpx; bottom: 54rpx; }
+.route-marker.s4 { left: 444rpx; bottom: 54rpx; }
+.route-marker.s5 { right: 42rpx; top: 38rpx; }
+
+.map-label {
+  position: absolute;
+  z-index: 5;
+  max-width: 200rpx;
+  padding: 8rpx 12rpx;
+  border-radius: 16rpx;
+  background: rgba(255,255,255,.9);
+  color: #526250;
+  font-size: 20rpx;
+  font-weight: 900;
+}
+
+.map-label.left { left: 30rpx; bottom: 102rpx; }
+.map-label.right { right: 30rpx; top: 98rpx; }
+
+.route-foot {
+  display: flex;
+  justify-content: space-between;
+  color: #60715F;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14rpx;
+  margin-top: 22rpx;
+}
+
+.empty-title {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: 900;
+}
+
+.empty-btn {
+  margin-top: 28rpx;
+}

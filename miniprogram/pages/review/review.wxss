@@ -1,0 +1,62 @@
+.review-head {
+  background: linear-gradient(145deg, #10271B, #0E9F47);
+  color: #FFFFFF;
+}
+
+.review-head .eyebrow {
+  color: #B9F33D;
+}
+
+.review-head .muted {
+  color: #DDF4E4;
+}
+
+.choice-list {
+  display: grid;
+  gap: 16rpx;
+  margin-top: 22rpx;
+}
+
+.choice {
+  padding: 24rpx;
+  border: 1rpx solid #E1EBDD;
+  border-radius: 24rpx;
+  background: #FFFFFF;
+  text-align: left;
+}
+
+.choice.active {
+  border-color: #16A34A;
+  background: #F0FBEA;
+  box-shadow: 0 0 0 6rpx rgba(22, 163, 74, .12);
+}
+
+.choice-title {
+  display: block;
+  font-size: 29rpx;
+  font-weight: 900;
+}
+
+.choice-copy {
+  display: block;
+  margin-top: 8rpx;
+  color: #6D655D;
+  font-size: 23rpx;
+}
+
+.submit {
+  margin-top: 24rpx;
+}
+
+.extend {
+  margin-top: 14rpx;
+}
+
+.notice {
+  padding: 22rpx 24rpx;
+  border-radius: 24rpx;
+  background: #EEF8EA;
+  color: #526650;
+  font-size: 22rpx;
+  line-height: 1.6;
+}

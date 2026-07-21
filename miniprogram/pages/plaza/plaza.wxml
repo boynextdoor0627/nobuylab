@@ -1,0 +1,74 @@
+<view class="page safe-bottom">
+  <view class="plaza-head card">
+    <view class="row-between">
+      <view>
+        <text class="eyebrow">NO BUY SQUARE</text>
+        <text class="h1">省钱广场</text>
+      </view>
+      <button class="compose-btn" bindtap="toggleComposer">＋</button>
+    </view>
+    <text class="muted">只看别人怎么冷静，不做导购。外层不直接展开评论，点进动态后再讨论。</text>
+  </view>
+
+  <view class="topic-scroll section">
+    <button
+      class="topic {{topic === item ? 'active' : ''}}"
+      wx:for="{{topics}}"
+      wx:key="*this"
+      bindtap="setTopic"
+      data-topic="{{item}}"
+    >{{item}}</button>
+  </view>
+
+  <view class="composer card section" wx:if="{{showComposer}}">
+    <text class="h2">发一条本地动态</text>
+    <text class="muted">MVP 先验证发布体验。正式版上线前必须接入内容审核、举报、拉黑和后台管理。</text>
+    <view class="field">
+      <text class="field-label">话题</text>
+      <view class="topic-choice">
+        <button
+          class="mini-topic {{draftTopic === item ? 'active' : ''}}"
+          wx:for="{{draftTopics}}"
+          wx:key="*this"
+          bindtap="selectDraftTopic"
+          data-topic="{{item}}"
+        >{{item}}</button>
+      </view>
+    </view>
+    <view class="field">
+      <text class="field-label">今天差点买了什么？</text>
+      <textarea class="textarea" value="{{draftText}}" bindinput="onDraftInput" maxlength="180" placeholder="例：刷到一个通勤包，差点付款。先记下来，明天午休再看。" />
+    </view>
+    <button class="primary-btn" bindtap="submitDraft">保存到广场顶部</button>
+  </view>
+
+  <view class="feed section">
+    <view class="post card" wx:for="{{posts}}" wx:key="id">
+      <view class="post-meta">
+        <text class="avatar">{{item.local ? '我' : item.authorFirst}}</text>
+        <text class="author">{{item.author}}</text>
+        <text class="time">{{item.local ? '本地草稿' : '刚刚'}}</text>
+      </view>
+      <view class="post-shot {{item.tone}}" bindtap="openPost" data-id="{{item.id}}">
+        <text class="post-icon">{{item.icon}}</text>
+        <text class="post-cover-title">{{item.title}}</text>
+      </view>
+      <view class="post-body" bindtap="openPost" data-id="{{item.id}}">
+        <text class="post-title">{{item.title}}</text>
+        <text class="post-summary">{{item.summary}}</text>
+        <view class="tag-row">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
+        </view>
+      </view>
+      <view class="post-actions">
+        <button class="action {{item.liked ? 'active' : ''}}" bindtap="toggleLike" data-id="{{item.id}}">{{item.liked ? '♥' : '♡'}} {{item.likeCount}}</button>
+        <button class="action" bindtap="openPost" data-id="{{item.id}}">💬 {{item.commentCount}}</button>
+        <button class="action share" bindtap="copyShare" data-id="{{item.id}}">↗</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="notice section">
+    <text>社区边界：当前为本地原型动态，不公开发布。正式小程序需要内容安全审核、举报处理、用户屏蔽和客服联系方式后再开放真实社区。</text>
+  </view>
+</view>

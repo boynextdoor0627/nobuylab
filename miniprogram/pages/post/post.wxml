@@ -1,0 +1,36 @@
+<view class="page safe-bottom" wx:if="{{post}}">
+  <view class="card detail-head">
+    <text class="eyebrow">{{post.topic}} · 动态详情</text>
+    <text class="h1">{{post.icon}} {{post.title}}</text>
+    <text class="muted">由 {{post.author}} 分享。广场只讨论冷静消费，不做购买推荐。</text>
+  </view>
+
+  <view class="post-shot {{post.tone}} section">
+    <text class="post-icon">{{post.icon}}</text>
+    <text class="post-cover-title">{{post.title}}</text>
+  </view>
+
+  <view class="article section">
+    <view class="article-p" wx:for="{{post.body}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <view class="comments card section">
+    <view class="row-between">
+      <text class="h2">评论</text>
+      <text class="pill">{{comments.length}} 条</text>
+    </view>
+    <view class="comment" wx:for="{{comments}}" wx:key="createdAt">
+      <text class="comment-name">{{item.name}}</text>
+      <text class="comment-text">{{item.text}}</text>
+    </view>
+    <view class="field">
+      <text class="field-label">写一句反馈</text>
+      <textarea class="textarea" value="{{commentText}}" bindinput="onCommentInput" maxlength="120" placeholder="例：我也遇到过 / 这个方法我想试试" />
+    </view>
+    <button class="primary-btn" bindtap="submitComment">发表评论</button>
+  </view>
+
+  <view class="notice section">
+    <text>当前评论只保存在本机。正式版开放真实评论前，需要接入内容安全检测、举报处理和用户屏蔽。</text>
+  </view>
+</view>

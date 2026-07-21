@@ -1,0 +1,58 @@
+<view class="page safe-bottom">
+  <view class="hero card">
+    <view class="hero-copy">
+      <text class="eyebrow">NO BUY LAB · MVP</text>
+      <text class="h1">今天先暂停哪一种冲动？</text>
+      <text class="muted">点一个选项就能完成记录。商品名和金额都可以不填，重点是把付款动作往后放。</text>
+    </view>
+    <image class="hero-img" src="/assets/mascot-3d.png" mode="aspectFit" />
+  </view>
+
+  <view class="option-grid section">
+    <button
+      class="option {{selectedId === item.id ? 'active' : ''}}"
+      wx:for="{{pauseOptions}}"
+      wx:key="id"
+      bindtap="selectOption"
+      data-id="{{item.id}}"
+    >
+      <text class="option-icon">{{item.icon}}</text>
+      <text class="option-title">{{item.label}}</text>
+      <text class="option-copy">{{item.copy}}</text>
+    </button>
+  </view>
+
+  <view class="card section">
+    <view class="row-between">
+      <text class="h2">可选补充</text>
+      <text class="pill">不填也可以</text>
+    </view>
+    <view class="field">
+      <text class="field-label">具体想买什么</text>
+      <input class="input" placeholder="例如：奶茶、耳机、通勤包" value="{{name}}" bindinput="onNameInput" maxlength="40" />
+    </view>
+    <view class="field">
+      <text class="field-label">大概金额</text>
+      <input class="input" type="digit" placeholder="可选" value="{{amount}}" bindinput="onAmountInput" />
+    </view>
+    <button class="primary-btn submit" bindtap="submitPause">先不买一下</button>
+  </view>
+
+  <view class="daily card section">
+    <view class="row-between">
+      <view>
+        <text class="eyebrow">TODAY LOOP</text>
+        <text class="daily-title">{{todayDone ? '今天已经暂停过一次' : '今天还没有暂停记录'}}</text>
+      </view>
+      <text class="daily-count">{{stats.cooling}} 冷静中</text>
+    </view>
+    <view class="dot-row">
+      <view class="dot {{index < weeklyDots ? 'done' : ''}}" wx:for="{{dotList}}" wx:key="*this">{{item}}</view>
+    </view>
+    <text class="muted">MVP 阶段只保留最短主循环：想买时打开、点一下、稍后复盘。</text>
+  </view>
+
+  <view class="notice section">
+    <text>模拟路线说明：小程序 MVP 不调用定位接口，不采集、不上传位置信息；后续地图仍以“冲动送往冷静舱”的本地模拟形式呈现。</text>
+  </view>
+</view>

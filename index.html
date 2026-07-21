@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#22C55E" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <meta name="description" content="不买研究所 V11.2：默认简洁模式，保留 V11 完整能力，让真实用户先完成记录想买、放进冷静车和复盘。" />
-  <title>不买研究所｜NO BUY LAB V11.2</title>
+  <meta name="description" content="不买研究所 V11.4：默认极简日用模式，10 秒记下想买，之后回来复盘。" />
+  <title>不买研究所｜NO BUY LAB V11.4</title>
   <style>
     :root{
       --bg:#F7FAF5;
@@ -493,7 +493,7 @@
     .onboard-logo{box-shadow:0 14px 30px rgba(34,197,94,.28)}
     .share-card{background:linear-gradient(145deg,#10271B,#0E9F47);color:#fff}
     .share-card .brand{color:#B9F33D}
-    @media(max-width:370px){.hero{padding-right:124px}.hero-mascot{width:200px;right:-54px}.hero-amount{font-size:37px}}
+    @media(max-width:370px){.hero{padding-right:124px}.hero-mascot{width:200px;right:-54px}.hero-amount{font-size:37px}.pause-options{grid-template-columns:repeat(2,1fr)}.instant-fields{grid-template-columns:1fr}.instant-note{align-items:stretch;flex-direction:column}.instant-note button{width:100%}}
 
     .onboard-visual{height:220px;margin:-20px auto 4px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
     .onboard-visual img{width:270px;max-width:86%;filter:drop-shadow(0 18px 20px rgba(16,90,43,.18))}
@@ -501,6 +501,32 @@
     .quick-panel:after{content:"";position:absolute;width:92px;height:92px;right:-8px;bottom:-14px;background:url('assets/logo-mark.svg') center/contain no-repeat;opacity:.12;pointer-events:none}
     .simple-home{display:none;margin-bottom:14px}
     .app-shell.simple-mode .simple-home{display:block}
+    .instant-lab{background:#fff;border:1px solid #DCEBDD;border-radius:24px;padding:18px;margin-bottom:10px;box-shadow:0 12px 28px rgba(18,104,49,.08)}
+    .instant-lab .lab-title{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .instant-lab h2{font-size:24px;line-height:1.12;margin:0;letter-spacing:0}
+    .instant-lab p{font-size:12px;color:var(--muted);line-height:1.55;margin:4px 0 0}
+    .instant-badge{flex:0 0 auto;border-radius:999px;background:#10271B;color:#B9F33D;font-size:9px;font-weight:900;padding:6px 8px;letter-spacing:.6px}
+    .pause-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+    .pause-option{min-height:52px;border-radius:15px;background:#F4FAF1;border:1px solid #DDEBDD;color:#314638;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px}
+    .pause-option.active{background:#10271B;color:#B9F33D;border-color:#10271B;box-shadow:0 9px 18px rgba(16,39,27,.12)}
+    .instant-fields{display:grid;grid-template-columns:1fr 104px;gap:8px}
+    .instant-fields input{width:100%;height:48px;border:1px solid #DDEBDD;background:#F8FBF6;border-radius:15px;padding:0 12px;outline:0;color:var(--text)}
+    .instant-fields input::placeholder{color:#9BA59D}
+    .instant-note{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+    .instant-note small{font-size:10px;color:#66766B;line-height:1.45}
+    .instant-note button{min-height:46px;border-radius:15px;white-space:nowrap}
+    .optional-label{font-size:10px;font-weight:900;color:#66766B;margin:2px 0 7px}
+    .daily-loop{background:#10271B;color:#fff;border-radius:24px;padding:16px;margin-top:10px;position:relative;overflow:hidden}
+    .daily-loop:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(185,243,61,.2);right:-60px;top:-50px}
+    .daily-loop h3{font-size:16px;margin:0 0 5px;position:relative;z-index:1}
+    .daily-loop p{font-size:11px;color:#CFE3D5;line-height:1.55;margin:0;position:relative;z-index:1}
+    .daily-dots{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:13px 0;position:relative;z-index:1}
+    .daily-dot{height:30px;border-radius:11px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-size:10px;font-weight:900;color:#9EC3A8}
+    .daily-dot.done{background:#B9F33D;color:#10271B}
+    .loop-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative;z-index:1}
+    .loop-actions button{min-height:40px;border-radius:14px;font-weight:900}
+    .loop-actions .light{background:#fff;color:#10271B}
+    .loop-actions .quiet{background:rgba(255,255,255,.14);color:#fff}
     .simple-hero{position:relative;overflow:hidden;border-radius:28px;padding:22px 18px;background:linear-gradient(145deg,#10271B,#0E9F47);color:#fff;min-height:250px}
     .simple-hero img{position:absolute;right:-38px;bottom:-18px;width:185px;filter:drop-shadow(0 18px 20px rgba(5,50,20,.2))}
     .simple-kicker{font-size:10px;font-weight:900;color:#B9F33D;letter-spacing:1.2px;margin-bottom:8px}
@@ -534,9 +560,17 @@
     .app-shell.simple-mode #researchHallPanel > .virtual-warning,
     .app-shell.simple-mode .internal-only{display:none!important}
     .app-shell.simple-mode .hero{display:none}
-    .app-shell.simple-mode .search{margin:12px 0 8px}
-    .app-shell.simple-mode .section-head{margin-top:12px}
+    .app-shell.simple-mode .simple-hero,
+    .app-shell.simple-mode .search,
+    .app-shell.simple-mode #researchHallPanel > .section-head,
+    .app-shell.simple-mode #productGrid,
+    .app-shell.simple-mode #researchHallPanel > .notice{display:none!important}
     .app-shell.simple-mode #loadMoreWrap{display:none!important}
+    .app-shell.simple-mode .bottom-nav{grid-template-columns:repeat(3,1fr)}
+    .app-shell.simple-mode .nav-btn[data-screen="cart"],
+    .app-shell.simple-mode .nav-btn[data-screen="profile"]{display:none}
+    .app-shell.simple-mode .nav-btn.center{transform:none;width:auto;height:55px;background:transparent;color:#625B55;box-shadow:none}
+    .app-shell.simple-mode .nav-btn.center.active{color:var(--primary);background:transparent}
   </style>
 </head>
 <body>
@@ -547,12 +581,40 @@
       <div class="toprow">
         <div class="brand-lockup">
           <div class="brand-mark" aria-hidden="true"><img src="assets/logo-mark.svg" alt=""></div>
-          <div><div class="brand-title">不买研究所 <span class="vtag">V11.2 · SIMPLE</span></div><div class="brand-en">NO BUY LAB · THINK BEFORE YOU BUY</div></div>
+          <div><div class="brand-title">不买研究所 <span class="vtag">V11.4 · DAILY</span></div><div class="brand-en">NO BUY LAB · PAUSE TODAY</div></div>
         </div>
         <button class="bell" aria-label="实验提醒" onclick="toast('暂无新的实验提醒')"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></button>
       </div>
 
       <div class="simple-home" id="simpleHome">
+        <div class="instant-lab">
+          <div class="lab-title">
+            <div>
+              <h2>今天先暂停哪一种冲动？</h2>
+              <p>先点一个选项就可以。想补充具体商品也行，不写也能完成今天的暂停。</p>
+            </div>
+            <span class="instant-badge">10 秒</span>
+          </div>
+          <div class="pause-options" id="pauseOptions"></div>
+          <div class="optional-label">可选补充</div>
+          <div class="instant-fields">
+            <input id="instantName" maxlength="40" placeholder="具体想买什么，可以不填">
+            <input id="instantPrice" type="number" min="0.01" step="0.01" placeholder="金额可选">
+          </div>
+          <div class="instant-note">
+            <small>不填文字也可以。系统只会保存一个本地暂停记录。</small>
+            <button class="primary" onclick="startInstantLab()">先不买一下</button>
+          </div>
+        </div>
+        <div class="daily-loop">
+          <h3 id="dailyLoopTitle">今天还没有暂停记录</h3>
+          <p id="dailyLoopCopy">长期使用不靠复杂功能，靠每次冲动来时多等一下。</p>
+          <div class="daily-dots" id="dailyDots"></div>
+          <div class="loop-actions">
+            <button class="light" onclick="go('records')">复盘冷静中</button>
+            <button class="quiet" onclick="setExperienceMode('full')">更多功能</button>
+          </div>
+        </div>
         <div class="simple-hero">
           <img src="assets/brand/mascot-3d.png" alt="不买研究所 3D IP 形象">
           <div class="simple-kicker">NO BUY LAB · SIMPLE MODE</div>
@@ -568,7 +630,7 @@
           <div class="simple-stat"><small>冷静中</small><strong id="simpleCooling">0 笔</strong></div>
         </div>
         <div class="simple-follow" id="simpleFollow"></div>
-        <div class="mode-card"><strong>想看完整研究所？</strong><p>省钱广场、每日清单、32 个品类和挑战功能都还在，只是先收起来。</p><button class="secondary" onclick="setExperienceMode('full')">切换到完整模式</button></div>
+        <div class="mode-card"><strong>完整研究所已收起</strong><p>商品库、省钱广场、挑战和研究档案都还在；默认先做一个能每天打开的小工具。</p><button class="secondary" onclick="setExperienceMode('full')">打开完整模式</button></div>
       </div>
 
       <div class="hall-tabs" aria-label="研究大厅与省钱广场">
@@ -774,6 +836,15 @@ const categoryMeta = {"深夜外卖":{"icon":"🍜","desc":"即时满足","color
 const categories = ['全部',...Object.keys(categoryMeta)];
 const moods = ['压力有点大','无聊想逛逛','被种草了','深夜想吃','想奖励自己'];
 const recordFilterOptions = [{id:'all',label:'全部'},{id:'cooling',label:'冷静中'},{id:'kept',label:'已守住'},{id:'bought',label:'最后买了'}];
+const pauseChoices=[
+  {id:'food',label:'吃喝',cat:'奶茶甜品',emoji:'🧋',fallback:'一份吃喝冲动',price:28},
+  {id:'digital',label:'数码',cat:'数码影音',emoji:'🎧',fallback:'一个数码产品',price:899},
+  {id:'wear',label:'穿搭',cat:'潮鞋穿搭',emoji:'👟',fallback:'一件穿搭单品',price:399},
+  {id:'beauty',label:'护肤',cat:'美妆护肤',emoji:'🧴',fallback:'一件护肤美妆',price:199},
+  {id:'home',label:'家居',cat:'居家家具',emoji:'🛋️',fallback:'一件家居用品',price:299},
+  {id:'other',label:'其他',cat:'其他',emoji:'🛍️',fallback:'一个想买的东西',price:99}
+];
+let selectedPauseChoice='food';
 
 const plazaCategories=['推荐','省钱攻略','今天忍住了','冷静挑战','踩坑避雷','优惠情报'];
 const plazaPosts=[
@@ -781,7 +852,7 @@ const plazaPosts=[
   {id:'sq-002',cat:'省钱攻略',icon:'📋',tone:'green',author:'研究所编辑部',official:true,title:'清理自动续费：20 分钟找回每月被忽略的小支出',summary:'从视频、音乐、云盘到修图工具，先列出全部续费，再按“每周是否使用”判断保留。',tags:['订阅整理','固定支出','可执行清单'],likes:512,saves:368,minutes:6,body:['打开常用支付工具和应用商店，查找自动续费项目。','保留每周使用且不可替代的服务；其余先取消续费，不等于立即失去已付费权益。','把下次续费日期写进日历，在到期前再次判断。']},
   {id:'sq-003',cat:'踩坑避雷',icon:'⚠️',tone:'yellow',author:'不买研究所',official:true,title:'“满减差一点”最容易让你多买一件并不需要的东西',summary:'为了省 20 元多买 49 元商品，本质仍然多花了 29 元。先看最终支出，而不是优惠金额。',tags:['满减误区','外卖','购物车'],likes:403,saves:215,minutes:3,body:['先记录没有凑单时的原始金额。','再比较凑单后的最终付款额，而不是只看“已优惠”。','凑单商品如果不在原始需求清单里，默认删除。']},
   {id:'sq-004',cat:'冷静挑战',icon:'🔥',tone:'purple',author:'不买研究所',official:true,title:'7 天夜间不冲动下单挑战',summary:'每天 22:00 后产生的非必要消费，先记录、等到第二天中午再决定。',tags:['7天挑战','深夜消费','打卡'],likes:637,saves:289,minutes:5,body:['夜间想买时先创建一次冷静实验。','第二天中午复盘：还想买吗？是否影响预算？','挑战目标不是零消费，而是把决定从情绪高峰移开。'],challenge:true},
-  {id:'sq-005',cat:'省钱攻略',icon:'🧳',tone:'blue',author:'研究所编辑部',official:true,title:'旅行预算先分三层，装备才不会越买越多',summary:'把必要交通住宿、体验预算和可替代装备分开。装备不要吞掉真正的旅行体验。',tags:['旅行预算','装备冲动','预算分层'],likes:194,saves:122,minutes:5,body:['第一层：交通、住宿、证件等不可缺少支出。','第二层：餐饮、景点和当地体验。','第三层：摄影、穿搭和露营装备；优先借用、租赁或使用已有物品。']},
+  {id:'sq-005',cat:'省钱攻略',icon:'🧳',tone:'blue',author:'研究所编辑部',official:true,title:'旅行预算先分三层，装备才不会越买越多',summary:'把必要交通住宿、体验预算和可替代装备分开。装备不要吞掉真正的旅行体验。',tags:['旅行预算','装备冲动','预算分层'],likes:194,saves:122,minutes:5,body:['第一层：交通、住宿、证件等不可缺少支出。','第二层：餐饮、景点和当地体验。','第三层：摄影、穿搭和露营装备先暂停新增，把预算留给真正的旅行体验。']},
   {id:'sq-006',cat:'今天忍住了',icon:'🧋',tone:'green',author:'不买研究所',official:true,title:'不是戒奶茶，而是把“每天顺手买”改成主动选择',summary:'先把频率从每天改成每周两次，再保留真正想喝的那一杯。',tags:['奶茶预算','频率管理','非极端节省'],likes:328,saves:176,minutes:4,body:['记录一周中每次想喝的时间和原因。','把“口渴”“犯困”和“想奖励自己”分别找替代方案。','保留最喜欢的两次，不用把省钱做成惩罚。']},
   {id:'sq-007',cat:'优惠情报',icon:'🎟️',tone:'yellow',author:'不买研究所权益组',official:true,ad:true,title:'生活刚需优惠区即将开放：先确认需要，再找正规优惠',summary:'未来仅接入官方或可验证渠道。平台获得佣金时会显著标注“广告”，不隐藏商业关系。',tags:['广告','权益预告','生活刚需'],likes:88,saves:61,minutes:2,body:['优惠入口不会出现在冷静倒计时和“确认守住”页面。','用户主动确认确实需要后，才可进入找优惠流程。','正式上线前会展示来源、有效期、使用门槛和佣金说明。']},
   {id:'sq-008',cat:'踩坑避雷',icon:'🧴',tone:'purple',author:'研究所编辑部',official:true,title:'囤货的隐形成本：占空间、忘记使用与过期',summary:'单价便宜不等于总成本更低。先算消耗速度和家里现有库存。',tags:['美妆护肤','囤货','库存盘点'],likes:251,saves:143,minutes:4,body:['按实际使用速度估算一件产品能用多久。','盘点同类未开封库存和保质期。','如果库存覆盖超过三个月，不因“历史低价”继续购买。']}
@@ -804,7 +875,7 @@ function defaultState(){return {cart:{},orders:[],confirmedSaved:0,simulatedAmou
 function loadState(){
   try{
     const current=localStorage.getItem(STATE_KEY);
-    if(current) return {...defaultState(),...JSON.parse(current)};
+    if(current) return {...defaultState(),...JSON.parse(current),experienceMode:'simple'};
     const old=localStorage.getItem('xianbiemai-state');
     if(old){
       const legacy=JSON.parse(old); const orders=(legacy.orders||[]).map(o=>({...o,stage:o.status??5,decision:'kept',coolingUntil:Date.now()-1000,decidedAt:o.created||Date.now(),items:(o.items||[]).map(x=>({...x,cat:'深夜外卖'}))}));
@@ -857,13 +928,21 @@ function updateExperienceMode(){
   const label=document.getElementById('modeMenuLabel');if(label)label.textContent=isSimpleMode()?'切换完整模式':'切换简洁模式';
 }
 function updateSimpleHome(){
-  const saved=document.getElementById('simpleSaved'),cooling=document.getElementById('simpleCooling'),follow=document.getElementById('simpleFollow');
+  const saved=document.getElementById('simpleSaved'),cooling=document.getElementById('simpleCooling'),follow=document.getElementById('simpleFollow'),loopTitle=document.getElementById('dailyLoopTitle'),loopCopy=document.getElementById('dailyLoopCopy'),dots=document.getElementById('dailyDots');
   if(saved)saved.textContent=money(state.confirmedSaved);
   const openOrders=(state.orders||[]).filter(o=>!o.decision);
   if(cooling)cooling.textContent=openOrders.length+' 笔';
+  const today=(state.orders||[]).filter(o=>dateKey(new Date(o.created))===dateKey());
+  if(loopTitle)loopTitle.textContent=today.length?`今天已暂停 ${today.length} 次`:'今天还没有暂停记录';
+  if(loopCopy)loopCopy.textContent=openOrders.length?`还有 ${openOrders.length} 笔正在冷静。回来复盘，比今天立刻买更重要。`:'长期使用不靠复杂功能，靠每次冲动来时多等一下。';
+  if(dots){
+    const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return dateKey(d);});
+    const done=new Set((state.orders||[]).map(o=>dateKey(new Date(o.created))));
+    dots.innerHTML=days.map((d,i)=>`<div class="daily-dot ${done.has(d)?'done':''}">${done.has(d)?'✓':i+1}</div>`).join('');
+  }
   if(follow){
     const next=openOrders[0];
-    follow.innerHTML=next?`<h3>最近一笔正在冷静</h3><p>${escapeHtml((next.items||[]).map(x=>x.name).join('、')||'一笔消费冲动')} · ${countdownText(next)}</p><div style="margin-top:10px"><button class="secondary" onclick="go('records')">去复盘</button></div>`:`<h3>现在没有冷静中的记录</h3><p>当你突然很想买某样东西时，先记下来，今天就算完成一次练习。</p>`;
+    follow.innerHTML=next?`<h3>最近一笔</h3><p>${escapeHtml((next.items||[]).map(x=>x.name).join('、')||'一笔消费冲动')} · ${countdownText(next)}</p>`:`<h3>今天的任务很小</h3><p>想买的时候写下来；不想买的时候不用打开。这样才有机会长期留住自己。</p>`;
   }
 }
 function ensureDailyChecklist(){
@@ -991,6 +1070,11 @@ function renderMoods(){
   document.getElementById('moodChips').innerHTML=moods.map(m=>`<button class="mood-chip ${m===state.currentMood?'active':''}" onclick="setMood('${m}')">${m}</button>`).join('');
 }
 function setMood(m){state.currentMood=m;persist();toast('已记录：'+m);}
+function renderPauseOptions(){
+  const root=document.getElementById('pauseOptions');if(!root)return;
+  root.innerHTML=pauseChoices.map(x=>`<button class="pause-option ${x.id===selectedPauseChoice?'active':''}" onclick="selectPauseChoice('${x.id}')">${x.emoji} ${x.label}</button>`).join('');
+}
+function selectPauseChoice(id){selectedPauseChoice=id;renderPauseOptions();}
 function renderChips(){
   document.getElementById('chips').innerHTML=categories.map(c=>`<button class="chip ${c===activeCategory?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join('');
   renderCategoryRail();
@@ -1084,7 +1168,7 @@ function renderTimeline(order){
 function skipDelivery(id){const o=state.orders.find(x=>x.id===id);if(!o)return;o.stage=5;persist();showDelivery(id,false);}
 function showCoolingCreated(id){
   clearInterval(deliveryTimer);const o=state.orders.find(x=>x.id===id);if(!o)return;
-  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>冷静实验已开始</h3><p>本次模拟消费 ${money(o.amount)}，真实支付 ¥0。建议在 ${formatHours(Math.round((o.coolingUntil-o.created)/3600000))} 后重新判断：你想要的是商品，还是当时的情绪出口？</p></div><div class="virtual-warning">V11 已区分真实复盘和原型演示：冷静期结束后才能自然复盘；演示时可以手动跳过等待。</div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">查看记录</button><button class="primary" onclick="openReview('${o.id}',true)">原型演示复盘</button></div>`;
+  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>冷静实验已开始</h3><p>本次模拟消费 ${money(o.amount)}，真实支付 ¥0。建议在 ${formatHours(Math.round((o.coolingUntil-o.created)/3600000))} 后重新判断：你想要的是商品，还是当时的情绪出口？</p></div><div class="virtual-warning">V11.4 默认使用极简日用模式；完整模式仍保留虚拟结算仪式，但只有冷静后确认没有真实购买，金额才会计入“确认守住”。</div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">查看记录</button><button class="primary" onclick="openReview('${o.id}',true)">原型演示复盘</button></div>`;
 }
 
 function renderRecordFilters(){document.getElementById('recordFilters').innerHTML=recordFilterOptions.map(f=>`<button class="${recordFilter===f.id?'active':''}" onclick="setRecordFilter('${f.id}')">${f.label}</button>`).join('');}
@@ -1153,6 +1237,61 @@ function quickScenario(category){
   const list=baseProducts.filter(p=>p.cat===category).slice(0,3);state.cart={};list.forEach(p=>state.cart[p.id]=1);persist();go('cart');toast('已生成“'+category+'”冷静清单');
 }
 
+const categoryKeywordRules=[
+  {cat:'深夜外卖',keys:['外卖','炸鸡','宵夜','夜宵','汉堡','火锅','烤肉','米线','披萨']},
+  {cat:'奶茶甜品',keys:['奶茶','咖啡','蛋糕','甜品','冰淇淋','布丁','饮料','拿铁']},
+  {cat:'数码影音',keys:['手机','耳机','音箱','相机','投影','平板','电脑','键盘','鼠标']},
+  {cat:'潮鞋穿搭',keys:['鞋','衣服','外套','卫衣','裤','裙','穿搭']},
+  {cat:'包袋配饰',keys:['包','手袋','钱包','墨镜','帽子','配饰']},
+  {cat:'美妆护肤',keys:['口红','面霜','精华','粉底','香水','护肤','美妆']},
+  {cat:'会员订阅',keys:['会员','订阅','年费','续费','网盘','课程']},
+  {cat:'旅行度假',keys:['旅行','酒店','机票','民宿','露营','行李箱']},
+  {cat:'居家家具',keys:['沙发','椅','桌','灯','床','柜','家具']},
+  {cat:'生活囤货',keys:['囤货','纸巾','洗衣液','日用品','零食']}
+];
+function inferCategoryFromText(text){
+  const value=String(text||'').toLowerCase();
+  const hit=categoryKeywordRules.find(rule=>rule.keys.some(k=>value.includes(k.toLowerCase())));
+  return hit?.cat||'其他';
+}
+function waitByPrice(price){
+  return price>=5000?168:price>=1000?72:price>=300?48:price>=80?24:12;
+}
+function buildPrivateProduct({name,price,cat,reason,sourceLink='',image=''}) {
+  const finalCat=cat&&categoryMeta[cat]?cat:inferCategoryFromText(name+' '+reason);
+  const wait=waitByPrice(price);
+  const impulse=Math.min(95,58+Math.round(Math.log10(Number(price||0)+1)*9));
+  return {id:'c'+Date.now(),name,cat:finalCat,emoji:categoryMeta[finalCat]?.icon||'🛍️',price,desc:reason||'用户自定义研究对象',mood:state.currentMood,impulse,wait,custom:true,image,sourceLink,createdAt:Date.now()};
+}
+function startInstantLab(){
+  const choice=pauseChoices.find(x=>x.id===selectedPauseChoice)||pauseChoices[0];
+  const customName=document.getElementById('instantName')?.value.trim();
+  const customPrice=Number(document.getElementById('instantPrice')?.value);
+  const name=customName||choice.fallback;
+  const price=customPrice>0?customPrice:choice.price;
+  const item=buildPrivateProduct({name,price,cat:choice.cat,reason:`日用模式：${choice.label}冲动，今天先不买一下`});
+  state.customProducts.unshift(item);
+  state.cart={};
+  displayProducts=[item,...displayProducts];
+  const order=createDirectCoolingOrder(item);
+  document.getElementById('instantName').value='';
+  document.getElementById('instantPrice').value='';
+  persist();
+  showDailyPauseCreated(order.id);
+}
+function createDirectCoolingOrder(item){
+  const amount=Number(item.price||0);
+  const order={id:'BL'+Date.now().toString().slice(-8),amount,originalAmount:amount,items:[{id:item.id,name:item.name,emoji:item.emoji,image:item.image,qty:1,cat:item.cat}],stage:5,created:Date.now(),coolingUntil:Date.now()+item.wait*3600000,decision:null,reason:state.currentMood,extensions:0,quick:true};
+  state.orders.unshift(order);
+  state.simulatedAmount+=amount;
+  recordChallengeActivity();
+  return order;
+}
+function showDailyPauseCreated(id){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;
+  openSheet(`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">✓</div><h3>今天先不买了</h3><p>${escapeHtml(o.items[0]?.name||'这件东西')} 已进入冷静记录。没有付款、没有下单，只是把决定留给情绪过去后的自己。</p></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">查看记录</button><button class="primary" onclick="closeSheet()">回到首页</button></div>`);
+}
+
 function safeHttpUrl(value){try{const u=new URL(String(value||'').trim());return ['http:','https:'].includes(u.protocol)?u.href:'';}catch(e){return '';}}
 function handleCustomImage(event){
   const file=event.target.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){toast('请选择图片文件');return;}if(file.size>12*1024*1024){toast('图片请控制在 12MB 以内');event.target.value='';return;}
@@ -1164,8 +1303,7 @@ function clearCustomImage(){customImageData='';const input=document.getElementBy
 function addCustomItem(){
   const name=document.getElementById('customName').value.trim();const price=Number(document.getElementById('customPrice').value);const cat=document.getElementById('customCategory').value;const reason=document.getElementById('customReason').value.trim();const sourceLink=safeHttpUrl(document.getElementById('customLink')?.value);
   if(!name){toast('请填写商品名称');return;}if(!price||price<=0){toast('请填写有效价格');return;}
-  const wait=price>=5000?168:price>=1000?72:price>=300?48:24;const impulse=Math.min(95,58+Math.round(Math.log10(price+1)*9));
-  const item={id:'c'+Date.now(),name,cat,emoji:categoryMeta[cat]?.icon||'🛍️',price,desc:reason||'用户自定义研究对象',mood:state.currentMood,impulse,wait,custom:true,image:customImageData||'',sourceLink,createdAt:Date.now()};
+  const item=buildPrivateProduct({name,price,cat,reason,sourceLink,image:customImageData||''});
   state.customProducts.unshift(item);state.cart[item.id]=1;displayProducts=[item,...displayProducts];customImageData='';persist();document.getElementById('customName').value='';document.getElementById('customPrice').value='';document.getElementById('customReason').value='';document.getElementById('customLink').value='';const file=document.getElementById('customImage');if(file)file.value='';renderCustomImagePreview();go('cart');toast('私人研究对象已放进冷静车');
 }
 function runAssistant(){
@@ -1326,7 +1464,7 @@ function renderProfile(){
 }
 function showMigrationSheet(){
   openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>小程序迁移准备</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
-    <div class="quick-panel"><h3>V11.2 先把路线讲清楚</h3><p>当前仍是单页 HTML 原型。迁移微信小程序时，建议先保留产品逻辑和视觉资产，再拆页面、拆状态、拆内容数据。</p></div>
+    <div class="quick-panel"><h3>V11.4 先稳住日用主循环</h3><p>当前仍是单页 HTML 原型。迁移微信小程序时，建议优先拆出“今天先不买、冷静记录、复盘”三条核心路径，再迁移深度内容。</p></div>
     <div class="feature-list">
       <div class="feature-item"><span class="feature-check">1</span><div><strong>页面拆分</strong><small>发现、冷静车、实验、记录、我的、省钱广场、省钱研究室分别成为小程序页面或分包页面。</small></div></div>
       <div class="feature-item"><span class="feature-check">2</span><div><strong>数据模块</strong><small>商品库、广场内容、冷静订单、每日清单、挑战、省钱报告拆成独立数据文件，先继续使用本地存储。</small></div></div>
@@ -1339,7 +1477,7 @@ function showMigrationSheet(){
 function showPrivacySheet(){
   const daily=ensureDailyChecklist();
   openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>隐私与数据</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
-    <div class="quick-panel"><h3>当前版本只保存在本机</h3><p>V11.2 是纯前端 HTML 原型，不接入账号、云端数据库、真实支付、公开发帖或第三方 AI 服务。你的冷静记录、私人商品、省钱研究室资料和广场草稿只写入当前浏览器的本地存储。</p></div>
+    <div class="quick-panel"><h3>当前版本只保存在本机</h3><p>V11.4 是纯前端 HTML 原型，不接入账号、云端数据库、真实支付、公开发帖或第三方 AI 服务。你的冷静记录、私人商品、省钱研究室资料和广场草稿只写入当前浏览器的本地存储。</p></div>
     <div class="insight-card">
       <h3>当前会保存</h3>
       <div class="insight-row"><span>冷静实验记录</span><strong>${state.orders.length} 笔</strong></div>
@@ -1354,7 +1492,7 @@ function showPrivacySheet(){
 }
 function showAboutSheet(){
   openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>关于不买研究所</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
-    <div class="paywall-hero"><div class="paywall-icon">🛍️</div><h3>不买研究所</h3><p>NO BUY LAB V11.2 默认使用简洁模式，把第一步收敛到“记录想买、放进冷静车、之后复盘”；完整模式仍保留 V11 的深度内容。</p><div class="price-pending">V11.2 · SIMPLE FIRST · HTML Prototype</div></div>
+    <div class="paywall-hero"><div class="paywall-icon">🛍️</div><h3>不买研究所</h3><p>NO BUY LAB V11.4 默认使用极简日用模式，把第一步收敛到“今天先不买一下”；完整模式仍保留 V11 的深度内容。</p><div class="price-pending">V11.4 · DAILY PAUSE · HTML Prototype</div></div>
     <div class="feature-list">
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>核心体验</strong><small>虚拟下单、冷静实验、冷静记录、守住金额、挑战清单和真实决定复盘。</small></div></div>
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>品牌与内容</strong><small>商品品牌、型号、商品图和省钱广场内容均为原型设定，不代表真实交易或真实品牌。</small></div></div>
@@ -1364,7 +1502,7 @@ function showAboutSheet(){
     <button class="primary" style="width:100%" onclick="closeSheet();go('experiment')">开始一次冷静实验</button>`);
 }
 function exportData(){
-  const payload={exportedAt:new Date().toISOString(),brand:'不买研究所 NO BUY LAB',version:'V11.2',experienceMode:state.experienceMode,summary:{confirmedSaved:state.confirmedSaved,simulatedAmount:state.simulatedAmount,successRate:successRate()},orders:state.orders,customProducts:state.customProducts,dailyChecklist:state.dailyChecklist,challenge:state.challenge,savingsProfile:state.savingsProfile,savingsReports:state.savingsReports,plaza:{favorites:state.plazaFavorites,drafts:state.plazaDrafts,reports:state.plazaReports,couponIntent:state.couponIntent}};
+  const payload={exportedAt:new Date().toISOString(),brand:'不买研究所 NO BUY LAB',version:'V11.4',experienceMode:state.experienceMode,summary:{confirmedSaved:state.confirmedSaved,simulatedAmount:state.simulatedAmount,successRate:successRate()},orders:state.orders,customProducts:state.customProducts,dailyChecklist:state.dailyChecklist,challenge:state.challenge,savingsProfile:state.savingsProfile,savingsReports:state.savingsReports,plaza:{favorites:state.plazaFavorites,drafts:state.plazaDrafts,reports:state.plazaReports,couponIntent:state.couponIntent}};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='不买研究所-研究数据.json';a.click();URL.revokeObjectURL(a.href);toast('研究数据已导出');
 }
 function resetDemo(){if(confirm('确定重置所有本地演示数据吗？')){state=defaultState();state.onboarded=true;persist();closeSheet();go('discover');toast('演示数据已重置');}}
@@ -1386,8 +1524,9 @@ let toastTimer;function toast(msg){const t=document.getElementById('toast');t.te
 function escapeHtml(str){return String(str??'').replace(/[&<>'"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[s]));}
 
 document.getElementById('searchInput').addEventListener('input',()=>{visibleProductLimit=36;renderProducts();});
+['instantName','instantPrice'].forEach(id=>document.getElementById(id)?.addEventListener('keydown',e=>{if(e.key==='Enter')startInstantLab();}));
 setInterval(()=>{const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',hour12:false});if(document.getElementById('records').classList.contains('active'))renderOrders();},1000);
-displayProducts=[...allProducts()];ensureDailyChecklist();updateExperienceMode();renderChips();renderMoods();renderCustomCategoryOptions();renderScenarioGrid();renderProducts();renderHabitModules();renderPlaza();updateAll();switchHallTab(isSimpleMode()?'research':state.hallTab||'research',false);if(!state.onboarded)showOnboarding();
+displayProducts=[...allProducts()];ensureDailyChecklist();updateExperienceMode();renderPauseOptions();renderChips();renderMoods();renderCustomCategoryOptions();renderScenarioGrid();renderProducts();renderHabitModules();renderPlaza();updateAll();switchHallTab(isSimpleMode()?'research':state.hallTab||'research',false);if(!state.onboarded)showOnboarding();
 </script>
 </body>
 </html>

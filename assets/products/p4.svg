@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="CHILUNO 赤浪麻辣冒菜套餐">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2A56F"/><stop offset="1" stop-color="#FFF3E9"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <path d="M105 188h190c-10 92-52 125-95 125s-85-33-95-125z" fill="#FFF3E9" stroke="#9D4B35" stroke-width="7" stroke-linejoin="round"/><path d="M125 185c15-25 35-8 48-36 13 27 33 11 47-19 16 32 38 15 55 40" stroke="#9D4B35" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M160 112c-18-24 18-35 0-58M220 112c-18-24 18-35 0-58" stroke="#9D4B35" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#9D4B35" letter-spacing="1">CHILUNO</text>
+    </svg>

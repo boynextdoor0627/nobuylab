@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="VELOAIR 风迹高速吹风造型器">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E4A0A6"/><stop offset="1" stop-color="#FFF1F3"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <path d="M90 125h165c45 0 70 30 55 68-15 36-54 42-95 42h-38l-26 95h-58l35-110H90z" fill="#FFF1F3" stroke="#7D4A56" stroke-width="7" stroke-linejoin="round"/><circle cx="260" cy="178" r="28" fill="#7D4A56" opacity=".2"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#7D4A56" letter-spacing="1">VELOAIR</text>
+    </svg>

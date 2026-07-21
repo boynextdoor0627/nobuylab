@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="PAPERLY 日常三个月纸品套装">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C2A98B"/><stop offset="1" stop-color="#FFF8F1"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <rect x="85" y="170" width="230" height="125" rx="18" fill="#FFF8F1" stroke="#665443" stroke-width="7" stroke-linejoin="round"/><path d="M140 170c10-75 110-75 120 0" stroke="#665443" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M200 92v80" stroke="#665443" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#665443" letter-spacing="1">PAPERLY</text>
+    </svg>

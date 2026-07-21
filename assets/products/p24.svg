@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="PARFELLE 夜幕沙龙香水礼盒">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#BFA76B"/><stop offset="1" stop-color="#FFF9E8"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <rect x="120" y="145" width="160" height="160" rx="28" fill="#FFF9E8" stroke="#51472B" stroke-width="7" stroke-linejoin="round"/><rect x="165" y="90" width="70" height="55" rx="10" fill="#FFF9E8" stroke="#51472B" stroke-width="7" stroke-linejoin="round"/><path d="M185 90V65h60" stroke="#51472B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="200" cy="225" r="32" fill="#51472B" opacity=".2"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#51472B" letter-spacing="1">PARFELLE</text>
+    </svg>

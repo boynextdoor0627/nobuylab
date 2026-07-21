@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 150" role="img" aria-label="不买研究所 NO BUY LAB">
+  <rect width="560" height="150" rx="28" fill="#FFFFFF"/>
+  <g transform="translate(16 12) scale(.95)">
+    <path d="M38 39c0-17 10-28 26-28s26 11 26 28" fill="none" stroke="#0B6D35" stroke-width="10" stroke-linecap="round"/>
+    <path d="M26 34h76c8 0 13 6 14 14l8 63c1 9-5 15-14 15H18c-9 0-15-6-14-15l8-63c1-8 6-14 14-14Z" fill="#22C55E"/>
+    <rect x="26" y="50" width="76" height="61" rx="20" fill="#FFFDF3"/>
+    <path d="M43 68l13 13M56 68L43 81M72 68l13 13M85 68L72 81" stroke="#151A18" stroke-width="8" stroke-linecap="round"/>
+    <path d="M44 93c8 10 31 10 40 0" fill="none" stroke="#151A18" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <text x="158" y="68" fill="#111827" font-size="42" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="900">不买研究所</text>
+  <text x="160" y="108" fill="#16A34A" font-size="25" font-family="Arial, sans-serif" font-weight="800" letter-spacing="4">NO BUY LAB</text>
+</svg>

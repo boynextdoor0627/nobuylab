@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="VEXLON 星域家用游戏主机">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8277C7"/><stop offset="1" stop-color="#F3F1FF"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <path d="M118 75h80v250h-80zM205 105h78v220h-78z" fill="#F3F1FF" stroke="#3D376F" stroke-width="7" stroke-linejoin="round"/><path d="M145 110v180M230 140v145" stroke="#3D376F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="285" cy="300" r="18" fill="#3D376F"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#3D376F" letter-spacing="1">VEXLON</text>
+    </svg>

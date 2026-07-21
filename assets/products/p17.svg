@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="TRAVENO 雾灰复古跑鞋">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8A47D"/><stop offset="1" stop-color="#FFF7EF"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <path d="M75 245c60 0 77-92 107-92 29 0 37 55 77 65l77 18v54H75z" fill="#FFF7EF" stroke="#5F4937" stroke-width="7" stroke-linejoin="round"/><path d="M145 190l70 35M130 210l65 30M95 272h220" stroke="#5F4937" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#5F4937" letter-spacing="1">TRAVENO</text>
+    </svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="MELYRA 夜幕黑糖珍珠奶茶">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2A56F"/><stop offset="1" stop-color="#FFF3E9"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <path d="M150 115h100l-10 150c-2 27-15 39-40 39s-38-12-40-39z" fill="#FFF3E9" stroke="#9D4B35" stroke-width="7" stroke-linejoin="round"/><path d="M215 55l-18 72" stroke="#9D4B35" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M170 150h60" stroke="#9D4B35" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="178" cy="250" r="8" fill="#9D4B35"/><circle cx="205" cy="267" r="8" fill="#9D4B35"/><circle cx="228" cy="238" r="8" fill="#9D4B35"/><circle cx="194" cy="225" r="8" fill="#9D4B35"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#9D4B35" letter-spacing="1">MELYRA</text>
+    </svg>

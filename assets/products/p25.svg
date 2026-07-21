@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="NESTARA 云岛模块化懒人沙发">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FB5A2"/><stop offset="1" stop-color="#F0FAF5"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <rect x="78" y="170" width="244" height="115" rx="30" fill="#F0FAF5" stroke="#3E6756" stroke-width="7" stroke-linejoin="round"/><rect x="100" y="110" width="200" height="95" rx="35" fill="#F0FAF5" stroke="#3E6756" stroke-width="7" stroke-linejoin="round"/><path d="M105 285v35M295 285v35M200 130v70" stroke="#3E6756" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#3E6756" letter-spacing="1">NESTARA</text>
+    </svg>

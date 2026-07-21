@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="MOTIVA 轻跃可折叠家用跑步机">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7FAE78"/><stop offset="1" stop-color="#F1F8EE"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <path d="M100 265h210l-25 45H80zM260 265l-20-145M240 120h80" stroke="#3E653A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="82" y="225" width="210" height="55" rx="20" fill="#F1F8EE" stroke="#3E653A" stroke-width="7" stroke-linejoin="round"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#3E653A" letter-spacing="1">MOTIVA</text>
+    </svg>

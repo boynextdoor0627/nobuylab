@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="STREAMORA 光幕视频平台年度通行证">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6C91B9"/><stop offset="1" stop-color="#F0F6FD"/></linearGradient></defs>
+    <rect width="400" height="400" rx="52" fill="url(#g)"/>
+    <circle cx="345" cy="55" r="75" fill="white" opacity=".22"/><circle cx="45" cy="350" r="90" fill="white" opacity=".17"/>
+    <rect x="70" y="85" width="260" height="220" rx="28" fill="#F0F6FD" stroke="#344D68" stroke-width="7" stroke-linejoin="round"/><path d="M170 145l85 50-85 50z" fill="#344D68" opacity=".45"/><path d="M130 325h140" stroke="#344D68" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <rect x="22" y="22" width="118" height="34" rx="17" fill="white" opacity=".8"/>
+    <text x="81" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#344D68" letter-spacing="1">STREAMORA</text>
+    </svg>

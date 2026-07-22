@@ -49,7 +49,7 @@ Page({
     })
     this.setData({ name: '', amount: '' })
     this.refresh()
-    wx.showToast({ title: '已进入冷静记录', icon: 'success' })
+    wx.showToast({ title: '已进冷静箱', icon: 'success' })
     setTimeout(() => {
       wx.switchTab({ url: '/pages/records/records' })
     }, 450)

@@ -83,7 +83,7 @@ function routeMeta(record) {
   }
   return {
     from: fromMap[record.type] || '冲动现场',
-    to: '冷静舱',
+    to: '冷静箱',
     distance: (1.8 + (String(record.id).charCodeAt(6) % 7) / 10).toFixed(1),
     eta: Math.max(0, (5 - Number(record.routeStage || 0)) * 2)
   }
@@ -136,6 +136,7 @@ function addDraft(payload) {
     id: uid('draft'),
     topic: payload.topic || '差点买了',
     icon: payload.icon || '🛍️',
+    iconPath: payload.iconPath || '/assets/icons/money-bag.png',
     tone: 'green',
     title: payload.title || payload.summary.slice(0, 24),
     summary: payload.summary,

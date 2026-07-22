@@ -6,7 +6,7 @@
   </view>
 
   <view class="post-shot {{post.tone}} section">
-    <text class="post-icon">{{post.icon}}</text>
+    <image class="post-icon-img" src="{{post.iconPath}}" mode="aspectFit" />
     <text class="post-cover-title">{{post.title}}</text>
   </view>
 

@@ -122,8 +122,10 @@
 .post-shot.blue { background: linear-gradient(145deg, #627F9A, #91ADC1); }
 .post-shot.green { background: linear-gradient(145deg, #16A34A, #66E59B); }
 
-.post-icon {
-  font-size: 52rpx;
+.post-icon-img {
+  width: 72rpx;
+  height: 72rpx;
+  display: block;
 }
 
 .post-cover-title {

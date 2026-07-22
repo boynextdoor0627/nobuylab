@@ -48,8 +48,11 @@
     .brand-en{font-size:10px;color:var(--muted);letter-spacing:1.7px;margin-top:1px}
     .bell,.iconbtn{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.7);display:grid;place-items:center;color:var(--text)}
     .iconbtn svg,.bell svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .asset-icon{width:22px;height:22px;display:block;object-fit:contain}
+    .bell .asset-icon{width:24px;height:24px}
     .search{height:48px;background:#fff;border:1px solid #C7EED0;border-radius:24px;display:flex;align-items:center;padding:0 14px;gap:10px;box-shadow:0 4px 12px rgba(97,67,46,.04)}
     .search svg{width:18px;height:18px;stroke:#706860;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .search .search-icon{width:20px;height:20px;object-fit:contain;flex:0 0 auto}
     .search input{border:0;outline:0;flex:1;background:transparent;color:var(--text);min-width:0}
     .search input::placeholder{color:#A79D94}
     .chips,.mood-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
@@ -140,6 +143,7 @@
     .quick-card{background:#fff;border-radius:18px;padding:15px;text-align:left;min-height:116px;box-shadow:0 8px 18px rgba(79,60,45,.06);border:1px solid transparent}
     .quick-card:hover{border-color:#BCEBC7}
     .quick-icon{font-size:28px}
+    .quick-icon img{width:34px;height:34px;object-fit:contain;display:block}
     .quick-title{font-weight:800;margin-top:8px}
     .quick-sub{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.45}
     .form-card{background:#fff;border-radius:22px;padding:17px;margin:16px 0}
@@ -201,6 +205,9 @@
     .bottom-nav{position:absolute;left:12px;right:12px;bottom:10px;height:64px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-radius:24px;box-shadow:0 10px 24px rgba(60,45,34,.15);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:0 5px;z-index:20}
     .nav-btn{height:55px;border-radius:18px;background:transparent;color:#625B55;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;gap:3px;position:relative}
     .nav-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .nav-icon{width:22px;height:22px;object-fit:contain;display:block;filter:saturate(.9)}
+    .nav-btn.active .nav-icon{filter:saturate(1.08) drop-shadow(0 4px 8px rgba(34,197,94,.16))}
+    .nav-btn.center .nav-icon{width:28px;height:28px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.08))}
     .nav-btn.active{color:var(--primary);font-weight:800}
     .nav-btn.center{width:56px;height:56px;border-radius:19px;background:var(--primary);color:#fff;justify-self:center;transform:translateY(-8px);box-shadow:0 10px 18px rgba(34,197,94,.28)}
     .nav-btn.center.active{color:#fff}
@@ -539,6 +546,7 @@
     .pause-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
     .pause-option{min-height:52px;border-radius:15px;background:#F4FAF1;border:1px solid #DDEBDD;color:#314638;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px}
     .pause-option.active{background:#10271B;color:#B9F33D;border-color:#10271B;box-shadow:0 9px 18px rgba(16,39,27,.12)}
+    .pause-icon{width:27px;height:27px;object-fit:contain;display:block}
     .instant-fields{display:grid;grid-template-columns:1fr 104px;gap:8px}
     .instant-fields input{width:100%;height:48px;border:1px solid #DDEBDD;background:#F8FBF6;border-radius:15px;padding:0 12px;outline:0;color:var(--text)}
     .instant-fields input::placeholder{color:#9BA59D}
@@ -546,6 +554,11 @@
     .instant-note small{font-size:10px;color:#66766B;line-height:1.45}
     .instant-note button{min-height:46px;border-radius:15px;white-space:nowrap}
     .optional-label{font-size:10px;font-weight:900;color:#66766B;margin:2px 0 7px}
+    .play-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 0}
+    .play-step{background:#F6FBF2;border:1px solid #DDEBDD;border-radius:16px;padding:10px 8px;min-height:74px}
+    .step-num{width:24px;height:24px;border-radius:50%;background:#10271B;color:#B9F33D;display:grid;place-items:center;font-size:12px;font-weight:900;margin-bottom:7px}
+    .play-step strong{display:block;font-size:12px;line-height:1.25;margin-bottom:3px}
+    .play-step small{display:block;font-size:10px;color:#66766B;line-height:1.35}
     .daily-loop{background:#10271B;color:#fff;border-radius:24px;padding:16px;margin-top:10px;position:relative;overflow:hidden}
     .daily-loop:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(185,243,61,.2);right:-60px;top:-50px}
     .daily-loop h3{font-size:16px;margin:0 0 5px;position:relative;z-index:1}
@@ -614,15 +627,15 @@
           <div class="brand-mark" aria-hidden="true"><img src="assets/logo-mark.svg" alt=""></div>
           <div><div class="brand-title">不买研究所 <span class="vtag">V11.7 · DAILY</span></div><div class="brand-en">NO BUY LAB · PAUSE TODAY</div></div>
         </div>
-        <button class="bell" aria-label="实验提醒" onclick="toast('暂无新的实验提醒')"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></button>
+        <button class="bell" aria-label="实验提醒" onclick="toast('暂无新的实验提醒')"><img class="asset-icon" src="assets/icons/hourglass.png" alt=""></button>
       </div>
 
       <div class="simple-home" id="simpleHome">
         <div class="instant-lab">
           <div class="lab-title">
             <div>
-              <h2>今天先暂停哪一种冲动？</h2>
-              <p>先点一个选项就可以。想补充具体商品也行，不写也能完成今天的暂停。</p>
+              <h2>今天差点买什么？</h2>
+              <p>点一个就算打卡。不想打字也没事，先把冲动丢进冷静箱。</p>
             </div>
             <span class="instant-badge">10 秒</span>
           </div>
@@ -634,15 +647,20 @@
           </div>
           <div class="instant-note">
             <small>不填文字也可以。系统只会保存一个本地暂停记录。</small>
-            <button class="primary" onclick="startInstantLab()">先不买一下</button>
+            <button class="primary" onclick="startInstantLab()">丢进冷静箱</button>
+          </div>
+          <div class="play-steps" aria-label="不买研究所玩法">
+            <div class="play-step"><div class="step-num">1</div><strong>选一个冲动</strong><small>吃喝、数码、穿搭都行</small></div>
+            <div class="play-step"><div class="step-num">2</div><strong>先别付款</strong><small>放进本地冷静箱</small></div>
+            <div class="play-step"><div class="step-num">3</div><strong>回来开奖</strong><small>省下就生成战报</small></div>
           </div>
         </div>
         <div class="daily-loop">
           <h3 id="dailyLoopTitle">今天还没有暂停记录</h3>
-          <p id="dailyLoopCopy">长期使用不靠复杂功能，靠每次冲动来时多等一下。</p>
+          <p id="dailyLoopCopy">长期用下去，不靠复杂功能，靠想买时多点一下。</p>
           <div class="daily-dots" id="dailyDots"></div>
           <div class="loop-actions">
-            <button class="light" onclick="go('records')">复盘冷静中</button>
+            <button class="light" onclick="go('records')">去开奖</button>
             <button class="quiet" onclick="setExperienceMode('full')">更多功能</button>
           </div>
         </div>
@@ -657,11 +675,11 @@
           </div>
         </div>
         <div class="simple-status">
-          <div class="simple-stat"><small>确认守住</small><strong id="simpleSaved">¥0</strong></div>
-          <div class="simple-stat"><small>冷静中</small><strong id="simpleCooling">0 笔</strong></div>
+          <div class="simple-stat"><small>已省下</small><strong id="simpleSaved">¥0</strong></div>
+          <div class="simple-stat"><small>待开奖</small><strong id="simpleCooling">0 笔</strong></div>
         </div>
         <div class="simple-follow" id="simpleFollow"></div>
-        <div class="mode-card"><strong>完整研究所已收起</strong><p>商品库、省钱广场、挑战和研究档案都还在；默认先做一个能每天打开的小工具。</p><button class="secondary" onclick="setExperienceMode('full')">打开完整模式</button></div>
+        <div class="mode-card"><strong>想看更多再展开</strong><p>广场、商品库和深度工具都在后面。新用户先玩这一件事。</p><button class="secondary" onclick="setExperienceMode('full')">打开完整模式</button></div>
       </div>
 
       <div class="hall-tabs" aria-label="研究大厅与省钱广场">
@@ -671,7 +689,7 @@
 
       <div id="researchHallPanel">
       <label class="search" aria-label="搜索研究对象">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <img class="search-icon" src="assets/icons/search.png" alt="">
         <input id="searchInput" placeholder="搜索想买的东西、消费场景…" />
       </label>
 
@@ -683,7 +701,7 @@
 
       <div class="hero">
         <img class="hero-mascot" src="assets/brand/mascot-3d.png" alt="不买研究所 3D IP 形象">
-        <div class="hero-label">累计确认守住</div>
+        <div class="hero-label">累计已省下</div>
         <div class="hero-amount" id="confirmedSaved">¥0</div>
         <div class="hero-sub">叉叉眼不代表放弃生活，只代表这次先冷静。完成冷静期并确认没有购买后，金额才会被真实守住。</div>
         <div class="hero-data">
@@ -722,7 +740,7 @@
 
       <div id="plazaHallPanel" style="display:none">
         <div class="plaza-hero">
-          <img class="plaza-mascot" src="assets/logo-mark.svg" alt="不买研究所 IP">
+          <img class="plaza-mascot" src="assets/icons/savings.png" alt="省钱广场图标">
           <div class="plaza-title-row">
             <div>
               <div class="eyebrow">NO BUY SQUARE</div>
@@ -794,7 +812,7 @@
         <div style="margin-left:auto;color:var(--muted)">›</div>
       </div>
       <div class="stats">
-        <div class="stat"><strong id="statConfirmed">¥0</strong><span>确认守住</span></div>
+        <div class="stat"><strong id="statConfirmed">¥0</strong><span>已省下</span></div>
         <div class="stat"><strong id="statSimulated">¥0</strong><span>模拟消费</span></div>
         <div class="stat"><strong id="statRate">—</strong><span>冷静成功率</span></div>
         <div class="stat"><strong id="statStreak">1</strong><span>连续记录天数</span></div>
@@ -811,7 +829,7 @@
         <div class="insight-row"><span>最常研究的类别</span><strong id="topCategory">暂无数据</strong></div>
         <div class="insight-row"><span>当前情绪触发</span><strong id="profileMood">无聊想逛逛</strong></div>
         <div class="insight-row"><span>已完成复盘</span><strong id="reviewedCount">0 次</strong></div>
-        <div class="insight-row"><span>仍在冷静中</span><strong id="coolingCount">0 笔</strong></div>
+        <div class="insight-row"><span>等待开奖</span><strong id="coolingCount">0 笔</strong></div>
         <div class="insight-row"><span>连续冷静挑战</span><strong id="challengeProfile">尚未开始</strong></div>
         <div class="insight-row"><span>今日研究清单</span><strong id="dailyProfile">0/5</strong></div>
       </div>
@@ -832,11 +850,11 @@
     </section>
 
     <nav class="bottom-nav" aria-label="主导航">
-      <button class="nav-btn active" data-screen="discover" onclick="go('discover')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 5-5 2 2-5 5-2Z"/></svg><span>发现</span></button>
-      <button class="nav-btn" data-screen="cart" onclick="go('cart')"><svg viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span>冷静车</span><span class="badge" id="cartBadge" style="display:none">0</span></button>
-      <button class="nav-btn center" data-screen="experiment" onclick="go('experiment')"><svg viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v5l-5 8.5A3 3 0 0 0 7.6 21h8.8a3 3 0 0 0 2.6-4.5L14 8V3"/><path d="M8 15h8"/></svg><span>想买</span></button>
-      <button class="nav-btn" data-screen="records" onclick="go('records')"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4z"/><path d="M8 3v4M16 3v4M4 10h16"/><path d="M8 14h3M8 17h6"/></svg><span>记录</span></button>
-      <button class="nav-btn" data-screen="profile" onclick="go('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>我的</span></button>
+      <button class="nav-btn active" data-screen="discover" onclick="go('discover')"><img class="nav-icon" src="assets/icons/search.png" alt=""><span>发现</span></button>
+      <button class="nav-btn" data-screen="cart" onclick="go('cart')"><img class="nav-icon" src="assets/icons/wallet.png" alt=""><span>冷静车</span><span class="badge" id="cartBadge" style="display:none">0</span></button>
+      <button class="nav-btn center" data-screen="experiment" onclick="go('experiment')"><img class="nav-icon" src="assets/icons/no-money.png" alt=""><span>想买</span></button>
+      <button class="nav-btn" data-screen="records" onclick="go('records')"><img class="nav-icon" src="assets/icons/hourglass.png" alt=""><span>记录</span></button>
+      <button class="nav-btn" data-screen="profile" onclick="go('profile')"><img class="nav-icon" src="assets/icons/treasure-chest.png" alt=""><span>我的</span></button>
     </nav>
 
     <div class="sheet" id="sheet" onclick="sheetBackdrop(event)"><div class="sheet-card" id="sheetCard"></div></div>
@@ -846,11 +864,11 @@
         <div class="onboard-visual"><img src="assets/brand/mascot-3d.png" alt="不买研究所 3D IP 形象"></div>
         <h1>不买研究所</h1>
         <div class="en">NO BUY LAB</div>
-        <div class="slogan">有点累，也还能笑着先别买。</div>
-        <p>叉叉眼只是当代牛马的精神状态，不代表放弃生活。把想买的东西放进冷静车，等情绪过去后，再决定它是否真的值得买。</p>
-        <button class="primary" onclick="finishOnboarding('experiment')">开始一次冷静实验</button>
-        <button class="secondary" onclick="finishOnboarding('discover')">先随便逛逛</button>
-        <div class="onboard-note">不是不让你买，是帮你先想一想。所有订单均为虚拟体验。</div>
+        <div class="slogan">像小游戏一样，先把想买的东西丢进冷静箱。</div>
+        <p>第一步不用研究、不用记账、不用解释。选一个冲动，点“先不买”，明天再来开奖：忍住了就生成省钱战报，买了也算真实记录。</p>
+        <button class="primary" onclick="finishOnboarding('discover')">开始 10 秒试玩</button>
+        <button class="secondary" onclick="finishOnboarding('experiment')">进入完整版</button>
+        <div class="onboard-note">不是教育你省钱，是把冲动消费变成一个轻松的小互动。</div>
       </div>
     </div>
 
@@ -863,14 +881,14 @@ const baseProducts = [{"id":"p1","name":"晚野 夜幕黑糖烤鸡双拼","cat":
 const categoryMeta = {"深夜外卖":{"icon":"🍜","desc":"即时满足","color":"#F7C9A8"},"奶茶甜品":{"icon":"🧋","desc":"甜味安慰","color":"#F5D7DF"},"咖啡烘焙":{"icon":"☕","desc":"日常奖励","color":"#E8D8C8"},"数码影音":{"icon":"🎧","desc":"设备升级","color":"#BED2EC"},"电脑办公":{"icon":"💻","desc":"效率想象","color":"#C9D9E8"},"摄影器材":{"icon":"📷","desc":"创作升级","color":"#D2D8DD"},"游戏娱乐":{"icon":"🎮","desc":"娱乐补偿","color":"#D7DAEE"},"美妆护肤":{"icon":"🧴","desc":"功效种草","color":"#E7D5F1"},"香氛洗护":{"icon":"🫧","desc":"感官奖励","color":"#E6DCEC"},"潮鞋穿搭":{"icon":"👟","desc":"形象表达","color":"#D8E6D0"},"包袋配饰":{"icon":"👜","desc":"风格更新","color":"#E8D9CF"},"珠宝腕表":{"icon":"⌚","desc":"仪式与身份","color":"#E8D8BC"},"居家家具":{"icon":"🛋️","desc":"空间改造","color":"#D6E6E3"},"厨房电器":{"icon":"🍳","desc":"生活效率","color":"#DFE4D6"},"清洁收纳":{"icon":"🧺","desc":"秩序想象","color":"#D8E7E7"},"生活囤货":{"icon":"📦","desc":"优惠与存量","color":"#E7DFC8"},"健身装备":{"icon":"🏋️","desc":"自律想象","color":"#D4E5D7"},"户外露营":{"icon":"⛺","desc":"装备型冲动","color":"#DCE4CC"},"旅行度假":{"icon":"✈️","desc":"逃离与体验","color":"#CFE4EE"},"宠物消费":{"icon":"🐾","desc":"宠爱与补偿","color":"#F0D8C6"},"兴趣收藏":{"icon":"🎨","desc":"新鲜与收藏","color":"#E7D9EF"},"图书文具":{"icon":"📚","desc":"知识与仪式","color":"#E3D7C8"},"课程学习":{"icon":"🎓","desc":"成长焦虑","color":"#D5E2EF"},"会员订阅":{"icon":"🔁","desc":"持续性支出","color":"#D8E0E7"},"汽车用品":{"icon":"🚗","desc":"车内升级","color":"#D7DEE4"},"骑行通勤":{"icon":"🚲","desc":"通勤装备","color":"#D6E5DF"},"鲜花礼物":{"icon":"💐","desc":"仪式与表达","color":"#F2D9E1"},"母婴亲子":{"icon":"🧸","desc":"照顾与陪伴","color":"#F0E0CE"},"健康养护":{"icon":"🧘","desc":"舒缓与恢复","color":"#DCE7D6"},"乐器音频":{"icon":"🎸","desc":"创作与表达","color":"#E4D8CF"},"手作创意":{"icon":"🧶","desc":"创作仪式","color":"#E9D9E8"},"节庆派对":{"icon":"🎉","desc":"庆祝与氛围","color":"#F2D7C7"}};
 const categories = ['全部',...Object.keys(categoryMeta)];
 const moods = ['压力有点大','无聊想逛逛','被种草了','深夜想吃','想奖励自己'];
-const recordFilterOptions = [{id:'all',label:'全部'},{id:'cooling',label:'冷静中'},{id:'kept',label:'已守住'},{id:'bought',label:'最后买了'}];
+const recordFilterOptions = [{id:'all',label:'全部'},{id:'cooling',label:'待开奖'},{id:'kept',label:'已省下'},{id:'bought',label:'已记录'}];
 const pauseChoices=[
-  {id:'food',label:'吃喝',cat:'奶茶甜品',emoji:'🧋',fallback:'一份吃喝冲动',price:28},
-  {id:'digital',label:'数码',cat:'数码影音',emoji:'🎧',fallback:'一个数码产品',price:899},
-  {id:'wear',label:'穿搭',cat:'潮鞋穿搭',emoji:'👟',fallback:'一件穿搭单品',price:399},
-  {id:'beauty',label:'护肤',cat:'美妆护肤',emoji:'🧴',fallback:'一件护肤美妆',price:199},
-  {id:'home',label:'家居',cat:'居家家具',emoji:'🛋️',fallback:'一件家居用品',price:299},
-  {id:'other',label:'其他',cat:'其他',emoji:'🛍️',fallback:'一个想买的东西',price:99}
+  {id:'food',label:'吃喝',cat:'奶茶甜品',emoji:'🧋',icon:'no-money',fallback:'一份吃喝冲动',price:28},
+  {id:'digital',label:'数码',cat:'数码影音',emoji:'🎧',icon:'smartphone',fallback:'一个数码产品',price:899},
+  {id:'wear',label:'穿搭',cat:'潮鞋穿搭',emoji:'👟',icon:'wallet-passes-app',fallback:'一件穿搭单品',price:399},
+  {id:'beauty',label:'护肤',cat:'美妆护肤',emoji:'🧴',icon:'refund',fallback:'一件护肤美妆',price:199},
+  {id:'home',label:'家居',cat:'居家家具',emoji:'🛋️',icon:'bank',fallback:'一件家居用品',price:299},
+  {id:'other',label:'其他',cat:'其他',emoji:'🛍️',icon:'money-bag',fallback:'一个想买的东西',price:99}
 ];
 let selectedPauseChoice='food';
 
@@ -927,6 +945,7 @@ function persist(){try{localStorage.setItem(STATE_KEY,JSON.stringify(state));}ca
 function allProducts(){return [...baseProducts,...(state.customProducts||[])];}
 function productById(id){return allProducts().find(x=>x.id===id);}
 function money(n){const v=Number(n||0);return '¥'+v.toFixed(Number.isInteger(v)?0:1);}
+function iconImg(name,cls='asset-icon'){return `<img class="${cls}" src="assets/icons/${name}.png" alt="">`;}
 function formatHours(h){return h>=168?'7天':h>=72?'3天':h>=48?'48小时':h>=24?'24小时':h+'小时';}
 function cartItems(){return Object.entries(state.cart||{}).map(([id,qty])=>({p:productById(id),qty:Number(qty)})).filter(x=>x.p);}
 function cartSubtotal(){return cartItems().reduce((s,x)=>s+x.p.price*x.qty,0);}
@@ -970,7 +989,7 @@ function updateSimpleHome(){
   if(cooling)cooling.textContent=openOrders.length+' 笔';
   const today=(state.orders||[]).filter(o=>dateKey(new Date(o.created))===dateKey());
   if(loopTitle)loopTitle.textContent=today.length?`今天已暂停 ${today.length} 次`:'今天还没有暂停记录';
-  if(loopCopy)loopCopy.textContent=openOrders.length?`还有 ${openOrders.length} 笔正在冷静。回来复盘，比今天立刻买更重要。`:'长期使用不靠复杂功能，靠每次冲动来时多等一下。';
+  if(loopCopy)loopCopy.textContent=openOrders.length?`还有 ${openOrders.length} 笔待开奖。回来点一下，比今天立刻买更重要。`:'长期用下去，不靠复杂功能，靠想买时多点一下。';
   if(dots){
     const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return dateKey(d);});
     const done=new Set((state.orders||[]).map(o=>dateKey(new Date(o.created))));
@@ -978,7 +997,7 @@ function updateSimpleHome(){
   }
   if(follow){
     const next=openOrders[0];
-    follow.innerHTML=next?`<h3>最近一笔</h3><p>${escapeHtml((next.items||[]).map(x=>x.name).join('、')||'一笔消费冲动')} · ${countdownText(next)}</p>`:`<h3>今天的任务很小</h3><p>想买的时候写下来；不想买的时候不用打开。这样才有机会长期留住自己。</p>`;
+    follow.innerHTML=next?`<h3>最近一笔</h3><p>${escapeHtml((next.items||[]).map(x=>x.name).join('、')||'一笔消费冲动')} · ${countdownText(next)}</p>`:`<h3>今天的任务很小</h3><p>想买时点一下；不想买时不用打开。轻一点，才更容易留下来。</p>`;
   }
 }
 function ensureDailyChecklist(){
@@ -1121,7 +1140,7 @@ function renderMoods(){
 function setMood(m){state.currentMood=m;persist();toast('已记录：'+m);}
 function renderPauseOptions(){
   const root=document.getElementById('pauseOptions');if(!root)return;
-  root.innerHTML=pauseChoices.map(x=>`<button class="pause-option ${x.id===selectedPauseChoice?'active':''}" onclick="selectPauseChoice('${x.id}')">${x.emoji} ${x.label}</button>`).join('');
+  root.innerHTML=pauseChoices.map(x=>`<button class="pause-option ${x.id===selectedPauseChoice?'active':''}" onclick="selectPauseChoice('${x.id}')">${iconImg(x.icon,'pause-icon')}<span>${x.label}</span></button>`).join('');
 }
 function selectPauseChoice(id){selectedPauseChoice=id;renderPauseOptions();}
 function renderChips(){
@@ -1191,7 +1210,7 @@ function openProduct(id){
 function openCheckout(){
   if(!cartItems().length){toast('冷静车还是空的');go('cart');return;}
   const subtotal=cartSubtotal(),discount=discountFor(subtotal),subsidy=rationalSubsidy(subtotal),total=cartTotal();
-  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>创建冷静实验</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="checkout-card"><div class="checkout-row"><span>商品标价合计</span><strong>${money(subtotal)}</strong></div><div class="checkout-row muted"><span>虚拟满减</span><span>−${money(discount)}</span></div><div class="checkout-row muted"><span>理智实验补贴</span><span>−${money(subsidy)}</span></div><div class="checkout-row total"><span>本次模拟消费</span><span>${money(total)}</span></div><div class="checkout-row"><span>真实支付</span><strong style="color:var(--green)">¥0</strong></div></div><div class="virtual-warning">这笔金额暂时只会计入“模拟消费”，不会立刻计入“确认守住”。完成冷静期并确认没有真实购买后，才会成为守住金额。</div><div class="sheet-actions"><button class="secondary" onclick="startPretendPay(true)">跳过配送</button><button class="primary" onclick="startPretendPay(false)">快速体验 10 秒</button></div>`);
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>放进冷静箱</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="checkout-card"><div class="checkout-row"><span>商品标价合计</span><strong>${money(subtotal)}</strong></div><div class="checkout-row muted"><span>虚拟满减</span><span>−${money(discount)}</span></div><div class="checkout-row muted"><span>理智补贴</span><span>−${money(subsidy)}</span></div><div class="checkout-row total"><span>这次差点花</span><span>${money(total)}</span></div><div class="checkout-row"><span>真实支付</span><strong style="color:var(--green)">¥0</strong></div></div><div class="virtual-warning">这笔金额只是本地模拟，不会下单。等你回来开奖并确认没买后，才会计入“已省下”。</div><div class="sheet-actions"><button class="secondary" onclick="startPretendPay(true)">跳过路线</button><button class="primary" onclick="startPretendPay(false)">快速体验 10 秒</button></div>`);
 }
 function startPretendPay(skip){
   if(!cartItems().length){toast('冷静车还是空的');closeSheet();go('cart');return;}
@@ -1207,15 +1226,15 @@ function createOrder(skip){
 }
 function showDelivery(id,autoplay=true){
   clearInterval(deliveryTimer);const order=state.orders.find(o=>o.id===id);if(!order)return;
-  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验 ${order.id}</h3><button class="iconbtn" onclick="closeSheet();go('records')">✕</button></div>${renderRouteMap(order)}<div class="timeline" id="timeline"></div><div class="sheet-actions"><button class="secondary" id="skipDelivery" onclick="skipDelivery('${order.id}')">跳过路线</button><button class="primary" id="deliveryNext" onclick="showCoolingCreated('${order.id}')" ${order.stage<5?'disabled style="opacity:.45"':''}>进入冷静期</button></div>`;
+  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="sheet-head"><h3>冷静箱 ${order.id}</h3><button class="iconbtn" onclick="closeSheet();go('records')">✕</button></div>${renderRouteMap(order)}<div class="timeline" id="timeline"></div><div class="sheet-actions"><button class="secondary" id="skipDelivery" onclick="skipDelivery('${order.id}')">跳过路线</button><button class="primary" id="deliveryNext" onclick="showCoolingCreated('${order.id}')" ${order.stage<5?'disabled style="opacity:.45"':''}>开始等待开奖</button></div>`;
   renderTimeline(order);
   if(autoplay&&order.stage<5){deliveryTimer=setInterval(()=>{if(order.stage<5){order.stage++;persist();renderTimeline(order);const next=document.getElementById('deliveryNext');if(order.stage>=5&&next){next.disabled=false;next.style.opacity='1';}}else clearInterval(deliveryTimer);},1400);}
 }
 function routeProgress(order){return Math.max(0,Math.min(100,Math.round((order.stage||0)/5*100)));}
 function routeMeta(order){
   const cat=order.items?.[0]?.cat||'消费冲动';
-  const map={深夜外卖:['夜宵店','冷静舱'],奶茶甜品:['甜品店','冷静舱'],咖啡烘焙:['咖啡馆','冷静舱'],数码影音:['数码城','冷静舱'],电脑办公:['办公区','冷静舱'],美妆护肤:['种草柜台','冷静舱'],旅行出行:['出发前清单','冷静舱'],家居软装:['家居展厅','冷静舱']};
-  const pair=map[cat]||['冲动现场','冷静舱'];
+  const map={深夜外卖:['夜宵店','冷静箱'],奶茶甜品:['甜品店','冷静箱'],咖啡烘焙:['咖啡馆','冷静箱'],数码影音:['数码城','冷静箱'],电脑办公:['办公区','冷静箱'],美妆护肤:['种草柜台','冷静箱'],旅行出行:['出发前清单','冷静箱'],家居软装:['家居展厅','冷静箱']};
+  const pair=map[cat]||['冲动现场','冷静箱'];
   return {from:pair[0],to:pair[1],distance:(1.8+(String(order.id).charCodeAt(2)%8)/10).toFixed(1),eta:Math.max(0,(5-(order.stage||0))*2)};
 }
 function routeMarkerPoint(order){return [{x:14,y:77},{x:31,y:77},{x:31,y:35},{x:59,y:35},{x:59,y:25},{x:88,y:25}][Math.max(0,Math.min(5,order.stage||0))];}
@@ -1226,23 +1245,23 @@ function routeMapInner(order){
 function renderRouteMap(order){return `<div class="route-card" id="deliveryRouteWrap">${routeMapInner(order)}</div>`;}
 function renderTimeline(order){
   const map=document.getElementById('deliveryRouteWrap');if(map)map.innerHTML=routeMapInner(order);
-  const steps=['研究对象已登记','虚拟订单已生成','路线已规划','理智研究员已接单','冲动送往冷静舱','冷静实验准备完成'];
+  const steps=['想买的东西已登记','虚拟订单已生成','模拟路线已规划','冷静员已接单','冲动送往冷静箱','可以开始等待开奖'];
   const root=document.getElementById('timeline');if(root)root.innerHTML=steps.map((s,i)=>`<div class="timeline-item ${i<=order.stage?'active':''}"><span class="dot"></span><span>${s}</span></div>`).join('');
 }
 function skipDelivery(id){const o=state.orders.find(x=>x.id===id);if(!o)return;o.stage=5;persist();showDelivery(id,false);}
 function showCoolingCreated(id){
   clearInterval(deliveryTimer);const o=state.orders.find(x=>x.id===id);if(!o)return;
-  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>冷静实验已开始</h3><p>本次模拟消费 ${money(o.amount)}，真实支付 ¥0。建议在 ${formatHours(Math.round((o.coolingUntil-o.created)/3600000))} 后重新判断：你想要的是商品，还是当时的情绪出口？</p></div><div class="virtual-warning">V11.7 默认使用极简日用模式；完整模式仍保留虚拟结算仪式，但只有冷静后确认没有真实购买，金额才会计入“确认守住”。</div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">查看记录</button><button class="primary" onclick="openReview('${o.id}',true)">原型演示复盘</button></div>`;
+  document.getElementById('sheetCard').innerHTML=`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>已放进冷静箱</h3><p>差点花 ${money(o.amount)}，真实支付 ¥0。${formatHours(Math.round((o.coolingUntil-o.created)/3600000))} 后回来开奖：忍住了就生成省钱战报，买了也可以如实记录。</p></div><div class="virtual-warning">这只是本地模拟，不会下单、不采集定位、不连接真实支付。</div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">去开奖列表</button><button class="primary" onclick="openReview('${o.id}',true)">先试玩开奖</button></div>`;
 }
 
 function renderRecordFilters(){document.getElementById('recordFilters').innerHTML=recordFilterOptions.map(f=>`<button class="${recordFilter===f.id?'active':''}" onclick="setRecordFilter('${f.id}')">${f.label}</button>`).join('');}
 function setRecordFilter(f){recordFilter=f;renderRecordFilters();renderOrders();}
-function orderStatus(o){if(o.decision==='kept')return {label:'已成功守住',cls:'kept'};if(o.decision==='bought')return {label:'最后还是买了',cls:'bought'};return {label:'冷静中',cls:''};}
+function orderStatus(o){if(o.decision==='kept')return {label:'已省下',cls:'kept'};if(o.decision==='bought')return {label:'买了也记录',cls:'bought'};return {label:'待开奖',cls:''};}
 function hoursLeft(o){return Math.ceil(Math.max(0,o.coolingUntil-Date.now())/3600000);}
 function isCoolingReady(o){return Date.now()>=o.coolingUntil;}
 function countdownText(o){
-  const hours=hoursLeft(o);if(hours<=0)return '建议现在进行复盘';
-  return hours>48?`还剩约 ${Math.ceil(hours/24)} 天`:`还剩约 ${hours} 小时`;
+  const hours=hoursLeft(o);if(hours<=0)return '可以开奖了';
+  return hours>48?`还剩约 ${Math.ceil(hours/24)} 天开奖`:`还剩约 ${hours} 小时开奖`;
 }
 function orderProgress(o){
   if(o.decision)return 100;
@@ -1251,25 +1270,25 @@ function orderProgress(o){
 }
 function renderOrders(){
   const root=document.getElementById('orderList');let list=[...state.orders];if(recordFilter!=='all')list=list.filter(o=>recordFilter==='cooling'?!o.decision:o.decision===recordFilter);
-  if(!list.length){root.innerHTML=`<div class="empty"><div class="emoji">🧪</div><h3>这里还没有相应记录</h3><p>完成一次冷静实验后，你可以在这里复盘真实决定。</p><button class="primary" onclick="go('experiment')">开始第一次实验</button></div>`;return;}
+  if(!list.length){root.innerHTML=`<div class="empty"><div class="emoji">⏳</div><h3>还没有暂停记录</h3><p>先点一次“丢进冷静箱”，这里会变成你的开奖列表。</p><button class="primary" onclick="go('discover')">去暂停一下</button></div>`;return;}
   root.innerHTML=list.map(o=>{
     const st=orderStatus(o);
     const ready=o.stage>=5&&isCoolingReady(o);
-    const reviewText=o.stage<5?'查看过程':ready?'开始复盘':'提前 Demo 复盘';
+    const reviewText=o.stage<5?'查看路线':ready?'开奖':'先试玩开奖';
     const reviewAction=o.stage<5?`openOrder('${o.id}')`:ready?`openReview('${o.id}')`:`showCoolingGate('${o.id}')`;
-    return `<div class="order-card"><div class="order-top"><div><div class="order-id">${o.id}</div><div style="font-size:10px;color:var(--muted);margin-top:4px">${new Date(o.created).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})} · ${escapeHtml(o.reason||'未记录情绪')}</div></div><div class="order-status ${st.cls}">${st.label}</div></div><div class="order-items">${o.items.map(x=>orderItemVisual(x)+escapeHtml(x.name)+' × '+x.qty).join('<span style="margin:0 4px;color:#C8BDB3">·</span>')}</div><div class="progress"><span style="width:${orderProgress(o)}%"></span></div><div class="order-foot"><span>模拟 ${money(o.amount)}</span><span>${o.decision==='kept'?'确认守住 '+money(o.amount):o.decision==='bought'?'已如实记录':'等待最终决定'}</span></div>${!o.decision?`<div class="countdown">${countdownText(o)}</div><div class="record-actions"><button class="ghost" onclick="openOrder('${o.id}')">查看过程</button><button class="primary" onclick="${reviewAction}">${reviewText}</button></div>`:`<div class="record-actions"><button class="secondary" onclick="showFinalReport('${o.id}')">查看实验报告</button></div>`}</div>`;
+    return `<div class="order-card"><div class="order-top"><div><div class="order-id">${o.id}</div><div style="font-size:10px;color:var(--muted);margin-top:4px">${new Date(o.created).toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})} · ${escapeHtml(o.reason||'一次消费冲动')}</div></div><div class="order-status ${st.cls}">${st.label}</div></div><div class="order-items">${o.items.map(x=>orderItemVisual(x)+escapeHtml(x.name)+' × '+x.qty).join('<span style="margin:0 4px;color:#C8BDB3">·</span>')}</div><div class="progress"><span style="width:${orderProgress(o)}%"></span></div><div class="order-foot"><span>差点花 ${money(o.amount)}</span><span>${o.decision==='kept'?'已省下 '+money(o.amount):o.decision==='bought'?'已记录':'等开奖'}</span></div>${!o.decision?`<div class="countdown">${countdownText(o)}</div><div class="record-actions"><button class="ghost" onclick="openOrder('${o.id}')">查看路线</button><button class="primary" onclick="${reviewAction}">${reviewText}</button></div>`:`<div class="record-actions"><button class="secondary" onclick="showFinalReport('${o.id}')">查看省钱战报</button></div>`}</div>`;
   }).join('');
 }
 function openOrder(id){const o=state.orders.find(x=>x.id===id);if(!o)return;if(o.decision)showFinalReport(id);else if(o.stage<5){openSheet('<div></div>');showDelivery(id,true);}else{openSheet('<div></div>');showCoolingCreated(id);}}
 function showCoolingGate(id){
   const o=state.orders.find(x=>x.id===id);if(!o)return;
-  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>冷静期还没结束</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>${countdownText(o)}</h3><p>正式体验中，建议等冷静期结束后再记录最终决定。现在提前复盘会被标记为原型演示，不代表真实冷静完成。</p></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">继续等待</button><button class="primary" onclick="openReview('${o.id}',true)">原型演示复盘</button></div>`);
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>还没到开奖时间</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="cooling-card"><div class="cooling-icon">⏳</div><h3>${countdownText(o)}</h3><p>先让冲动冷一会儿。等时间到了再选结果，记录会更真实；现在也可以先体验开奖流程。</p></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">继续等</button><button class="primary" onclick="openReview('${o.id}',true)">先试玩开奖</button></div>`);
 }
 function openReview(id,force=false){
   const o=state.orders.find(x=>x.id===id);if(!o)return;if(o.decision){showFinalReport(id);return;}
   if(!force&&!isCoolingReady(o)){showCoolingGate(id);return;}
-  const demoNote=force&&!isCoolingReady(o)?'<div class="prototype-note">这是原型演示复盘：正式产品里会优先引导用户等冷静期结束后再记录最终决定。</div>':'';
-  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验复盘</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="checkout-card"><div style="font-size:12px;color:var(--muted)">本来想花</div><div style="font-size:34px;font-weight:900;color:var(--primary);margin:4px 0">${money(o.amount)}</div><div style="font-size:13px;line-height:1.6">冷静以后，你最后做了什么决定？如实记录比追求“全都不买”更重要。</div></div>${demoNote}<div class="review-options"><button class="review-option" onclick="decideOrder('${o.id}','kept')"><strong>没有买，成功守住</strong><small>这笔金额将计入“确认守住”，并生成成果报告。</small></button><button class="review-option" onclick="decideOrder('${o.id}','bought')"><strong>最后还是买了</strong><small>这不是失败。记录真实结果，未来才能看见自己的消费模式。</small></button><button class="review-option" onclick="extendCooling('${o.id}')"><strong>我还没决定，再冷静 3 天</strong><small>延长观察期，不急着给自己一个答案。</small></button></div>`);
+  const demoNote=force&&!isCoolingReady(o)?'<div class="prototype-note">这是提前试玩：正式体验会提醒你冷静期到了再开奖。</div>':'';
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>开奖时间</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="checkout-card"><div style="font-size:12px;color:var(--muted)">这次差点花</div><div style="font-size:34px;font-weight:900;color:var(--primary);margin:4px 0">${money(o.amount)}</div><div style="font-size:13px;line-height:1.6">选一个结果就好，不用写长篇复盘。</div></div>${demoNote}<div class="review-options"><button class="review-option" onclick="decideOrder('${o.id}','kept')"><strong>忍住了，省下这笔</strong><small>马上生成一张可以分享的省钱战报。</small></button><button class="review-option" onclick="decideOrder('${o.id}','bought')"><strong>还是买了，也没关系</strong><small>诚实记录，下次系统会更懂你的冲动。</small></button><button class="review-option" onclick="extendCooling('${o.id}')"><strong>还想等等</strong><small>把它再放回冷静箱 3 天。</small></button></div>`);
 }
 function decideOrder(id,decision){
   const o=state.orders.find(x=>x.id===id);if(!o||o.decision)return;o.decision=decision;o.decidedAt=Date.now();if(decision==='kept')state.confirmedSaved+=o.amount;persist();showFinalReport(id);
@@ -1277,19 +1296,19 @@ function decideOrder(id,decision){
 function extendCooling(id){const o=state.orders.find(x=>x.id===id);if(!o)return;o.coolingUntil=Math.max(Date.now(),o.coolingUntil)+72*3600000;o.extensions=(o.extensions||0)+1;persist();closeSheet();go('records');toast('冷静期已延长 3 天');}
 function showFinalReport(id){
   const o=state.orders.find(x=>x.id===id);if(!o)return;const kept=o.decision==='kept';
-  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>实验报告</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="share-card" id="shareCard"><div class="mini">${kept?'本次确认守住':'本次真实决定'}</div><div class="big">${kept?money(o.amount):'已购买'}</div><div class="mini">模拟消费 ${money(o.amount)} · 真实记录</div><div class="slogan">${kept?'本来想花这笔钱，<br>最后决定再等一等。':'理性消费不是永远不买，<br>而是知道自己为什么买。'}</div><div class="mini">${escapeHtml(o.reason||'一次消费冲动')} · ${o.items.length} 类研究对象</div><div class="brand">不买研究所 · NO BUY LAB</div></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('experiment')">开始新实验</button><button class="primary" onclick="downloadPoster('${o.id}')">保存实验报告</button></div>`);
+  openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>省钱战报</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="share-card" id="shareCard"><div class="mini">${kept?'本次省下':'本次真实记录'}</div><div class="big">${kept?money(o.amount):'买了'}</div><div class="mini">差点花 ${money(o.amount)} · 真实支付记录</div><div class="slogan">${kept?'今天又少花一笔，<br>把快乐留到真的需要时。':'买了也没失败，<br>至少这次你知道为什么。'}</div><div class="mini">${escapeHtml(o.reason||'一次消费冲动')} · ${o.items.length} 个念头</div><div class="brand">不买研究所 · NO BUY LAB</div></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('discover')">继续暂停</button><button class="primary" onclick="downloadPoster('${o.id}')">保存分享图</button></div>`);
 }
 function downloadPoster(id){
   const o=state.orders.find(x=>x.id===id);if(!o)return;const kept=o.decision==='kept';const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1440;const c=canvas.getContext('2d');
   const g=c.createLinearGradient(0,0,1080,1440);g.addColorStop(0,'#2C2622');g.addColorStop(1,'#161311');c.fillStyle=g;c.fillRect(0,0,1080,1440);
   c.fillStyle='rgba(34,197,94,.22)';c.beginPath();c.arc(80,120,330,0,Math.PI*2);c.fill();
-  c.textAlign='center';c.fillStyle='#D9CEC6';c.font='38px sans-serif';c.fillText(kept?'本次确认守住':'本次真实决定',540,250);
-  c.fillStyle='#22C55E';c.font=kept?'bold 128px sans-serif':'bold 92px sans-serif';c.fillText(kept?money(o.amount):'最后还是买了',540,440);
-  c.fillStyle='#D9CEC6';c.font='36px sans-serif';c.fillText(`模拟消费 ${money(o.amount)} · 真实记录`,540,525);
-  c.fillStyle='#FFFFFF';c.font='bold 50px sans-serif';c.fillText(kept?'本来想花这笔钱，':'理性消费不是永远不买，',540,755);c.fillText(kept?'最后决定再等一等。':'而是知道自己为什么买。',540,835);
+  c.textAlign='center';c.fillStyle='#D9CEC6';c.font='38px sans-serif';c.fillText(kept?'本次省下':'本次真实记录',540,250);
+  c.fillStyle='#22C55E';c.font=kept?'bold 128px sans-serif':'bold 92px sans-serif';c.fillText(kept?money(o.amount):'买了',540,440);
+  c.fillStyle='#D9CEC6';c.font='36px sans-serif';c.fillText(`差点花 ${money(o.amount)} · 真实支付记录`,540,525);
+  c.fillStyle='#FFFFFF';c.font='bold 50px sans-serif';c.fillText(kept?'今天又少花一笔，':'买了也没失败，',540,755);c.fillText(kept?'把快乐留到真的需要时。':'至少这次你知道为什么。',540,835);
   c.fillStyle='#CDBFB5';c.font='31px sans-serif';c.fillText((o.reason||'一次消费冲动').slice(0,24),540,970);
-  c.fillStyle='#22C55E';c.font='bold 42px sans-serif';c.fillText('不买研究所',540,1195);c.fillStyle='#8EA398';c.font='28px sans-serif';c.fillText('NO BUY LAB · 想买可以，先研究一下',540,1260);
-  const a=document.createElement('a');a.download=`不买研究所-${o.id}.png`;a.href=canvas.toDataURL('image/png');a.click();toast('实验报告已生成');
+  c.fillStyle='#22C55E';c.font='bold 42px sans-serif';c.fillText('不买研究所',540,1195);c.fillStyle='#8EA398';c.font='28px sans-serif';c.fillText('NO BUY LAB · 今天先别买，明天来开奖',540,1260);
+  const a=document.createElement('a');a.download=`不买研究所-${o.id}.png`;a.href=canvas.toDataURL('image/png');a.click();toast('分享图已生成');
 }
 
 const quickScenarioCategories=['深夜外卖','数码影音','美妆护肤','潮鞋穿搭','珠宝腕表','居家家具','旅行度假','会员订阅'];
@@ -1333,7 +1352,7 @@ function startInstantLab(){
   const customPrice=Number(document.getElementById('instantPrice')?.value);
   const name=customName||choice.fallback;
   const price=customPrice>0?customPrice:choice.price;
-  const item=buildPrivateProduct({name,price,cat:choice.cat,reason:`日用模式：${choice.label}冲动，今天先不买一下`});
+  const item=buildPrivateProduct({name,price,cat:choice.cat,reason:`${choice.label}冲动：今天先丢进冷静箱`});
   state.customProducts.unshift(item);
   state.cart={};
   displayProducts=[item,...displayProducts];
@@ -1353,7 +1372,7 @@ function createDirectCoolingOrder(item){
 }
 function showDailyPauseCreated(id){
   const o=state.orders.find(x=>x.id===id);if(!o)return;
-  openSheet(`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">✓</div><h3>今天先不买了</h3><p>${escapeHtml(o.items[0]?.name||'这件东西')} 已进入冷静记录。没有付款、没有下单，只是把决定留给情绪过去后的自己。</p></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">查看记录</button><button class="primary" onclick="closeSheet()">回到首页</button></div>`);
+  openSheet(`<div class="sheet-handle"></div><div class="cooling-card"><div class="cooling-icon">✓</div><h3>已丢进冷静箱</h3><p>${escapeHtml(o.items[0]?.name||'这件东西')} 已暂停。没有付款、没有下单，等冲动过去后再回来开奖。</p></div><div class="sheet-actions"><button class="secondary" onclick="closeSheet();go('records')">去开奖列表</button><button class="primary" onclick="closeSheet()">继续逛</button></div>`);
 }
 
 function safeHttpUrl(value){try{const u=new URL(String(value||'').trim());return ['http:','https:'].includes(u.protocol)?u.href:'';}catch(e){return '';}}
@@ -1399,7 +1418,7 @@ function showSavingsPaywall(){
     </div>
     <div class="feature-list">
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>3 分钟资金概况</strong><small>根据用户主动填写的信息计算可支配金额、支出结构和储蓄空间。</small></div></div>
-      <div class="feature-item"><span class="feature-check">✓</span><div><strong>结合不买记录</strong><small>参考最常出现的冲动类别、确认守住金额和冷静成功率。</small></div></div>
+      <div class="feature-item"><span class="feature-check">✓</span><div><strong>结合不买记录</strong><small>参考最常出现的冲动类别、已省下金额和开奖结果。</small></div></div>
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>可执行省钱攻略</strong><small>输出三条核心建议、30 天行动方向与目标预测，而不是泛泛说教。</small></div></div>
     </div>
     <div class="privacy-promise"><strong>数据承诺：</strong>财务信息由用户主动填写，正式产品应支持跳过、修改和删除，不用于诱导消费。</div>
@@ -1519,7 +1538,7 @@ function renderProfile(){
   const achievements=[
     {icon:'🧪',title:'第一次实验',desc:'创建第一笔冷静记录',ok:state.orders.length>=1},
     {icon:'🛡️',title:'第一次守住',desc:'确认放弃一次冲动购买',ok:kept>=1},
-    {icon:'💯',title:'守住一百元',desc:'累计确认守住 ¥100',ok:state.confirmedSaved>=100},
+    {icon:'💯',title:'省下一百元',desc:'累计已省下 ¥100',ok:state.confirmedSaved>=100},
     {icon:'🌙',title:'深夜理智王',desc:'完成 3 次以上冷静复盘',ok:decidedOrders().length>=3},
     {icon:'🔥',title:'连续冷静挑战',desc:'完成 7 天连续冷静打卡',ok:!!state.challenge?.completed},
     {icon:'📋',title:'今日研究完成',desc:'完成一整份每日随机清单',ok:ensureDailyChecklist().completedIds.length>=ensureDailyChecklist().ids.length}
@@ -1556,14 +1575,14 @@ function showPrivacySheet(){
 }
 function showAboutSheet(){
   openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><h3>关于不买研究所</h3><button class="iconbtn" onclick="closeSheet()">✕</button></div>
-    <div class="paywall-hero"><div class="paywall-icon">🛍️</div><h3>不买研究所</h3><p>NO BUY LAB V11.7 默认使用极简日用模式，把第一步收敛到“今天先不买一下”；完整模式仍保留 V11 的深度内容。</p><div class="price-pending">V11.7 · DAILY PAUSE · HTML Prototype</div></div>
+    <div class="paywall-hero"><div class="paywall-icon">🛍️</div><h3>不买研究所</h3><p>NO BUY LAB V11.7 默认使用极简日用模式，把第一步收敛到“丢进冷静箱”；完整模式仍保留 V11 的深度内容。</p><div class="price-pending">V11.7 · DAILY PAUSE · HTML Prototype</div></div>
     <div class="feature-list">
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>核心体验</strong><small>虚拟下单、冷静实验、冷静记录、守住金额、挑战清单和真实决定复盘。</small></div></div>
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>品牌与内容</strong><small>商品品牌、型号、商品图和省钱广场内容均为原型设定，不代表真实交易或真实品牌。</small></div></div>
       <div class="feature-item"><span class="feature-check">✓</span><div><strong>后续方向</strong><small>先稳定 HTML 原型，再迁移微信小程序，之后逐步接入账号、云同步、AI 建议和独立 App。</small></div></div>
     </div>
     <div class="privacy-promise"><strong>边界说明：</strong>当前内容用于消费习惯分析和预算教育，不构成医疗、心理治疗或具体投资建议。</div>
-    <button class="primary" style="width:100%" onclick="closeSheet();go('experiment')">开始一次冷静实验</button>`);
+    <button class="primary" style="width:100%" onclick="closeSheet();go('discover')">去暂停一下</button>`);
 }
 function exportData(){
   const payload={exportedAt:new Date().toISOString(),brand:'不买研究所 NO BUY LAB',version:'V11.7',experienceMode:state.experienceMode,summary:{confirmedSaved:state.confirmedSaved,simulatedAmount:state.simulatedAmount,successRate:successRate()},orders:state.orders,customProducts:state.customProducts,dailyChecklist:state.dailyChecklist,challenge:state.challenge,savingsProfile:state.savingsProfile,savingsReports:state.savingsReports,plaza:{favorites:state.plazaFavorites,drafts:state.plazaDrafts,comments:state.plazaComments,reports:state.plazaReports,couponIntent:state.couponIntent}};

@@ -59,6 +59,7 @@ Page({
     addDraft({
       topic: this.data.draftTopic,
       icon: this.data.draftTopic === '提问' ? '❓' : '🛍️',
+      iconPath: this.data.draftTopic === '提问' ? '/assets/icons/search.png' : '/assets/icons/money-bag.png',
       title: text.slice(0, 24),
       summary: text,
       tags: [this.data.draftTopic, '本地草稿']

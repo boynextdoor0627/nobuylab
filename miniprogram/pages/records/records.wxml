@@ -1,7 +1,7 @@
 <view class="page safe-bottom">
   <view class="summary card">
-    <text class="eyebrow">COOLING RECORDS</text>
-    <text class="h1">把冲动留到情绪过去以后。</text>
+    <text class="eyebrow">OPEN RESULT LIST</text>
+    <text class="h1">把冲动放一晚，明天回来开奖。</text>
     <view class="stats-row">
       <view>
         <text class="stat-num">{{stats.total}}</text>
@@ -9,19 +9,19 @@
       </view>
       <view>
         <text class="stat-num">{{stats.cooling}}</text>
-        <text class="stat-label">冷静中</text>
+        <text class="stat-label">待开奖</text>
       </view>
       <view>
         <text class="stat-num">¥{{stats.confirmedSaved}}</text>
-        <text class="stat-label">确认守住</text>
+        <text class="stat-label">已省下</text>
       </view>
     </view>
   </view>
 
   <view class="filter-row section">
     <button class="filter {{filter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">全部</button>
-    <button class="filter {{filter === 'cooling' ? 'active' : ''}}" bindtap="setFilter" data-filter="cooling">冷静中</button>
-    <button class="filter {{filter === 'reviewed' ? 'active' : ''}}" bindtap="setFilter" data-filter="reviewed">已复盘</button>
+    <button class="filter {{filter === 'cooling' ? 'active' : ''}}" bindtap="setFilter" data-filter="cooling">待开奖</button>
+    <button class="filter {{filter === 'reviewed' ? 'active' : ''}}" bindtap="setFilter" data-filter="reviewed">已开奖</button>
   </view>
 
   <view wx:if="{{records.length}}">
@@ -55,14 +55,14 @@
 
       <view class="action-row">
         <button class="ghost-btn" bindtap="advanceRoute" data-id="{{item.id}}" wx:if="{{item.routeStage < 5}}">推进模拟路线</button>
-        <button class="secondary-btn" bindtap="openReview" data-id="{{item.id}}">{{item.decision ? '查看复盘' : '开始复盘'}}</button>
+        <button class="secondary-btn" bindtap="openReview" data-id="{{item.id}}">{{item.decision ? '看战报' : '开奖'}}</button>
       </view>
     </view>
   </view>
 
   <view class="empty" wx:else>
-    <text class="empty-title">还没有冷静记录</text>
-    <text class="muted">回到“今日”，点一次暂停，就会在这里生成一条记录。</text>
-    <button class="primary-btn empty-btn" bindtap="goToday">去暂停一次</button>
+    <text class="empty-title">还没有暂停记录</text>
+    <text class="muted">回到“今日”，点一次“丢进冷静箱”，这里会生成一条开奖记录。</text>
+    <button class="primary-btn empty-btn" bindtap="goToday">去暂停一下</button>
   </view>
 </view>

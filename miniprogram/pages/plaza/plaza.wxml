@@ -50,7 +50,7 @@
         <text class="time">{{item.local ? '本地草稿' : '刚刚'}}</text>
       </view>
       <view class="post-shot {{item.tone}}" bindtap="openPost" data-id="{{item.id}}">
-        <text class="post-icon">{{item.icon}}</text>
+        <image class="post-icon-img" src="{{item.iconPath}}" mode="aspectFit" />
         <text class="post-cover-title">{{item.title}}</text>
       </view>
       <view class="post-body" bindtap="openPost" data-id="{{item.id}}">

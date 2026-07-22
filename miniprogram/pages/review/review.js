@@ -51,7 +51,7 @@ Page({
       routeStage: 5,
       reviewedAt: Date.now()
     })
-    wx.showToast({ title: '复盘已保存', icon: 'success' })
+    wx.showToast({ title: '战报已生成', icon: 'success' })
     setTimeout(() => wx.switchTab({ url: '/pages/records/records' }), 450)
   },
 
@@ -60,7 +60,7 @@ Page({
       reviewAt: Date.now() + 3 * 24 * 60 * 60 * 1000,
       routeStage: 0
     })
-    wx.showToast({ title: '已延长冷静期', icon: 'none' })
+    wx.showToast({ title: '已放回冷静箱', icon: 'none' })
     setTimeout(() => wx.switchTab({ url: '/pages/records/records' }), 450)
   }
 })

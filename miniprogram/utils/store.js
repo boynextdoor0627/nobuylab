@@ -123,6 +123,15 @@ function toggleLike(id) {
   return saveState(state)
 }
 
+function toggleFavorite(id) {
+  const state = loadState()
+  const set = new Set(state.favorites || [])
+  if (set.has(id)) set.delete(id)
+  else set.add(id)
+  state.favorites = Array.from(set)
+  return saveState(state)
+}
+
 function addComment(id, text) {
   const state = loadState()
   state.comments = state.comments || {}
@@ -136,8 +145,9 @@ function addDraft(payload) {
     id: uid('draft'),
     topic: payload.topic || '差点买了',
     icon: payload.icon || '🛍️',
-    iconPath: payload.iconPath || '/assets/icons/money-bag.png',
+    iconPath: payload.iconPath || '/assets/icons/3d-photo.png',
     tone: 'green',
+    photo: payload.photo || '',
     title: payload.title || payload.summary.slice(0, 24),
     summary: payload.summary,
     body: [payload.summary],
@@ -176,6 +186,7 @@ module.exports = {
   postComments,
   commentCount,
   toggleLike,
+  toggleFavorite,
   addComment,
   addDraft,
   stats

@@ -1,21 +1,24 @@
 const pauseOptions = [
-  { id: 'food', icon: '🧋', iconPath: '/assets/icons/no-money.png', label: '吃喝', defaultName: '顺手买点吃的', copy: '先喝水、走两分钟，等一下再决定。' },
-  { id: 'digital', icon: '🎧', iconPath: '/assets/icons/smartphone.png', label: '数码', defaultName: '一个新的数码装备', copy: '先问旧的还能不能用，而不是新品有多好。' },
-  { id: 'wear', icon: '👟', iconPath: '/assets/icons/wallet-passes-app.png', label: '穿搭', defaultName: '一件新的穿搭单品', copy: '先看衣柜里有没有相似功能的东西。' },
-  { id: 'beauty', icon: '🧴', iconPath: '/assets/icons/refund.png', label: '护肤', defaultName: '一瓶新的护肤品', copy: '先查库存和开封日期，别让低价变囤货。' },
-  { id: 'home', icon: '🛋️', iconPath: '/assets/icons/bank.png', label: '家居', defaultName: '一个家居小物', copy: '先确认摆放位置和使用频率。' },
-  { id: 'other', icon: '🛍️', iconPath: '/assets/icons/money-bag.png', label: '其他', defaultName: '一次消费冲动', copy: '先丢进冷静箱，明天回来开奖。' }
+  { id: 'food', icon: '🧋', iconPath: '/assets/icons/fast-food.png', label: '吃喝', defaultName: '顺手买点吃的', copy: '先喝水、走两分钟，等一下再决定。' },
+  { id: 'digital', icon: '🎧', iconPath: '/assets/icons/3d-headphone.png', label: '数码', defaultName: '一个新的数码装备', copy: '先问旧的还能不能用，而不是新品有多好。' },
+  { id: 'wear', icon: '👟', iconPath: '/assets/icons/3d-paper-bag.png', label: '穿搭', defaultName: '一件新的穿搭单品', copy: '先看衣柜里有没有相似功能的东西。' },
+  { id: 'beauty', icon: '🧴', iconPath: '/assets/icons/face-powder.png', label: '护肤', defaultName: '一瓶新的护肤品', copy: '先查库存和开封日期，别让低价变囤货。' },
+  { id: 'home', icon: '🛋️', iconPath: '/assets/icons/house.png', label: '家居', defaultName: '一个家居小物', copy: '先确认摆放位置和使用频率。' },
+  { id: 'other', icon: '🛍️', iconPath: '/assets/icons/3d-present.png', label: '其他', defaultName: '一次消费冲动', copy: '先放进冷静箱，明天回来决定。' }
 ]
 
-const plazaTopics = ['推荐', '差点买了', '还好没买', '种草灭火', '提问']
+const plazaTopics = ['推荐', '差点买了', '还好没买', '下班冲动', '种草灭火', '提问']
 
 const plazaPosts = [
   {
     id: 'sq-001',
     topic: '差点买了',
     icon: '🎧',
-    iconPath: '/assets/icons/smartphone.png',
+    iconPath: '/assets/icons/3d-headphone.png',
     tone: 'dark',
+    photo: '/assets/plaza/headphones.jpg',
+    photoSource: 'https://www.pexels.com/photo/headphones-on-desk-5877660/',
+    photographer: 'Kaboompics.com',
     author: '阿眠',
     title: '差点为了新品发布会换耳机',
     summary: '旧耳机其实还能用。我把“想拥有新东西”和“真的不能用了”分开写了一下，突然冷静。',
@@ -31,8 +34,11 @@ const plazaPosts = [
     id: 'sq-002',
     topic: '还好没买',
     icon: '📋',
-    iconPath: '/assets/icons/savings.png',
+    iconPath: '/assets/icons/3d-folder.png',
     tone: 'green',
+    photo: '',
+    photoSource: 'https://www.pexels.com/photo/woman-sitting-in-an-office-and-holding-a-smartphone-and-a-credit-card-in-her-hands-22046261/',
+    photographer: 'Vitaly Gariev',
     author: '研究所编辑',
     title: '刚取消 4 个自动续费',
     summary: '不是大额省钱，但每个月少漏一点血。建议今天顺手查一下订阅。',
@@ -48,8 +54,11 @@ const plazaPosts = [
     id: 'sq-003',
     topic: '种草灭火',
     icon: '⚠️',
-    iconPath: '/assets/icons/no-money.png',
+    iconPath: '/assets/icons/face-powder.png',
     tone: 'yellow',
+    photo: '/assets/plaza/body-lotion.jpg',
+    photoSource: 'https://www.pexels.com/photo/bottles-with-cosmetic-products-15569183/',
+    photographer: 'mearlywan',
     author: '小林',
     title: '满减差 49，我差点多买一瓶身体乳',
     summary: '为了省 20 多花 49，这个数学题每次大促都重考一次。',
@@ -63,10 +72,33 @@ const plazaPosts = [
   },
   {
     id: 'sq-004',
+    topic: '下班冲动',
+    icon: '🌙',
+    iconPath: '/assets/icons/3d-alarm.png',
+    tone: 'purple',
+    photo: '',
+    photoSource: 'https://www.pexels.com/photo/woman-using-a-cellphone-while-sitting-on-bed-8036687/',
+    photographer: 'SHVETS production',
+    author: '不买研究所',
+    title: '22:00 以后想下单，先睡一觉',
+    summary: '深夜的购买欲经常不是需要，是累、烦、想奖励自己。第二天中午再看，通常会少一半。',
+    body: ['今天开始试 7 天：22:00 后产生的非必要消费，只记录，不付款。', '第二天中午只问一句：我现在还想买吗？'],
+    tags: ['下班后', '报复性消费'],
+    likes: 637,
+    comments: [
+      { name: '阿予', text: '我最危险的时间就是洗完澡躺床上。' },
+      { name: 'KK', text: '这个挑战可以常驻。' }
+    ]
+  },
+  {
+    id: 'sq-005',
     topic: '提问',
     icon: '🧳',
-    iconPath: '/assets/icons/wallet.png',
+    iconPath: '/assets/icons/3d-map.png',
     tone: 'blue',
+    photo: '/assets/plaza/travel-camera.jpg',
+    photoSource: 'https://www.pexels.com/photo/a-camera-on-a-beach-16104592/',
+    photographer: 'Saheemc',
     author: '山竹',
     title: '旅行前到底要不要买运动相机？',
     summary: '下个月去海岛，已经开始被各种设备种草。有人真的高频用吗？',
@@ -76,6 +108,46 @@ const plazaPosts = [
     comments: [
       { name: '橙子', text: '如果不是经常潜水或骑行，租一次更适合。' },
       { name: '研究所编辑', text: '先把预算留给行程体验，设备最后再决定。' }
+    ]
+  },
+  {
+    id: 'sq-006',
+    topic: '还好没买',
+    icon: '🧋',
+    iconPath: '/assets/icons/fast-food.png',
+    tone: 'coral',
+    photo: '/assets/plaza/bubble-tea.jpg',
+    photoSource: 'https://www.pexels.com/photo/refreshing-bubble-tea-in-sunlit-cafe-34571353/',
+    photographer: 'edorm',
+    author: '今天不喝也行',
+    title: '把每天奶茶改成每周两杯',
+    summary: '不是戒掉快乐，是把“顺手买”改回“真的想喝才买”。',
+    body: ['很多时候只是困、口渴、想离开工位五分钟。', '现在保留最想喝的两杯，其他时候先喝水或出去走一圈。'],
+    tags: ['奶茶', '频率管理'],
+    likes: 328,
+    comments: [
+      { name: '小满', text: '不是戒掉快乐，这句很舒服。' },
+      { name: 'Nana', text: '我也不想把省钱做成惩罚。' }
+    ]
+  },
+  {
+    id: 'sq-007',
+    topic: '种草灭火',
+    icon: '🧴',
+    iconPath: '/assets/icons/eyeshadow.png',
+    tone: 'purple',
+    photo: '',
+    photoSource: 'https://www.pexels.com/photo/skincare-products-on-store-shelves-3735655/',
+    photographer: 'Polina Tankilevitch',
+    author: '研究所编辑',
+    title: '囤货最贵的地方不是单价',
+    summary: '占空间、忘记用、过期、换肤质。历史低价不等于适合现在的你。',
+    body: ['买之前先看家里同类库存能用多久。超过三个月，就把“历史低价”当作普通广告。', '省钱不是把未来半年都塞进柜子里。'],
+    tags: ['护肤', '囤货'],
+    likes: 251,
+    comments: [
+      { name: 'Echo', text: '我柜子里还有去年双十一的面膜。' },
+      { name: '阿眠', text: '被“适合现在的你”打醒。' }
     ]
   }
 ]

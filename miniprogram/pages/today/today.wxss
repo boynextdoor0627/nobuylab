@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: 360rpx;
+  min-height: 292rpx;
   overflow: hidden;
   background: linear-gradient(145deg, #10271B, #16A34A);
   color: #FFFFFF;
@@ -28,60 +28,29 @@
   height: 260rpx;
 }
 
-.play-strip {
+.pause-guide {
+  padding: 20rpx 22rpx;
+  border-radius: 22rpx;
+  background: #EEF8EA;
+  color: #526158;
+  text-align: center;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.option-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14rpx;
 }
 
-.play-step {
-  min-height: 136rpx;
-  padding: 18rpx 14rpx;
-  border: 1rpx solid #DCEBDD;
-  border-radius: 24rpx;
-  background: #FFFFFF;
-}
-
-.step-num {
-  width: 44rpx;
-  height: 44rpx;
-  border-radius: 50%;
-  background: #10271B;
-  color: #B9F33D;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 23rpx;
-  font-weight: 900;
-}
-
-.step-title {
-  display: block;
-  margin-top: 12rpx;
-  font-size: 25rpx;
-  font-weight: 900;
-}
-
-.step-copy {
-  display: block;
-  margin-top: 6rpx;
-  color: #66766B;
-  font-size: 20rpx;
-}
-
-.option-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18rpx;
-}
-
 .option {
-  min-height: 190rpx;
-  padding: 22rpx;
+  min-height: 132rpx;
+  padding: 18rpx 10rpx;
   border: 1rpx solid #E1EBDD;
   border-radius: 26rpx;
   background: #FFFFFF;
-  text-align: left;
+  text-align: center;
   box-shadow: 0 10rpx 28rpx rgba(27, 93, 49, .05);
 }
 
@@ -93,31 +62,29 @@
 
 .option-icon {
   display: block;
-  width: 58rpx;
-  height: 58rpx;
+  width: 52rpx;
+  height: 52rpx;
+  margin: 0 auto;
 }
 
 .option-title {
   display: block;
   margin-top: 12rpx;
-  font-size: 28rpx;
+  font-size: 24rpx;
   font-weight: 900;
-}
-
-.option-copy {
-  display: block;
-  margin-top: 8rpx;
-  color: #6D655D;
-  font-size: 21rpx;
-  line-height: 1.45;
-}
-
-.option.active .option-copy {
-  color: #D7F0C9;
 }
 
 .submit {
   margin-top: 24rpx;
+}
+
+.submit-note {
+  display: block;
+  margin-top: 14rpx;
+  color: #879188;
+  text-align: center;
+  font-size: 20rpx;
+  line-height: 1.45;
 }
 
 .daily-title {
@@ -156,13 +123,4 @@
 .dot.done {
   background: #B9F33D;
   color: #10271B;
-}
-
-.notice {
-  padding: 22rpx 24rpx;
-  border-radius: 24rpx;
-  background: #EEF8EA;
-  color: #526650;
-  font-size: 22rpx;
-  line-height: 1.6;
 }

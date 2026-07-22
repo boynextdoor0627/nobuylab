@@ -5,9 +5,9 @@
         <text class="eyebrow">NO BUY SQUARE</text>
         <text class="h1">省钱广场</text>
       </view>
-      <button class="compose-btn" bindtap="toggleComposer">＋</button>
+      <button class="compose-btn" bindtap="toggleComposer">{{showComposer ? '收起' : '发布'}}</button>
     </view>
-    <text class="muted">只看别人怎么冷静，不做导购。外层不直接展开评论，点进动态后再讨论。</text>
+    <text class="muted">看看大家今天差点买了什么。评论会在帖子详情里展开。</text>
   </view>
 
   <view class="topic-scroll section">
@@ -21,8 +21,8 @@
   </view>
 
   <view class="composer card section" wx:if="{{showComposer}}">
-    <text class="h2">发一条本地动态</text>
-    <text class="muted">MVP 先验证发布体验。正式版上线前必须接入内容审核、举报、拉黑和后台管理。</text>
+    <text class="h2">发一条动态</text>
+    <text class="muted">记录这次冲动，也可以问问大家。当前内容只保存在本机。</text>
     <view class="field">
       <text class="field-label">话题</text>
       <view class="topic-choice">
@@ -36,39 +36,47 @@
       </view>
     </view>
     <view class="field">
-      <text class="field-label">今天差点买了什么？</text>
-      <textarea class="textarea" value="{{draftText}}" bindinput="onDraftInput" maxlength="180" placeholder="例：刷到一个通勤包，差点付款。先记下来，明天午休再看。" />
+      <text class="field-label">正文</text>
+      <textarea class="textarea" value="{{draftText}}" bindinput="onDraftInput" maxlength="500" placeholder="例：旧耳机功能都正常，只是最近刷了很多测评。先停一个月，再看是不是真的需要。" />
     </view>
-    <button class="primary-btn" bindtap="submitDraft">保存到广场顶部</button>
+    <button class="image-picker" bindtap="chooseDraftImage"><image src="/assets/icons/3d-photo.png" mode="aspectFit" />添加图片（可选）</button>
+    <view class="draft-image-wrap" wx:if="{{draftImage}}">
+      <image class="draft-image" src="{{draftImage}}" mode="aspectFill" />
+      <button class="remove-image" bindtap="removeDraftImage">✕</button>
+    </view>
+    <button class="primary-btn" bindtap="submitDraft">发布到广场</button>
   </view>
 
   <view class="feed section">
     <view class="post card" wx:for="{{posts}}" wx:key="id">
-      <view class="post-meta">
-        <text class="avatar">{{item.local ? '我' : item.authorFirst}}</text>
-        <text class="author">{{item.author}}</text>
-        <text class="time">{{item.local ? '本地草稿' : '刚刚'}}</text>
-      </view>
-      <view class="post-shot {{item.tone}}" bindtap="openPost" data-id="{{item.id}}">
-        <image class="post-icon-img" src="{{item.iconPath}}" mode="aspectFit" />
-        <text class="post-cover-title">{{item.title}}</text>
-      </view>
-      <view class="post-body" bindtap="openPost" data-id="{{item.id}}">
-        <text class="post-title">{{item.title}}</text>
-        <text class="post-summary">{{item.summary}}</text>
-        <view class="tag-row">
-          <text class="tag" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
+      <text class="avatar">{{item.local ? '我' : item.authorFirst}}</text>
+      <view class="post-main">
+        <view class="post-meta">
+          <view class="author-copy">
+            <text class="author">{{item.author}}</text>
+            <text class="time">{{item.topic}} · {{item.local ? '本地草稿' : '刚刚'}}</text>
+          </view>
+          <button class="more">···</button>
         </view>
-      </view>
-      <view class="post-actions">
-        <button class="action {{item.liked ? 'active' : ''}}" bindtap="toggleLike" data-id="{{item.id}}">{{item.liked ? '♥' : '♡'}} {{item.likeCount}}</button>
-        <button class="action" bindtap="openPost" data-id="{{item.id}}">💬 {{item.commentCount}}</button>
-        <button class="action share" bindtap="copyShare" data-id="{{item.id}}">↗</button>
+        <view class="post-copy" bindtap="openPost" data-id="{{item.id}}">
+          <text class="post-title">{{item.title}}</text>
+          <text class="post-summary">{{item.summary}}</text>
+          <view class="tag-row">
+            <text class="tag" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
+          </view>
+        </view>
+        <image wx:if="{{item.photo}}" class="post-photo" src="{{item.photo}}" mode="aspectFill" bindtap="openPost" data-id="{{item.id}}" />
+        <view class="post-actions">
+          <button class="action {{item.liked ? 'active' : ''}}" bindtap="toggleLike" data-id="{{item.id}}"><image src="{{item.likeIcon}}" mode="aspectFit" /><text>{{item.likeCount}}</text></button>
+          <button class="action" bindtap="openPost" data-id="{{item.id}}"><image src="{{item.commentIcon}}" mode="aspectFit" /><text>{{item.commentCount}}</text></button>
+          <button class="action {{item.favorited ? 'active' : ''}}" bindtap="toggleFavorite" data-id="{{item.id}}"><image src="{{item.saveIcon}}" mode="aspectFit" /></button>
+          <button class="action share" bindtap="copyShare" data-id="{{item.id}}">↗</button>
+        </view>
       </view>
     </view>
   </view>
 
   <view class="notice section">
-    <text>社区边界：当前为本地原型动态，不公开发布。正式小程序需要内容安全审核、举报处理、用户屏蔽和客服联系方式后再开放真实社区。</text>
+    <text>请友善交流，不发布广告、交易信息或他人隐私。</text>
   </view>
 </view>

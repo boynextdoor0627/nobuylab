@@ -12,14 +12,14 @@ function dateText(ts) {
 
 function mapRecord(item) {
   const routeStage = Math.max(0, Math.min(5, Number(item.routeStage || 0)))
-  let statusLabel = routeStage >= 5 ? '可开奖' : '待开奖'
+  let statusLabel = routeStage >= 5 ? '可以决定了' : '待决定'
   let statusClass = routeStage >= 5 ? 'ready' : 'cooling'
   if (item.decision === 'kept') {
-    statusLabel = '已省下'
+    statusLabel = '没买'
     statusClass = 'kept'
   }
   if (item.decision === 'bought') {
-    statusLabel = '已记录'
+    statusLabel = '买了'
     statusClass = 'bought'
   }
   return Object.assign({}, item, {
@@ -63,7 +63,7 @@ Page({
     const nextStage = Math.min(5, Number(record.routeStage || 0) + 1)
     updateRecord(id, { routeStage: nextStage })
     this.refresh()
-    wx.showToast({ title: nextStage >= 5 ? '可以开奖了' : '路线已推进', icon: 'none' })
+    wx.showToast({ title: nextStage >= 5 ? '可以决定了' : '路线已推进', icon: 'none' })
   },
 
   openReview(e) {

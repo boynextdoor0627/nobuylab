@@ -1,7 +1,7 @@
 <view class="page safe-bottom">
   <view class="summary card">
-    <text class="eyebrow">OPEN RESULT LIST</text>
-    <text class="h1">把冲动放一晚，明天回来开奖。</text>
+    <text class="eyebrow">我的冷静记录</text>
+    <text class="h1">把冲动放一放，再回来决定。</text>
     <view class="stats-row">
       <view>
         <text class="stat-num">{{stats.total}}</text>
@@ -9,7 +9,7 @@
       </view>
       <view>
         <text class="stat-num">{{stats.cooling}}</text>
-        <text class="stat-label">待开奖</text>
+        <text class="stat-label">待决定</text>
       </view>
       <view>
         <text class="stat-num">¥{{stats.confirmedSaved}}</text>
@@ -20,8 +20,8 @@
 
   <view class="filter-row section">
     <button class="filter {{filter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">全部</button>
-    <button class="filter {{filter === 'cooling' ? 'active' : ''}}" bindtap="setFilter" data-filter="cooling">待开奖</button>
-    <button class="filter {{filter === 'reviewed' ? 'active' : ''}}" bindtap="setFilter" data-filter="reviewed">已开奖</button>
+    <button class="filter {{filter === 'cooling' ? 'active' : ''}}" bindtap="setFilter" data-filter="cooling">待决定</button>
+    <button class="filter {{filter === 'reviewed' ? 'active' : ''}}" bindtap="setFilter" data-filter="reviewed">已完成</button>
   </view>
 
   <view wx:if="{{records.length}}">
@@ -43,26 +43,28 @@
         <view class="pin dest">冷</view>
         <view class="route-line base"></view>
         <view class="route-line active w{{item.routeStage}}"></view>
-        <view class="route-marker s{{item.routeStage}}">🛵</view>
+        <view class="route-marker s{{item.routeStage}}">
+          <image src="/assets/icons/3d-truck.png" mode="aspectFit" />
+        </view>
         <view class="map-label left">{{item.route.from}}</view>
         <view class="map-label right">{{item.route.to}}</view>
       </view>
 
       <view class="route-foot">
         <text>{{item.route.distance}} km · 约 {{item.route.eta}} 分钟</text>
-        <text>不采集定位</text>
+        <text>本地模拟路线</text>
       </view>
 
       <view class="action-row">
         <button class="ghost-btn" bindtap="advanceRoute" data-id="{{item.id}}" wx:if="{{item.routeStage < 5}}">推进模拟路线</button>
-        <button class="secondary-btn" bindtap="openReview" data-id="{{item.id}}">{{item.decision ? '看战报' : '开奖'}}</button>
+        <button class="secondary-btn" bindtap="openReview" data-id="{{item.id}}">{{item.decision ? '看结果' : '现在决定'}}</button>
       </view>
     </view>
   </view>
 
   <view class="empty" wx:else>
     <text class="empty-title">还没有暂停记录</text>
-    <text class="muted">回到“今日”，点一次“丢进冷静箱”，这里会生成一条开奖记录。</text>
+    <text class="muted">回到“今日”，放进一次冷静箱，这里就会出现记录。</text>
     <button class="primary-btn empty-btn" bindtap="goToday">去暂停一下</button>
   </view>
 </view>

@@ -1,20 +1,20 @@
 <view class="page safe-bottom">
   <view class="card review-head" wx:if="{{record}}">
-    <text class="eyebrow">OPEN RESULT</text>
+    <text class="eyebrow">这次最后买了吗？</text>
     <text class="h1">{{record.icon}} {{record.name}}</text>
     <text class="muted">这次差点花 ¥{{record.amountText}}。选一个结果就好，不用写长篇复盘。</text>
   </view>
 
   <view class="card section" wx:if="{{record}}">
-    <text class="h2">开奖时间</text>
+    <text class="h2">选一个结果</text>
     <view class="choice-list">
       <button class="choice {{decision === 'kept' ? 'active' : ''}}" bindtap="selectDecision" data-decision="kept">
-        <text class="choice-title">忍住了，省下这笔</text>
-        <text class="choice-copy">马上生成一张可以分享的省钱战报。</text>
+        <text class="choice-title">没买，省下这笔</text>
+        <text class="choice-copy">把这笔金额记入“已省下”。</text>
       </button>
       <button class="choice {{decision === 'bought' ? 'active' : ''}}" bindtap="selectDecision" data-decision="bought">
-        <text class="choice-title">还是买了，也没关系</text>
-        <text class="choice-copy">诚实记录，下次系统会更懂你的冲动。</text>
+        <text class="choice-title">买了，也记下来</text>
+        <text class="choice-copy">这不是失败，真实记录更有用。</text>
       </button>
     </view>
 
@@ -23,11 +23,11 @@
       <textarea class="textarea" placeholder="例：我只是太累了，想奖励自己一下。" value="{{reviewText}}" bindinput="onTextInput" maxlength="160" />
     </view>
 
-    <button class="primary-btn submit" bindtap="submitReview">生成战报</button>
+    <button class="primary-btn submit" bindtap="submitReview">保存这次结果</button>
     <button class="secondary-btn extend" bindtap="extendCooling">还想等等，再放 3 天</button>
   </view>
 
   <view class="notice section">
-    <text>正式版会把开奖做成留存入口：提醒、周报和分享图都基于这里，但 MVP 先保证用户轻松看懂、轻松记录。</text>
+    <text>没有标准答案，诚实记录就很好。下次再遇到相似冲动，你会更容易看懂自己。</text>
   </view>
 </view>

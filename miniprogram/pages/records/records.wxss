@@ -164,14 +164,20 @@
 .route-marker {
   position: absolute;
   z-index: 6;
-  width: 56rpx;
-  height: 56rpx;
+  width: 62rpx;
+  height: 62rpx;
   border-radius: 50%;
   background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 12rpx 24rpx rgba(27, 93, 49, .22);
+}
+
+.route-marker image {
+  width: 50rpx;
+  height: 50rpx;
+  display: block;
 }
 
 .route-marker.s0 { left: 44rpx; bottom: 54rpx; }

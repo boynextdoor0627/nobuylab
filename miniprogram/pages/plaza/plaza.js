@@ -1,11 +1,16 @@
 const { plazaTopics } = require('../../utils/data')
-const { loadState, allPosts, commentCount, toggleLike, addDraft } = require('../../utils/store')
+const { loadState, allPosts, commentCount, toggleLike, toggleFavorite, addDraft } = require('../../utils/store')
 
 function viewPost(post, state) {
   const liked = (state.likes || []).includes(post.id)
+  const favorited = (state.favorites || []).includes(post.id)
   return Object.assign({}, post, {
     authorFirst: String(post.author || '用').slice(0, 1),
     liked,
+    favorited,
+    likeIcon: liked ? '/assets/icons/reaction-like.png' : '/assets/icons/reaction-default.png',
+    commentIcon: '/assets/icons/reaction-comment.png',
+    saveIcon: favorited ? '/assets/icons/reaction-save-active.png' : '/assets/icons/reaction-save.png',
     likeCount: Number(post.likes || 0) + (liked ? 1 : 0),
     commentCount: commentCount(post.id)
   })
@@ -19,7 +24,8 @@ Page({
     posts: [],
     showComposer: false,
     draftTopic: '差点买了',
-    draftText: ''
+    draftText: '',
+    draftImage: ''
   },
 
   onShow() {
@@ -50,6 +56,27 @@ Page({
     this.setData({ draftText: e.detail.value })
   },
 
+  chooseDraftImage() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sizeType: ['compressed'],
+      success: res => {
+        const tempFilePath = res.tempFiles[0] && res.tempFiles[0].tempFilePath
+        if (!tempFilePath) return
+        wx.saveFile({
+          tempFilePath,
+          success: saved => this.setData({ draftImage: saved.savedFilePath }),
+          fail: () => this.setData({ draftImage: tempFilePath })
+        })
+      }
+    })
+  },
+
+  removeDraftImage() {
+    this.setData({ draftImage: '' })
+  },
+
   submitDraft() {
     const text = this.data.draftText.trim()
     if (!text) {
@@ -59,18 +86,24 @@ Page({
     addDraft({
       topic: this.data.draftTopic,
       icon: this.data.draftTopic === '提问' ? '❓' : '🛍️',
-      iconPath: this.data.draftTopic === '提问' ? '/assets/icons/search.png' : '/assets/icons/money-bag.png',
+      iconPath: this.data.draftTopic === '提问' ? '/assets/icons/3d-map.png' : '/assets/icons/3d-photo.png',
       title: text.slice(0, 24),
       summary: text,
+      photo: this.data.draftImage,
       tags: [this.data.draftTopic, '本地草稿']
     })
-    this.setData({ draftText: '', showComposer: false, topic: '推荐' })
+    this.setData({ draftText: '', draftImage: '', showComposer: false, topic: '推荐' })
     this.refresh()
     wx.showToast({ title: '已保存', icon: 'success' })
   },
 
   toggleLike(e) {
     toggleLike(e.currentTarget.dataset.id)
+    this.refresh()
+  },
+
+  toggleFavorite(e) {
+    toggleFavorite(e.currentTarget.dataset.id)
     this.refresh()
   },
 

@@ -1,36 +1,40 @@
 <view class="page safe-bottom" wx:if="{{post}}">
-  <view class="card detail-head">
-    <text class="eyebrow">{{post.topic}} · 动态详情</text>
-    <text class="h1">{{post.icon}} {{post.title}}</text>
-    <text class="muted">由 {{post.author}} 分享。广场只讨论冷静消费，不做购买推荐。</text>
-  </view>
-
-  <view class="post-shot {{post.tone}} section">
-    <image class="post-icon-img" src="{{post.iconPath}}" mode="aspectFit" />
-    <text class="post-cover-title">{{post.title}}</text>
-  </view>
-
-  <view class="article section">
-    <view class="article-p" wx:for="{{post.body}}" wx:key="*this">{{item}}</view>
-  </view>
-
-  <view class="comments card section">
-    <view class="row-between">
-      <text class="h2">评论</text>
-      <text class="pill">{{comments.length}} 条</text>
+  <view class="post-detail">
+    <view class="detail-head">
+      <text class="avatar">{{post.authorFirst}}</text>
+      <view class="author-copy">
+        <text class="author">{{post.author}}</text>
+        <text class="time">{{post.topic}} · 刚刚</text>
+      </view>
+      <button class="more">···</button>
     </view>
-    <view class="comment" wx:for="{{comments}}" wx:key="createdAt">
-      <text class="comment-name">{{item.name}}</text>
-      <text class="comment-text">{{item.text}}</text>
+
+    <view class="caption-wrap">
+      <text class="detail-title">{{post.title}}</text>
+      <text class="summary">{{post.summary}}</text>
+      <text class="article-text">{{post.articleText}}</text>
     </view>
-    <view class="field">
-      <text class="field-label">写一句反馈</text>
-      <textarea class="textarea" value="{{commentText}}" bindinput="onCommentInput" maxlength="120" placeholder="例：我也遇到过 / 这个方法我想试试" />
+
+    <image wx:if="{{post.photo}}" class="post-photo" src="{{post.photo}}" mode="aspectFill" />
+
+    <view class="detail-actions">
+      <button class="detail-action {{post.liked ? 'active' : ''}}" bindtap="toggleLike"><image src="{{post.likeIcon}}" mode="aspectFit" /><text>{{post.likeCount}}</text></button>
+      <button class="detail-action" bindtap="focusComment"><image src="{{post.commentIcon}}" mode="aspectFit" /><text>{{post.commentCount}}</text></button>
+      <button class="detail-action {{post.favorited ? 'active' : ''}}" bindtap="toggleFavorite"><image src="{{post.saveIcon}}" mode="aspectFit" /></button>
+      <button class="detail-action share" bindtap="copyShare">↗</button>
     </view>
-    <button class="primary-btn" bindtap="submitComment">发表评论</button>
   </view>
 
-  <view class="notice section">
-    <text>当前评论只保存在本机。正式版开放真实评论前，需要接入内容安全检测、举报处理和用户屏蔽。</text>
+  <view class="comments section">
+    <text class="comment-title">评论 · {{comments.length}}</text>
+    <view class="comment" wx:for="{{comments}}" wx:key="commentKey">
+      <text class="comment-avatar">{{item.nameFirst}}</text>
+      <view class="comment-copy"><text class="comment-name">{{item.name}}</text><text class="comment-text">{{item.text}}</text></view>
+    </view>
+    <view class="comment-compose">
+      <text class="comment-avatar">我</text>
+      <input id="commentInput" class="comment-input" value="{{commentText}}" focus="{{commentFocus}}" bindinput="onCommentInput" bindblur="onCommentBlur" maxlength="120" placeholder="添加评论…" />
+      <button class="send" bindtap="submitComment">发送</button>
+    </view>
   </view>
 </view>

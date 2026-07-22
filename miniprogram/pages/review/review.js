@@ -51,7 +51,7 @@ Page({
       routeStage: 5,
       reviewedAt: Date.now()
     })
-    wx.showToast({ title: '战报已生成', icon: 'success' })
+    wx.showToast({ title: '结果已保存', icon: 'success' })
     setTimeout(() => wx.switchTab({ url: '/pages/records/records' }), 450)
   },
 

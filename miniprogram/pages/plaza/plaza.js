@@ -1,16 +1,18 @@
 const { plazaTopics } = require('../../utils/data')
-const { loadState, allPosts, commentCount, toggleLike, toggleFavorite, addDraft } = require('../../utils/store')
+const { loadState, allPosts, postComments, commentCount, toggleLike, toggleFavorite, addDraft } = require('../../utils/store')
 
 function viewPost(post, state) {
   const liked = (state.likes || []).includes(post.id)
   const favorited = (state.favorites || []).includes(post.id)
+  const commented = postComments(post.id).some(item => item.name === '我')
   return Object.assign({}, post, {
     authorFirst: String(post.author || '用').slice(0, 1),
     liked,
     favorited,
-    likeIcon: liked ? '/assets/icons/reaction-like.png' : '/assets/icons/reaction-default.png',
-    commentIcon: '/assets/icons/reaction-comment.png',
-    saveIcon: favorited ? '/assets/icons/reaction-save-active.png' : '/assets/icons/reaction-save.png',
+    likeIcon: liked ? '/runtime-assets/icons/reaction-like.png' : '/runtime-assets/icons/reaction-default.png',
+    commented,
+    commentIcon: commented ? '/runtime-assets/icons/reaction-comment-active.png' : '/runtime-assets/icons/reaction-comment.png',
+    saveIcon: favorited ? '/runtime-assets/icons/reaction-save-active.png' : '/runtime-assets/icons/reaction-save.png',
     likeCount: Number(post.likes || 0) + (liked ? 1 : 0),
     commentCount: commentCount(post.id)
   })
@@ -86,7 +88,7 @@ Page({
     addDraft({
       topic: this.data.draftTopic,
       icon: this.data.draftTopic === '提问' ? '❓' : '🛍️',
-      iconPath: this.data.draftTopic === '提问' ? '/assets/icons/3d-map.png' : '/assets/icons/3d-photo.png',
+      iconPath: this.data.draftTopic === '提问' ? '/runtime-assets/icons/3d-map.png' : '/runtime-assets/icons/3d-photo.png',
       title: text.slice(0, 24),
       summary: text,
       photo: this.data.draftImage,

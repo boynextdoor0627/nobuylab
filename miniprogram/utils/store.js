@@ -145,7 +145,7 @@ function addDraft(payload) {
     id: uid('draft'),
     topic: payload.topic || '差点买了',
     icon: payload.icon || '🛍️',
-    iconPath: payload.iconPath || '/assets/icons/3d-photo.png',
+    iconPath: payload.iconPath || '/runtime-assets/icons/3d-photo.png',
     tone: 'green',
     photo: payload.photo || '',
     title: payload.title || payload.summary.slice(0, 24),

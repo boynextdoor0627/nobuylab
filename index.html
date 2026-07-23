@@ -45,7 +45,7 @@
     .brand-mark img{width:100%;height:100%;display:block}
     .brand-title{display:flex;align-items:center;gap:6px;min-width:0}
     .brand-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
-    .brand-wordmark{width:138px;height:30px;object-fit:contain;object-position:left center;display:block}
+    .brand-wordmark{width:116px;height:40px;object-fit:contain;object-position:left center;display:block}
     .brand-title .vtag{font-size:8px;line-height:1;background:#2B2724;color:#F8D5C2;padding:4px 5px;border-radius:7px;letter-spacing:.4px}
     .brand-title{font-size:18px;font-weight:900;letter-spacing:-.4px}
     .brand-en{font-size:10px;color:var(--muted);letter-spacing:1.7px;margin-top:1px}
@@ -506,7 +506,7 @@
     .hero{background:linear-gradient(125deg,#0C9E4A 0%,#22C55E 54%,#B9F33D 130%);min-height:246px;padding:22px 156px 21px 20px;box-shadow:0 20px 36px rgba(34,197,94,.25);isolation:isolate}
     .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 84% 22%,rgba(232,255,75,.42),transparent 36%);z-index:-1}
     .hero:after{border-color:rgba(255,255,255,.26);width:220px;height:220px;right:-78px;top:-90px}
-    .hero-mascot{position:absolute;right:-49px;bottom:-8px;width:235px;max-width:none;filter:drop-shadow(0 16px 18px rgba(5,65,30,.25));pointer-events:none;z-index:-0}
+    .hero-mascot{position:absolute;right:-39px;bottom:-7px;width:225px;max-width:none;object-fit:contain;filter:drop-shadow(0 16px 18px rgba(5,65,30,.25));pointer-events:none;z-index:0}
     .hero-label,.hero-amount,.hero-sub,.hero-data,.hero-actions{position:relative;z-index:2}
     .hero-data{grid-template-columns:1fr}
     .hero-data div{background:rgba(5,83,37,.21);border:1px solid rgba(255,255,255,.16)}
@@ -550,8 +550,8 @@
     .share-card .brand{color:#B9F33D}
     @media(max-width:370px){.hero{padding-right:124px}.hero-mascot{width:200px;right:-54px}.hero-amount{font-size:37px}.pause-options{grid-template-columns:repeat(2,1fr)}.instant-fields{grid-template-columns:1fr}}
 
-    .onboard-visual{height:220px;margin:-20px auto 4px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
-    .onboard-visual img{width:178px;max-width:70%;border-radius:38px;filter:drop-shadow(0 18px 20px rgba(16,90,43,.18))}
+    .onboard-visual{height:230px;margin:-20px auto 4px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+    .onboard-visual img{width:208px;max-width:74%;object-fit:contain;filter:drop-shadow(0 18px 20px rgba(16,90,43,.18))}
     .quick-panel{position:relative;overflow:hidden}
     .quick-panel:after{content:"";position:absolute;width:92px;height:92px;right:-8px;bottom:-14px;background:url('assets/brand/logo-app.png') center/contain no-repeat;opacity:.12;pointer-events:none}
     .simple-home{display:none;margin-bottom:14px}
@@ -575,8 +575,9 @@
     .pause-guide{margin-top:12px;padding:10px 12px;border-radius:14px;background:#F6FBF2;color:#526158;font-size:10px;font-weight:800;text-align:center;line-height:1.5}
     .daily-loop{background:#10271B;color:#fff;border-radius:24px;padding:16px;margin-top:10px;position:relative;overflow:hidden}
     .daily-loop:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(185,243,61,.2);right:-60px;top:-50px}
-    .daily-loop h3{font-size:16px;margin:0 0 5px;position:relative;z-index:1}
-    .daily-loop p{font-size:11px;color:#CFE3D5;line-height:1.55;margin:0;position:relative;z-index:1}
+    .daily-loop h3{font-size:16px;margin:0 0 5px;padding-right:78px;position:relative;z-index:2}
+    .daily-loop p{font-size:11px;color:#CFE3D5;line-height:1.55;margin:0;padding-right:78px;position:relative;z-index:2}
+    .daily-loop-mascot{position:absolute;right:9px;top:5px;width:82px;height:82px;object-fit:contain;z-index:1;filter:drop-shadow(0 8px 10px rgba(0,0,0,.18));pointer-events:none}
     .daily-dots{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:13px 0;position:relative;z-index:1}
     .daily-dot{height:30px;border-radius:11px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-size:10px;font-weight:900;color:#9EC3A8}
     .daily-dot.done{background:#B9F33D;color:#10271B}
@@ -647,7 +648,7 @@
       <div class="toprow">
         <div class="brand-lockup">
           <div class="brand-mark" aria-hidden="true"><img src="assets/brand/logo-app.png" alt=""></div>
-          <div class="brand-copy"><div class="brand-title"><img class="brand-wordmark" src="assets/brand/logo-wordmark-black.png" alt="不买研究所 NO BUY LAB"><span class="vtag">V11.7 · DAILY</span></div></div>
+          <div class="brand-copy"><div class="brand-title"><img class="brand-wordmark" src="assets/brand/logo-wordmark-black.png" alt="不买研究所 NO BUY LAB"></div></div>
         </div>
         <button class="mode-toggle" id="modeToggle" aria-label="打开完整模式" onclick="setExperienceMode(isSimpleMode()?'full':'simple')"><img src="assets/icons/menu.png" alt=""><span id="modeToggleLabel">完整</span></button>
       </div>
@@ -678,6 +679,7 @@
           <div class="simple-stat"><small>等你决定</small><strong id="simpleCooling">0 笔</strong></div>
         </div>
         <div class="daily-loop">
+          <img class="daily-loop-mascot" id="dailyLoopMascot" src="assets/brand/mascot-wave.png" alt="不买研究所招手形象">
           <h3 id="dailyLoopTitle">今天还没有暂停记录</h3>
           <p id="dailyLoopCopy">想买时先记一下，就已经完成今天的小任务。</p>
           <div class="daily-dots" id="dailyDots"></div>
@@ -707,7 +709,7 @@
       </div>
 
       <div class="hero">
-        <img class="hero-mascot" src="assets/brand/logo-app.png" alt="不买研究所 App Logo">
+        <img class="hero-mascot" src="assets/brand/mascot-pause.png" alt="不买研究所暂停消费形象">
         <div class="hero-label">累计已省下</div>
         <div class="hero-amount" id="confirmedSaved">¥0</div>
         <div class="hero-sub">叉叉眼不代表放弃生活，只代表这次先冷静。完成冷静期并确认没有购买后，金额才会被真实守住。</div>
@@ -871,7 +873,7 @@
 
     <div class="onboarding" id="onboarding">
       <div class="onboard-card">
-        <div class="onboard-visual"><img src="assets/brand/logo-app.png" alt="不买研究所 App Logo"></div>
+        <div class="onboard-visual"><img src="assets/brand/mascot-wave.png" alt="不买研究所欢迎形象"></div>
         <h1>不买研究所</h1>
         <div class="en">NO BUY LAB</div>
         <div class="slogan">想买没关系，先放一放。</div>
@@ -996,13 +998,17 @@ function updateExperienceMode(){
   const toggle=document.getElementById('modeToggle'),toggleLabel=document.getElementById('modeToggleLabel');if(toggle){toggle.classList.toggle('full',!isSimpleMode());toggle.setAttribute('aria-label',isSimpleMode()?'打开完整模式':'切换简洁模式');}if(toggleLabel)toggleLabel.textContent=isSimpleMode()?'完整':'简洁';
 }
 function updateSimpleHome(){
-  const saved=document.getElementById('simpleSaved'),cooling=document.getElementById('simpleCooling'),loopTitle=document.getElementById('dailyLoopTitle'),loopCopy=document.getElementById('dailyLoopCopy'),dots=document.getElementById('dailyDots');
+  const saved=document.getElementById('simpleSaved'),cooling=document.getElementById('simpleCooling'),loopTitle=document.getElementById('dailyLoopTitle'),loopCopy=document.getElementById('dailyLoopCopy'),loopMascot=document.getElementById('dailyLoopMascot'),dots=document.getElementById('dailyDots');
   if(saved)saved.textContent=money(state.confirmedSaved);
   const openOrders=(state.orders||[]).filter(o=>!o.decision);
   if(cooling)cooling.textContent=openOrders.length+' 笔';
   const today=(state.orders||[]).filter(o=>dateKey(new Date(o.created))===dateKey());
   if(loopTitle)loopTitle.textContent=today.length?`今天已暂停 ${today.length} 次`:'今天还没有暂停记录';
   if(loopCopy)loopCopy.textContent=openOrders.length?`还有 ${openOrders.length} 笔等你决定。到时间回来点一下就好。`:'想买时先记一下，就已经完成今天的小任务。';
+  if(loopMascot){
+    loopMascot.src=today.length?'assets/brand/mascot-success.png':'assets/brand/mascot-wave.png';
+    loopMascot.alt=today.length?'不买研究所庆祝形象':'不买研究所招手形象';
+  }
   if(dots){
     const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return dateKey(d);});
     const done=new Set((state.orders||[]).map(o=>dateKey(new Date(o.created))));
@@ -1122,8 +1128,8 @@ function plazaCommentsFor(p){return [...plazaSampleComments(p),...plazaLocalComm
 function plazaCommentCount(p){return (p.comments||0)+plazaCommentsFor(p).length;}
 function plazaTimeLabel(p){return p.draft?'本地草稿':`${p.minutes} 分钟前`;}
 function renderPostMedia(p,detail=false){if(!p.photo)return '';const open=detail?'':` onclick="openPlazaPost('${p.id}')"`;return `<div class="${detail?'post-detail-media':'post-gallery'}"${open}><img class="post-photo" src="${escapeHtml(p.photo)}" alt="${escapeHtml(p.title)}" loading="lazy"></div>`;}
-function plazaReactionIcon(type,active=false){const name=type==='like'?(active?'reaction-like':'reaction-default'):type==='comment'?'reaction-comment':active?'reaction-save-active':'reaction-save';return `<img class="reaction-icon" src="assets/icons/${name}.png" alt="">`;}
-function plazaPostCard(p){const liked=(state.plazaLikes||[]).includes(p.id),saved=(state.plazaFavorites||[]).includes(p.id),likeCount=Number(p.likes||0)+(liked?1:0),commentCount=plazaCommentCount(p),tags=(p.tags||[]).slice(0,3).map(t=>`#${escapeHtml(t)}`).join(' ');return `<article class="post-card"><span class="post-avatar">${p.draft?'我':p.official?'研':(p.author||'用').slice(0,1)}</span><div class="post-body"><div class="post-meta"><div class="post-author"><span class="post-author-copy"><strong>${escapeHtml(p.author)}</strong><small>${escapeHtml(p.cat)} · ${plazaTimeLabel(p)}</small></span></div><button class="post-more" onclick="reportPlazaPost('${p.id}')" aria-label="更多操作">···</button></div><h3 class="post-title" onclick="openPlazaPost('${p.id}')">${escapeHtml(p.title)}</h3><p class="post-caption" onclick="openPlazaPost('${p.id}')">${escapeHtml(p.summary)}</p>${tags?`<span class="post-caption-tags">${tags}</span>`:''}${renderPostMedia(p)}<div class="post-actions"><button class="${liked?'active':''}" onclick="togglePlazaLike('${p.id}')" aria-label="点赞">${plazaReactionIcon('like',liked)}<span class="post-action-count">${likeCount}</span></button><button onclick="openPlazaPost('${p.id}')" aria-label="评论">${plazaReactionIcon('comment')}<span class="post-action-count">${commentCount}</span></button><button class="${saved?'active':''}" onclick="togglePlazaFavorite('${p.id}')" aria-label="收藏">${plazaReactionIcon('save',saved)}</button><button class="share" onclick="sharePlazaPost('${p.id}')" aria-label="分享">↗</button></div></div></article>`;}
+function plazaReactionIcon(type,active=false){const name=type==='like'?(active?'reaction-like':'reaction-default'):type==='comment'?(active?'reaction-comment-active':'reaction-comment'):active?'reaction-save-active':'reaction-save';return `<img class="reaction-icon" src="assets/icons/${name}.png" alt="">`;}
+function plazaPostCard(p){const liked=(state.plazaLikes||[]).includes(p.id),saved=(state.plazaFavorites||[]).includes(p.id),commented=plazaCommentsFor(p).some(c=>c.name==='我'),likeCount=Number(p.likes||0)+(liked?1:0),commentCount=plazaCommentCount(p),tags=(p.tags||[]).slice(0,3).map(t=>`#${escapeHtml(t)}`).join(' ');return `<article class="post-card"><span class="post-avatar">${p.draft?'我':p.official?'研':(p.author||'用').slice(0,1)}</span><div class="post-body"><div class="post-meta"><div class="post-author"><span class="post-author-copy"><strong>${escapeHtml(p.author)}</strong><small>${escapeHtml(p.cat)} · ${plazaTimeLabel(p)}</small></span></div><button class="post-more" onclick="reportPlazaPost('${p.id}')" aria-label="更多操作">···</button></div><h3 class="post-title" onclick="openPlazaPost('${p.id}')">${escapeHtml(p.title)}</h3><p class="post-caption" onclick="openPlazaPost('${p.id}')">${escapeHtml(p.summary)}</p>${tags?`<span class="post-caption-tags">${tags}</span>`:''}${renderPostMedia(p)}<div class="post-actions"><button class="${liked?'active':''}" onclick="togglePlazaLike('${p.id}')" aria-label="点赞">${plazaReactionIcon('like',liked)}<span class="post-action-count">${likeCount}</span></button><button class="${commented?'active':''}" onclick="openPlazaPost('${p.id}')" aria-label="评论">${plazaReactionIcon('comment',commented)}<span class="post-action-count">${commentCount}</span></button><button class="${saved?'active':''}" onclick="togglePlazaFavorite('${p.id}')" aria-label="收藏">${plazaReactionIcon('save',saved)}</button><button class="share" onclick="sharePlazaPost('${p.id}')" aria-label="分享">↗</button></div></div></article>`;}
 function renderPlazaFeed(){const root=document.getElementById('plazaFeed');if(!root)return;const posts=filteredPlazaPosts();root.innerHTML=posts.length?posts.map(plazaPostCard).join(''):`<div class="empty" style="padding:36px 20px"><div class="emoji">🧾</div><h3>这个板块还在整理</h3><p>正式版本会持续补充经过审核的内容。</p></div>`;}
 function toggleInList(key,id){const list=new Set(state[key]||[]);list.has(id)?list.delete(id):list.add(id);state[key]=[...list];saveStateOnly();renderPlaza();}
 function togglePlazaLike(id){toggleInList('plazaLikes',id);}
@@ -1131,7 +1137,7 @@ function togglePlazaFavorite(id){toggleInList('plazaFavorites',id);toast((state.
 function togglePlazaLikeInDetail(id){togglePlazaLike(id);openPlazaPost(id);}
 function togglePlazaFavoriteInDetail(id){togglePlazaFavorite(id);openPlazaPost(id);}
 function focusPlazaComment(id){setTimeout(()=>document.getElementById(`plazaCommentInput-${id}`)?.focus(),40);}
-function renderPlazaDetailActions(p){const liked=(state.plazaLikes||[]).includes(p.id),saved=(state.plazaFavorites||[]).includes(p.id),likeCount=Number(p.likes||0)+(liked?1:0);return `<div class="post-detail-actions"><button class="${liked?'active':''}" onclick="togglePlazaLikeInDetail('${p.id}')" aria-label="点赞">${plazaReactionIcon('like',liked)}<span>${likeCount}</span></button><button onclick="focusPlazaComment('${p.id}')" aria-label="评论">${plazaReactionIcon('comment')}<span>${plazaCommentCount(p)}</span></button><button class="${saved?'active':''}" onclick="togglePlazaFavoriteInDetail('${p.id}')" aria-label="收藏">${plazaReactionIcon('save',saved)}</button><button class="share" onclick="sharePlazaPost('${p.id}')" aria-label="分享">↗</button></div>`;}
+function renderPlazaDetailActions(p){const liked=(state.plazaLikes||[]).includes(p.id),saved=(state.plazaFavorites||[]).includes(p.id),likeCount=Number(p.likes||0)+(liked?1:0);return `<div class="post-detail-actions"><button class="${liked?'active':''}" onclick="togglePlazaLikeInDetail('${p.id}')" aria-label="点赞">${plazaReactionIcon('like',liked)}<span>${likeCount}</span></button><button class="active" onclick="focusPlazaComment('${p.id}')" aria-label="评论">${plazaReactionIcon('comment',true)}<span>${plazaCommentCount(p)}</span></button><button class="${saved?'active':''}" onclick="togglePlazaFavoriteInDetail('${p.id}')" aria-label="收藏">${plazaReactionIcon('save',saved)}</button><button class="share" onclick="sharePlazaPost('${p.id}')" aria-label="分享">↗</button></div>`;}
 function renderPlazaComments(p){return `<div class="comment-section"><div class="comment-section-title">评论 · ${plazaCommentCount(p)}</div>${plazaCommentsFor(p).map(c=>`<div class="comment-bubble"><span class="comment-avatar">${escapeHtml((c.name||'用').slice(0,1))}</span><p><strong>${escapeHtml(c.name)}</strong>${escapeHtml(c.text)}</p></div>`).join('')}</div>`;}
 function openPlazaPost(id){const p=findPlazaPost(id);if(!p)return;const article=(p.body&&p.body.length?p.body:[p.summary]);openSheet(`<div class="sheet-handle"></div><div class="sheet-head"><div><div class="habit-eyebrow">${escapeHtml(p.cat)} · 动态详情</div><h3>${escapeHtml(p.title)}</h3></div><button class="iconbtn" onclick="closeSheet()">✕</button></div><div class="quick-panel"><h3>${escapeHtml(p.summary)}</h3><p>${escapeHtml(p.author)} 分享 · ${p.draft?'当前只保存在这台设备。':'这里只讨论怎么让消费决定慢一点。'}</p></div>${renderPostGallery(p)}<div class="post-article">${article.map(x=>`<p>${escapeHtml(x)}</p>`).join('')}</div>${renderPlazaDetailActions(p)}${p.challenge?'<button class="primary" style="width:100%;margin-top:12px" onclick="closeSheet();startChallenge();switchHallTab(\'research\');">加入 7 天冷静挑战</button>':''}${renderPlazaComments(p)}<div class="comment-compose"><textarea id="plazaCommentInput-${p.id}" maxlength="120" placeholder="写一句真实反馈，例：我也遇到过 / 这个方法我想试试"></textarea><button class="primary" onclick="addPlazaComment('${p.id}')">发表评论</button></div><button class="link" style="width:100%;margin-top:8px" onclick="reportPlazaPost('${p.id}')">举报内容问题</button>`);}
 function openPlazaPostV12(id){const p=findPlazaPost(id);if(!p)return;const article=(p.body&&p.body.length?p.body:[p.summary]).join(' '),liked=(state.plazaLikes||[]).includes(p.id),likeCount=Number(p.likes||0)+(liked?1:0),credit=p.photoSource?`<div class="post-credit">照片：<a href="${escapeHtml(p.photoSource)}" target="_blank" rel="noopener">Pexels · ${escapeHtml(p.photographer||'查看来源')}</a></div>`:'';openSheet(`<div class="sheet-handle"></div><div class="post-detail-topbar"><div class="post-author"><span class="post-avatar">${p.draft?'我':p.official?'研':(p.author||'用').slice(0,1)}</span><span class="post-author-copy"><strong>${escapeHtml(p.author)}</strong><small>${escapeHtml(p.cat)} · ${plazaTimeLabel(p)}</small></span></div><button class="iconbtn" onclick="closeSheet()" aria-label="关闭">✕</button></div>${renderPostMedia(p,true)}${renderPlazaDetailActions(p)}<div class="post-like-count">${likeCount} 次赞</div><div class="post-detail-copy"><p><strong>${escapeHtml(p.author)}</strong>${escapeHtml(p.title)}</p><p>${escapeHtml(p.summary)}</p><p>${escapeHtml(article)}</p>${credit}</div>${renderPlazaComments(p)}<div class="comment-compose"><span class="comment-avatar">我</span><input id="plazaCommentInput-${p.id}" maxlength="120" placeholder="添加评论…"><button onclick="addPlazaComment('${p.id}')">发送</button></div><button class="link" style="width:100%;margin-top:12px;font-size:10px" onclick="reportPlazaPost('${p.id}')">举报</button>`);}

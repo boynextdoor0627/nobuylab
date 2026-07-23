@@ -4,11 +4,20 @@
   "projectname": "nobuylab-miniprogram-mvp",
   "miniprogramRoot": "./",
   "compileType": "miniprogram",
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "assets"
+      }
+    ]
+  },
   "setting": {
     "urlCheck": false,
     "es6": true,
     "enhance": true,
     "postcss": true,
-    "minified": true
+    "minified": true,
+    "minifyWXML": true
   }
 }

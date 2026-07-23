@@ -30,9 +30,9 @@ Page({
         articleText: (post.body || []).join(' '),
         liked,
         favorited,
-        likeIcon: liked ? '/assets/icons/reaction-like.png' : '/assets/icons/reaction-default.png',
-        commentIcon: '/assets/icons/reaction-comment.png',
-        saveIcon: favorited ? '/assets/icons/reaction-save-active.png' : '/assets/icons/reaction-save.png',
+        likeIcon: liked ? '/runtime-assets/icons/reaction-like.png' : '/runtime-assets/icons/reaction-default.png',
+        commentIcon: '/runtime-assets/icons/reaction-comment-active.png',
+        saveIcon: favorited ? '/runtime-assets/icons/reaction-save-active.png' : '/runtime-assets/icons/reaction-save.png',
         likeCount: Number(post.likes || 0) + (liked ? 1 : 0),
         commentCount: commentCount(post.id)
       }),

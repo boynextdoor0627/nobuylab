@@ -39,7 +39,7 @@
       <text class="field-label">正文</text>
       <textarea class="textarea" value="{{draftText}}" bindinput="onDraftInput" maxlength="500" placeholder="例：旧耳机功能都正常，只是最近刷了很多测评。先停一个月，再看是不是真的需要。" />
     </view>
-    <button class="image-picker" bindtap="chooseDraftImage"><image src="/assets/icons/3d-photo.png" mode="aspectFit" />添加图片（可选）</button>
+    <button class="image-picker" bindtap="chooseDraftImage"><image src="/runtime-assets/icons/3d-photo.png" mode="aspectFit" />添加图片（可选）</button>
     <view class="draft-image-wrap" wx:if="{{draftImage}}">
       <image class="draft-image" src="{{draftImage}}" mode="aspectFill" />
       <button class="remove-image" bindtap="removeDraftImage">✕</button>
@@ -68,7 +68,7 @@
         <image wx:if="{{item.photo}}" class="post-photo" src="{{item.photo}}" mode="aspectFill" bindtap="openPost" data-id="{{item.id}}" />
         <view class="post-actions">
           <button class="action {{item.liked ? 'active' : ''}}" bindtap="toggleLike" data-id="{{item.id}}"><image src="{{item.likeIcon}}" mode="aspectFit" /><text>{{item.likeCount}}</text></button>
-          <button class="action" bindtap="openPost" data-id="{{item.id}}"><image src="{{item.commentIcon}}" mode="aspectFit" /><text>{{item.commentCount}}</text></button>
+          <button class="action {{item.commented ? 'active' : ''}}" bindtap="openPost" data-id="{{item.id}}"><image src="{{item.commentIcon}}" mode="aspectFit" /><text>{{item.commentCount}}</text></button>
           <button class="action {{item.favorited ? 'active' : ''}}" bindtap="toggleFavorite" data-id="{{item.id}}"><image src="{{item.saveIcon}}" mode="aspectFit" /></button>
           <button class="action share" bindtap="copyShare" data-id="{{item.id}}">↗</button>
         </view>

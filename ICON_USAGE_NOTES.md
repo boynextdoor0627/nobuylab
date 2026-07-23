@@ -1,10 +1,12 @@
 # Icon Usage Notes
 
-`assets/icons/` 来自 `nobuylab_icon.zip` 与 `nobuylab_icon_update`，当前已同步到 HTML 原型和微信小程序 MVP。Logo 系列来自 `不买研究所Logo.zip`，已单独放入 `assets/brand/` 与 `miniprogram/assets/brand/`。
+`assets/icons/` 来自 `nobuylab_icon.zip` 与 `nobuylab_icon_update`，当前已同步到 HTML 原型和微信小程序 MVP。Logo 与广场互动表情来自 2026-07-23 版 `不买研究所Logo.zip`。小程序完整素材源保留在 `miniprogram/assets/`，实际打包只使用压缩后的 `miniprogram/runtime-assets/`。
 
 ## 已接入位置
 
 - HTML 顶部品牌区、浏览器 favicon、启动引导页、首页品牌视觉、个人页品牌横幅。
+- HTML 与小程序广场点赞、评论、收藏的默认态和互动后状态。
+- HTML 启动欢迎、完整模式首页、每日记录卡片中的品牌 IP 形象。
 - HTML 底部导航：简洁模式为今日、记录、广场；完整模式为今日、冷静车、暂停、记录、我的。
 - HTML 搜索框、实验提醒、省钱广场头图、广场发动态按钮、个人页菜单。
 - HTML 首页“今天差点买什么”选项。
@@ -14,10 +16,22 @@
 ## 品牌资产
 
 - `assets/app-icon-1024.png`：浏览器 Apple Touch Icon、未来应用商店/小程序头像的高分辨率源。
-- `assets/brand/logo-app.png`：HTML 顶部标识、启动页、首页视觉、头像和水印；小程序同步为 `/assets/brand/logo-app.png`。
+- `assets/brand/logo-app.png`：HTML 顶部标识、头像和水印；小程序运行包只携带当前页面实际使用的品牌素材。
 - `assets/brand/logo-wordmark-black.png`：HTML 顶部文字 Logo，适合浅色背景。
 - `assets/brand/logo-lockup-white.png`：个人页绿色品牌横幅，适合深色或品牌色背景。
 - `assets/brand/logo-lockup-black.png` / `logo-wordmark-white.png` / `logo-presentation.png`：保留用于后续分享图、海报和深色模式。
+- `assets/brand/comments-icon-sheet.png`：用户提供的广场互动状态母版，只用于追溯和后续导出。
+- `assets/brand/mascot-wave.png`：欢迎、首次打开和新用户引导。
+- `assets/brand/mascot-pause.png`：暂停消费、完整模式首页和小程序今日页。
+- `assets/brand/mascot-success.png`：省下金额、连续记录和达成状态。
+- `assets/brand/mascot-community.png`：省钱广场、评论、分享和社区活动。
+
+## 广场互动状态
+
+- `reaction-default.png` → `reaction-like.png`：点赞前的叉叉眼，点赞后的红色爱心眼。
+- `reaction-comment.png` → `reaction-comment-active.png`：评论入口与帖子详情/评论互动状态。
+- `reaction-save.png` → `reaction-save-active.png`：收藏前的白色星星眼，收藏后的金色星星眼。
+- 小程序运行路径统一为 `/runtime-assets/icons/`，不要直接引用完整素材目录。
 
 ## 当前映射
 

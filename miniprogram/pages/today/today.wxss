@@ -22,10 +22,10 @@
 
 .hero-img {
   position: absolute;
-  right: -34rpx;
-  bottom: -20rpx;
-  width: 260rpx;
-  height: 260rpx;
+  right: -22rpx;
+  bottom: -18rpx;
+  width: 276rpx;
+  height: 276rpx;
 }
 
 .pause-guide {

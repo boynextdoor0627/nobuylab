@@ -5,7 +5,7 @@
       <text class="h1">今天差点买什么？</text>
       <text class="muted">先选一个类型。名称和金额都可以不填。</text>
     </view>
-    <image class="hero-img" src="/assets/brand/logo-app.png" mode="aspectFit" />
+    <image class="hero-img" src="/runtime-assets/brand/mascot-pause.png" mode="aspectFit" />
   </view>
 
   <view class="pause-guide section">选类型 → 先放一放 → 到时间回来决定买不买</view>

@@ -1,37 +1,66 @@
-<view class="page safe-bottom">
+<view class="page orders-page safe-bottom">
   <view class="summary card">
-    <text class="eyebrow">我的冷静记录</text>
-    <text class="h1">把冲动放一放，再回来决定。</text>
+    <text class="eyebrow">我的不买订单</text>
+    <text class="h1">正在研究中，先不急着买。</text>
+    <text class="muted">所有订单都是本地模拟，不会产生真实购买或配送。</text>
     <view class="stats-row">
       <view>
         <text class="stat-num">{{stats.total}}</text>
-        <text class="stat-label">累计暂停</text>
+        <text class="stat-label">全部订单</text>
       </view>
       <view>
         <text class="stat-num">{{stats.cooling}}</text>
-        <text class="stat-label">待决定</text>
+        <text class="stat-label">等待决定</text>
       </view>
       <view>
         <text class="stat-num">¥{{stats.confirmedSaved}}</text>
-        <text class="stat-label">已省下</text>
+        <text class="stat-label">确认已省</text>
       </view>
     </view>
   </view>
 
   <view class="filter-row section">
     <button class="filter {{filter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">全部</button>
-    <button class="filter {{filter === 'cooling' ? 'active' : ''}}" bindtap="setFilter" data-filter="cooling">待决定</button>
+    <button class="filter {{filter === 'active' ? 'active' : ''}}" bindtap="setFilter" data-filter="active">研究中</button>
     <button class="filter {{filter === 'reviewed' ? 'active' : ''}}" bindtap="setFilter" data-filter="reviewed">已完成</button>
   </view>
 
   <view wx:if="{{records.length}}">
-    <view class="record card section" wx:for="{{records}}" wx:key="id">
-      <view class="row-between">
-        <view>
-          <text class="record-name">{{item.icon}} {{item.name}}</text>
-          <text class="record-meta">{{item.type}} · {{item.dateText}}</text>
+    <view class="order-card section" wx:for="{{records}}" wx:key="id">
+      <view class="order-head">
+        <view class="order-id">
+          <image src="{{item.iconPath}}" mode="aspectFit" />
+          <view>
+            <text class="order-no">模拟订单 #{{item.orderNo}}</text>
+            <text class="order-date">{{item.dateText}}</text>
+          </view>
         </view>
         <text class="status {{item.statusClass}}">{{item.statusLabel}}</text>
+      </view>
+
+      <view class="order-items" wx:if="{{item.items.length}}">
+        <view class="order-item" wx:for="{{item.items}}" wx:for-item="product" wx:key="id">
+          <image src="{{product.iconPath}}" mode="aspectFit" />
+          <text class="order-item-name">{{product.name}}</text>
+          <text class="order-item-qty">×{{product.qty}}</text>
+          <text class="order-item-price">¥{{product.lineTotalText}}</text>
+        </view>
+      </view>
+      <view class="legacy-item" wx:else>
+        <text>{{item.icon}} {{item.name}}</text>
+      </view>
+
+      <view class="order-total">
+        <text>共 {{item.itemCount}} 件</text>
+        <view><text>本次差点花费</text><text class="amount">¥{{item.amountText}}</text></view>
+      </view>
+
+      <view class="delivery-title row-between">
+        <view>
+          <text class="delivery-label">冷静配送</text>
+          <text class="delivery-copy">{{item.statusLabel}}</text>
+        </view>
+        <text class="simulation-pill">不读取定位</text>
       </view>
 
       <view class="route-map">
@@ -51,20 +80,18 @@
       </view>
 
       <view class="route-foot">
-        <text>{{item.route.distance}} km · 约 {{item.route.eta}} 分钟</text>
+        <text>预计 {{item.route.etaText}} 到冷静箱</text>
         <text>本地模拟路线</text>
       </view>
 
-      <view class="action-row">
-        <button class="ghost-btn" bindtap="advanceRoute" data-id="{{item.id}}" wx:if="{{item.routeStage < 5}}">推进模拟路线</button>
-        <button class="secondary-btn" bindtap="openReview" data-id="{{item.id}}">{{item.decision ? '看结果' : '现在决定'}}</button>
-      </view>
+      <button class="order-action {{item.decision ? 'reviewed' : ''}}" bindtap="openReview" data-id="{{item.id}}">{{item.actionLabel}}</button>
     </view>
   </view>
 
   <view class="empty" wx:else>
-    <text class="empty-title">还没有暂停记录</text>
-    <text class="muted">回到“今日”，放进一次冷静箱，这里就会出现记录。</text>
-    <button class="primary-btn empty-btn" bindtap="goToday">去暂停一下</button>
+    <image class="empty-icon" src="/runtime-assets/icons/3d-paper-bag.png" mode="aspectFit" />
+    <text class="empty-title">还没有冷静订单</text>
+    <text class="muted">去“不买商店”选几件商品，提交一张不会付款的订单。</text>
+    <button class="primary-btn empty-btn" bindtap="goShop">去虚拟点单</button>
   </view>
 </view>

@@ -1,33 +1,58 @@
-<view class="page safe-bottom">
-  <view class="card review-head" wx:if="{{record}}">
-    <text class="eyebrow">这次最后买了吗？</text>
-    <text class="h1">{{record.icon}} {{record.name}}</text>
-    <text class="muted">这次差点花 ¥{{record.amountText}}。选一个结果就好，不用写长篇复盘。</text>
+<view class="page safe-bottom" wx:if="{{record}}">
+  <view class="review-head card">
+    <view class="review-copy">
+      <text class="eyebrow">模拟订单 #{{record.orderNo}}</text>
+      <text class="h1">这单最后买了吗？</text>
+      <text class="muted">只有确认“没买”，¥{{record.amountText}} 才会进入已省钱账单。</text>
+    </view>
+    <image src="{{record.iconPath}}" mode="aspectFit" />
   </view>
 
-  <view class="card section" wx:if="{{record}}">
-    <text class="h2">选一个结果</text>
+  <view class="order-summary card section">
+    <view class="row-between">
+      <text class="h2">订单内容</text>
+      <text class="amount">¥{{record.amountText}}</text>
+    </view>
+    <view wx:if="{{record.items.length}}">
+      <view class="summary-item" wx:for="{{record.items}}" wx:key="id">
+        <image src="{{item.iconPath}}" mode="aspectFit" />
+        <text class="summary-name">{{item.name}}</text>
+        <text class="summary-qty">×{{item.qty}}</text>
+        <text class="summary-price">¥{{item.lineTotalText}}</text>
+      </view>
+    </view>
+    <view class="legacy-summary" wx:else>{{record.icon}} {{record.name}}</view>
+  </view>
+
+  <view class="card section">
+    <text class="h2">选择这单的结果</text>
     <view class="choice-list">
-      <button class="choice {{decision === 'kept' ? 'active' : ''}}" bindtap="selectDecision" data-decision="kept">
-        <text class="choice-title">没买，省下这笔</text>
-        <text class="choice-copy">把这笔金额记入“已省下”。</text>
-      </button>
-      <button class="choice {{decision === 'bought' ? 'active' : ''}}" bindtap="selectDecision" data-decision="bought">
-        <text class="choice-title">买了，也记下来</text>
-        <text class="choice-copy">这不是失败，真实记录更有用。</text>
-      </button>
+      <view class="choice {{decision === 'kept' ? 'active' : ''}}" role="button" bindtap="selectDecision" data-decision="kept">
+        <view class="choice-mark">{{decision === 'kept' ? '✓' : ''}}</view>
+        <view>
+          <text class="choice-title">没买，确认已省钱</text>
+          <text class="choice-copy">把 ¥{{record.amountText}} 计入省钱账单。</text>
+        </view>
+      </view>
+      <view class="choice {{decision === 'bought' ? 'active' : ''}}" role="button" bindtap="selectDecision" data-decision="bought">
+        <view class="choice-mark">{{decision === 'bought' ? '✓' : ''}}</view>
+        <view>
+          <text class="choice-title">还是买了，也记下来</text>
+          <text class="choice-copy">这不是失败，真实记录才有用。</text>
+        </view>
+      </view>
     </view>
 
     <view class="field">
-      <text class="field-label">可选：一句原因</text>
-      <textarea class="textarea" placeholder="例：我只是太累了，想奖励自己一下。" value="{{reviewText}}" bindinput="onTextInput" maxlength="160" />
+      <text class="field-label">可选：留一句话</text>
+      <textarea class="textarea" placeholder="例如：等了一晚，发现家里的已经够用。" value="{{reviewText}}" bindinput="onTextInput" maxlength="160" />
     </view>
 
-    <button class="primary-btn submit" bindtap="submitReview">保存这次结果</button>
-    <button class="secondary-btn extend" bindtap="extendCooling">还想等等，再放 3 天</button>
+    <button class="primary-btn submit" bindtap="submitReview">保存这单结果</button>
+    <button class="secondary-btn extend" bindtap="extendCooling">还没想好，再冷静 3 天</button>
   </view>
 
   <view class="notice section">
-    <text>没有标准答案，诚实记录就很好。下次再遇到相似冲动，你会更容易看懂自己。</text>
+    <text>模拟订单不会产生真实交易。省钱金额只来自你主动确认的“没买”。</text>
   </view>
 </view>

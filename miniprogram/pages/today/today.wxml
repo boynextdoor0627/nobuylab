@@ -1,56 +1,121 @@
-<view class="page safe-bottom">
-  <view class="hero card">
+<view class="page shop-page safe-bottom">
+  <view class="shop-hero card">
     <view class="hero-copy">
-      <text class="eyebrow">今天先不买</text>
-      <text class="h1">今天差点买什么？</text>
-      <text class="muted">先选一个类型。名称和金额都可以不填。</text>
+      <text class="eyebrow">虚拟点单 · 不会付款</text>
+      <text class="h1">今天想把什么放进冷静购物车？</text>
+      <text class="muted">选好后提交一张“不买订单”，让冲动先去配送。</text>
     </view>
     <image class="hero-img" src="/runtime-assets/brand/mascot-pause.png" mode="aspectFit" />
   </view>
 
-  <view class="pause-guide section">选类型 → 先放一放 → 到时间回来决定买不买</view>
+  <view class="simulation-note section">
+    <image src="/runtime-assets/icons/3d-truck.png" mode="aspectFit" />
+    <text>全程模拟，不会向商家下单、付款或读取定位。</text>
+  </view>
 
-  <view class="option-grid section">
+  <view class="category-grid section">
     <button
-      class="option {{selectedId === item.id ? 'active' : ''}}"
-      wx:for="{{pauseOptions}}"
+      class="category {{activeCategory === item.id ? 'active' : ''}}"
+      wx:for="{{categories}}"
       wx:key="id"
-      bindtap="selectOption"
+      bindtap="setCategory"
       data-id="{{item.id}}"
-    >
-      <image class="option-icon" src="{{item.iconPath}}" mode="aspectFit" />
-      <text class="option-title">{{item.label}}</text>
-    </button>
+    >{{item.label}}</button>
   </view>
 
-  <view class="card section">
-    <view class="row-between">
-      <text class="h2">想补充一点吗？</text>
-      <text class="pill">全都可不填</text>
+  <view class="section-head">
+    <view>
+      <text class="h2">随便逛逛</text>
+      <text class="muted">价格只是模拟，也可以自己添加。</text>
     </view>
-    <view class="field">
-      <text class="field-label">具体想买什么</text>
-      <input class="input" placeholder="例如：奶茶、耳机、通勤包" value="{{name}}" bindinput="onNameInput" maxlength="40" />
-    </view>
-    <view class="field">
-      <text class="field-label">大概金额</text>
-      <input class="input" type="digit" placeholder="可选" value="{{amount}}" bindinput="onAmountInput" />
-    </view>
-    <button class="primary-btn submit" bindtap="submitPause">先不买，放进冷静箱</button>
-    <text class="submit-note">不填也可以，只在这台设备保存一条暂停记录。</text>
+    <text class="product-count">{{products.length}} 件</text>
   </view>
 
-  <view class="daily card section">
+  <view class="product-grid section">
+    <view class="product-card" wx:for="{{products}}" wx:key="id">
+      <view class="product-visual">
+        <image src="{{item.iconPath}}" mode="aspectFit" />
+        <text class="cart-qty" wx:if="{{item.inCartQty}}">{{item.inCartQty}}</text>
+      </view>
+      <text class="product-name">{{item.name}}</text>
+      <text class="product-note">{{item.note}}</text>
+      <view class="product-foot">
+        <text class="price">¥{{item.priceText}}</text>
+        <view
+          class="add-product"
+          role="button"
+          hover-class="add-product-pressed"
+          bindtap="addProduct"
+          data-id="{{item.id}}"
+          aria-label="加入冷静购物车"
+        >+</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="custom-card card section">
     <view class="row-between">
       <view>
-        <text class="eyebrow">最近记录</text>
-        <text class="daily-title">{{todayDone ? '今天已经暂停过一次' : '今天还没有暂停记录'}}</text>
+        <text class="custom-title">没有想选的？</text>
+        <text class="muted">自己添加一件商品。</text>
       </view>
-      <text class="daily-count">{{stats.cooling}} 待决定</text>
+      <button class="custom-toggle" bindtap="toggleCustom">{{customOpen ? '收起' : '自定义'}}</button>
     </view>
-    <view class="dot-row">
-      <view class="dot {{index < weeklyDots ? 'done' : ''}}" wx:for="{{dotList}}" wx:key="*this">{{item}}</view>
+    <view class="custom-form" wx:if="{{customOpen}}">
+      <view class="custom-fields">
+        <input class="input" value="{{customName}}" bindinput="onCustomName" maxlength="30" placeholder="商品名称" />
+        <input class="input custom-price" type="digit" value="{{customPrice}}" bindinput="onCustomPrice" placeholder="金额" />
+      </view>
+      <button class="secondary-btn" bindtap="addCustomProduct">加入冷静购物车</button>
     </view>
-    <text class="muted">想买时先记一下，到时间回来选“没买”或“买了”就好。</text>
+  </view>
+
+  <view class="cart-dock" wx:if="{{cartCount}}">
+    <view class="cart-dock-copy" bindtap="toggleCart">
+      <view class="cart-icon-wrap">
+        <image src="/runtime-assets/icons/3d-paper-bag.png" mode="aspectFit" />
+        <text>{{cartCount}}</text>
+      </view>
+      <view>
+        <text class="cart-dock-title">冷静购物车</text>
+        <text class="cart-dock-price">共 ¥{{cartTotalText}}</text>
+      </view>
+    </view>
+    <button class="cart-submit" bindtap="goCheckout">去结算</button>
+  </view>
+
+  <view class="cart-mask" wx:if="{{cartOpen}}" bindtap="closeCart">
+    <view class="cart-sheet" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <view class="row-between sheet-head">
+        <view>
+          <text class="h2">冷静购物车</text>
+          <text class="muted">{{cartCount}} 件 · 本地模拟</text>
+        </view>
+        <button class="sheet-close" bindtap="closeCart">✕</button>
+      </view>
+
+      <view class="cart-list">
+        <view class="cart-item" wx:for="{{cart}}" wx:key="id">
+          <image src="{{item.iconPath}}" mode="aspectFit" />
+          <view class="cart-item-copy">
+            <text class="cart-item-name">{{item.name}}</text>
+            <text class="cart-item-price">¥{{item.lineTotalText}}</text>
+          </view>
+          <view class="stepper">
+            <button bindtap="changeQty" data-id="{{item.id}}" data-delta="-1">−</button>
+            <text>{{item.qty}}</text>
+            <button bindtap="changeQty" data-id="{{item.id}}" data-delta="1">+</button>
+          </view>
+        </view>
+      </view>
+
+      <view class="cart-total row-between">
+        <button class="clear-cart" bindtap="clearCart">清空</button>
+        <view><text>本次差点花费</text><text class="total-price">¥{{cartTotalText}}</text></view>
+      </view>
+      <button class="primary-btn" bindtap="goCheckout">核对模拟订单</button>
+      <text class="sheet-note">下一步会先显示完整账单，不会直接创建订单。</text>
+    </view>
   </view>
 </view>

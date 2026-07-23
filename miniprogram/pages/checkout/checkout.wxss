@@ -1,0 +1,286 @@
+.checkout-page {
+  padding-bottom: calc(150rpx + env(safe-area-inset-bottom));
+}
+
+.destination {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx;
+  border-radius: 20rpx;
+  box-shadow: none;
+}
+
+.destination-icon {
+  flex: 0 0 auto;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 18rpx;
+  background: #EEF8EA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.destination-icon image {
+  width: 58rpx;
+  height: 58rpx;
+}
+
+.destination-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.destination-label,
+.destination-title,
+.destination-note {
+  display: block;
+}
+
+.destination-label {
+  color: #159447;
+  font-size: 20rpx;
+  font-weight: 900;
+}
+
+.destination-title {
+  margin-top: 5rpx;
+  font-size: 28rpx;
+  font-weight: 900;
+}
+
+.destination-note {
+  margin-top: 5rpx;
+  color: #7B756F;
+  font-size: 20rpx;
+}
+
+.destination-mark {
+  flex: 0 0 auto;
+  width: 46rpx;
+  height: 46rpx;
+  border-radius: 50%;
+  background: #10271B;
+  color: #B9F33D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21rpx;
+  font-weight: 900;
+}
+
+.order-card,
+.bill {
+  padding: 24rpx;
+  border-radius: 20rpx;
+  box-shadow: none;
+}
+
+.section-title {
+  align-items: flex-start;
+}
+
+.section-title .muted {
+  display: block;
+  margin-top: 5rpx;
+}
+
+.edit-btn {
+  flex: 0 0 auto;
+  height: 60rpx;
+  padding: 0 18rpx;
+  border-radius: 14rpx;
+  background: #EEF8EA;
+  color: #148843;
+  font-size: 21rpx;
+  font-weight: 900;
+}
+
+.checkout-items {
+  margin-top: 20rpx;
+  border-top: 1rpx solid #E4EBE2;
+}
+
+.checkout-item {
+  display: grid;
+  grid-template-columns: 64rpx minmax(0, 1fr) auto auto;
+  gap: 13rpx;
+  min-height: 104rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #E4EBE2;
+}
+
+.checkout-item:last-child {
+  border-bottom: 0;
+}
+
+.checkout-item > image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 14rpx;
+  background: #F2F7EE;
+}
+
+.item-copy {
+  min-width: 0;
+}
+
+.item-name,
+.item-note {
+  display: block;
+}
+
+.item-name {
+  overflow: hidden;
+  font-size: 25rpx;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-note {
+  margin-top: 5rpx;
+  color: #888078;
+  font-size: 19rpx;
+}
+
+.item-qty {
+  color: #817A73;
+  font-size: 21rpx;
+}
+
+.item-price {
+  min-width: 100rpx;
+  text-align: right;
+  font-size: 23rpx;
+  font-weight: 900;
+}
+
+.bill .h2 {
+  margin-bottom: 18rpx;
+}
+
+.bill-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60rpx;
+  color: #625C56;
+  font-size: 23rpx;
+}
+
+.bill-row > text:last-child {
+  color: #2D2925;
+  font-weight: 900;
+}
+
+.bill-row.total {
+  min-height: 82rpx;
+  margin-top: 8rpx;
+  padding-top: 15rpx;
+  border-top: 1rpx solid #E4EBE2;
+  color: #2D2925;
+  font-weight: 900;
+}
+
+.bill-row.total > text:last-child {
+  color: #159447;
+  font-size: 34rpx;
+}
+
+.checkout-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 14rpx;
+  padding: 20rpx;
+  border: 1rpx solid #DDE9D8;
+  border-radius: 18rpx;
+  background: #EEF8EA;
+}
+
+.checkout-notice image {
+  flex: 0 0 auto;
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.checkout-notice text {
+  display: block;
+}
+
+.checkout-notice text:first-child {
+  color: #17331F;
+  font-size: 23rpx;
+  font-weight: 900;
+}
+
+.checkout-notice text:last-child {
+  margin-top: 5rpx;
+  color: #5E6D5F;
+  font-size: 20rpx;
+  line-height: 1.5;
+}
+
+.checkout-bar {
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 118rpx;
+  padding: 14rpx 28rpx calc(14rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid #E0E8DE;
+  background: rgba(255, 255, 255, .97);
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.checkout-total {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 9rpx;
+}
+
+.checkout-total text:first-child {
+  color: #6D655D;
+  font-size: 21rpx;
+}
+
+.checkout-total text:last-child {
+  color: #159447;
+  font-size: 38rpx;
+  font-weight: 900;
+}
+
+.confirm-btn {
+  flex: 0 0 auto;
+  min-width: 270rpx;
+  height: 82rpx;
+  padding: 0 26rpx;
+  border-radius: 18rpx;
+  background: #16A34A;
+  color: #FFFFFF;
+  font-size: 26rpx;
+  font-weight: 900;
+}
+
+.empty-icon {
+  width: 126rpx;
+  height: 126rpx;
+  margin: 0 auto 18rpx;
+}
+
+.empty-title {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: 900;
+}
+
+.empty-btn {
+  margin-top: 28rpx;
+}

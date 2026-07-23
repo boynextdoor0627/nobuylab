@@ -36,4 +36,4 @@
 
 ## 开发方式
 
-用微信开发者工具打开 `miniprogram/` 目录即可。当前 `appid` 使用 `touristappid`，接入真实小程序时需要替换为你的正式 AppID。
+用微信开发者工具打开 `miniprogram/` 目录即可。项目已配置正式小程序 AppID：`wxed742fc57414dde3`。

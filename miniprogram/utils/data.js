@@ -7,6 +7,66 @@ const pauseOptions = [
   { id: 'other', icon: '🛍️', iconPath: '/runtime-assets/icons/3d-present.png', label: '其他', defaultName: '一次消费冲动', copy: '先放进冷静箱，明天回来决定。' }
 ]
 
+const shopCategories = [
+  { id: 'all', label: '推荐' },
+  { id: 'food', label: '吃喝' },
+  { id: 'digital', label: '数码' },
+  { id: 'wear', label: '穿搭' },
+  { id: 'beauty', label: '护肤' },
+  { id: 'home', label: '家居' }
+]
+
+function shopProduct(id, category, categoryLabel, name, note, price, icon, iconPath, coolingMinutes) {
+  return { id, category, categoryLabel, name, note, price, icon, iconPath, coolingMinutes }
+}
+
+const shopProducts = [
+  shopProduct('food-dinner', 'food', '吃喝', '今晚的外卖', '先看看家里还能做什么', 36, '🍱', '/runtime-assets/icons/fast-food.png', 30),
+  shopProduct('food-tea', 'food', '吃喝', '顺手一杯奶茶', '想喝，还是只是有点累？', 22, '🧋', '/runtime-assets/icons/fast-food.png', 20),
+  shopProduct('food-night', 'food', '吃喝', '加班夜宵', '饿了，还是想奖励自己？', 28, '🍜', '/runtime-assets/icons/fast-food.png', 30),
+  shopProduct('food-coffee', 'food', '吃喝', '下午咖啡', '先喝水，十分钟后再决定', 19, '☕', '/runtime-assets/icons/fast-food.png', 20),
+  shopProduct('food-dessert', 'food', '吃喝', '一份小甜点', '今天真的需要这份甜吗？', 26, '🍰', '/runtime-assets/icons/fast-food.png', 30),
+  shopProduct('food-fried', 'food', '吃喝', '炸鸡套餐', '先确认不是被满减推着走', 42, '🍗', '/runtime-assets/icons/fast-food.png', 30),
+  shopProduct('food-fruit', 'food', '吃喝', '一份水果捞', '家里的水果还剩多少？', 32, '🍓', '/runtime-assets/icons/fast-food.png', 20),
+  shopProduct('food-snack', 'food', '吃喝', '便利店零食', '别让顺手买变成一大袋', 45, '🍿', '/runtime-assets/icons/fast-food.png', 30),
+
+  shopProduct('digital-headphone', 'digital', '数码', '新的降噪耳机', '旧的还能正常使用吗？', 899, '🎧', '/runtime-assets/icons/3d-headphone.png', 4320),
+  shopProduct('digital-accessory', 'digital', '数码', '手机小配件', '先放一天再看需要程度', 129, '📱', '/runtime-assets/icons/3d-folder.png', 1440),
+  shopProduct('digital-tablet', 'digital', '数码', '一台新平板', '现有设备解决不了什么？', 3299, '💻', '/runtime-assets/icons/3d-folder.png', 10080),
+  shopProduct('digital-power', 'digital', '数码', '新的充电宝', '旧的容量真的不够了吗？', 159, '🔋', '/runtime-assets/icons/3d-folder.png', 1440),
+  shopProduct('digital-keyboard', 'digital', '数码', '机械键盘', '手感想象不等于使用频率', 399, '⌨️', '/runtime-assets/icons/3d-folder.png', 4320),
+  shopProduct('digital-watch', 'digital', '数码', '智能手表', '先列出三个每天会用的功能', 1299, '⌚', '/runtime-assets/icons/3d-alarm.png', 10080),
+  shopProduct('digital-camera', 'digital', '数码', '一台新相机', '先看相册里上次拍摄日期', 3999, '📷', '/runtime-assets/icons/3d-photo.png', 10080),
+  shopProduct('digital-gamepad', 'digital', '数码', '游戏手柄', '最近真的有时间玩吗？', 459, '🎮', '/runtime-assets/icons/3d-headphone.png', 4320),
+
+  shopProduct('wear-shoes', 'wear', '穿搭', '一双新鞋', '衣柜里有相似用途的吗？', 499, '👟', '/runtime-assets/icons/3d-paper-bag.png', 1440),
+  shopProduct('wear-bag', 'wear', '穿搭', '新的通勤包', '先想清楚使用频率', 399, '👜', '/runtime-assets/icons/3d-paper-bag.png', 1440),
+  shopProduct('wear-jacket', 'wear', '穿搭', '一件新外套', '现有外套缺少哪种场景？', 699, '🧥', '/runtime-assets/icons/3d-paper-bag.png', 4320),
+  shopProduct('wear-hoodie', 'wear', '穿搭', '一件连帽卫衣', '相似颜色已经有几件？', 329, '👕', '/runtime-assets/icons/3d-paper-bag.png', 1440),
+  shopProduct('wear-hat', 'wear', '穿搭', '一顶新帽子', '拍照好看会经常戴吗？', 159, '🧢', '/runtime-assets/icons/3d-paper-bag.png', 1440),
+  shopProduct('wear-dress', 'wear', '穿搭', '一条新裙子', '先想三个真实穿着场合', 459, '👗', '/runtime-assets/icons/3d-paper-bag.png', 4320),
+  shopProduct('wear-necklace', 'wear', '穿搭', '一条项链', '搭配需要还是临时心动？', 299, '📿', '/runtime-assets/icons/3d-present.png', 1440),
+  shopProduct('wear-glasses', 'wear', '穿搭', '一副太阳镜', '今年会有多少户外时间？', 399, '🕶️', '/runtime-assets/icons/3d-paper-bag.png', 4320),
+
+  shopProduct('beauty-set', 'beauty', '护肤', '一套护肤品', '先检查家里的库存', 299, '🧴', '/runtime-assets/icons/face-powder.png', 1440),
+  shopProduct('beauty-makeup', 'beauty', '护肤', '一件彩妆新品', '新品不等于现在需要', 259, '💄', '/runtime-assets/icons/eyeshadow.png', 1440),
+  shopProduct('beauty-sun', 'beauty', '护肤', '新的防晒', '已开封的还有多少？', 129, '☀️', '/runtime-assets/icons/face-powder.png', 1440),
+  shopProduct('beauty-perfume', 'beauty', '护肤', '一瓶新香水', '小样是否已经认真用完？', 499, '🌸', '/runtime-assets/icons/face-powder.png', 4320),
+  shopProduct('beauty-mask', 'beauty', '护肤', '一盒面膜', '囤货不会让使用速度变快', 99, '🫧', '/runtime-assets/icons/face-powder.png', 1440),
+  shopProduct('beauty-lipstick', 'beauty', '护肤', '一支新口红', '相近色号是不是已经有了？', 219, '💄', '/runtime-assets/icons/eyeshadow.png', 1440),
+  shopProduct('beauty-cleaner', 'beauty', '护肤', '一瓶卸妆产品', '先查开封库存和保质期', 129, '🧼', '/runtime-assets/icons/face-powder.png', 1440),
+  shopProduct('beauty-body', 'beauty', '护肤', '一瓶身体乳', '别为了凑单多买一瓶', 89, '🧴', '/runtime-assets/icons/face-powder.png', 1440),
+
+  shopProduct('home-decor', 'home', '家居', '一个家居摆件', '先确认它要放在哪里', 169, '🪴', '/runtime-assets/icons/house.png', 1440),
+  shopProduct('home-storage', 'home', '家居', '新的收纳用品', '收纳前先减少不需要的东西', 89, '📦', '/runtime-assets/icons/3d-present.png', 1440),
+  shopProduct('home-lamp', 'home', '家居', '一盏氛围灯', '照明需求还是照片氛围？', 299, '💡', '/runtime-assets/icons/house.png', 4320),
+  shopProduct('home-bedding', 'home', '家居', '一套新床品', '现有床品真的需要替换吗？', 499, '🛏️', '/runtime-assets/icons/house.png', 4320),
+  shopProduct('home-aroma', 'home', '家居', '一组香薰', '先用完家里已经打开的', 169, '🕯️', '/runtime-assets/icons/house.png', 1440),
+  shopProduct('home-cup', 'home', '家居', '一个新杯子', '柜子里还有多少只杯子？', 129, '☕', '/runtime-assets/icons/3d-present.png', 1440),
+  shopProduct('home-appliance', 'home', '家居', '一台小家电', '清洁成本也算使用成本', 399, '🍳', '/runtime-assets/icons/house.png', 4320),
+  shopProduct('home-chair', 'home', '家居', '一把新椅子', '先量尺寸，再想使用位置', 699, '🪑', '/runtime-assets/icons/house.png', 4320)
+]
+
 const plazaTopics = ['推荐', '差点买了', '还好没买', '下班冲动', '种草灭火', '提问']
 
 const plazaPosts = [
@@ -154,6 +214,8 @@ const plazaPosts = [
 
 module.exports = {
   pauseOptions,
+  shopCategories,
+  shopProducts,
   plazaTopics,
   plazaPosts
 }

@@ -1,0 +1,62 @@
+<view class="page saved-page safe-bottom">
+  <view class="saved-hero card">
+    <view class="saved-copy">
+      <text class="eyebrow">确认没买，才算真的省下</text>
+      <text class="saved-amount">¥{{stats.confirmedSaved}}</text>
+      <text class="saved-title">已进入你的省钱账户</text>
+      <text class="muted">所有金额都来自你主动确认完成的模拟订单。</text>
+    </view>
+    <image src="/runtime-assets/icons/3d-present.png" mode="aspectFit" />
+  </view>
+
+  <view class="metric-row section">
+    <view>
+      <text class="metric-num">{{stats.savedOrderCount}}</text>
+      <text class="metric-label">省钱订单</text>
+    </view>
+    <view>
+      <text class="metric-num">¥{{averageText}}</text>
+      <text class="metric-label">平均每单</text>
+    </view>
+    <view>
+      <text class="metric-num">{{savedDays}}</text>
+      <text class="metric-label">成功天数</text>
+    </view>
+  </view>
+
+  <view class="receipt card section" wx:if="{{savedRecords.length}}">
+    <view class="row-between receipt-head">
+      <view>
+        <text class="h2">省钱小票</text>
+        <text class="muted">每一笔都可以回看。</text>
+      </view>
+      <button class="copy-btn" bindtap="copyReceipt">复制账单</button>
+    </view>
+
+    <view class="receipt-list">
+      <view class="receipt-item" wx:for="{{savedRecords}}" wx:key="id">
+        <image src="{{item.iconPath}}" mode="aspectFit" />
+        <view class="receipt-copy">
+          <text class="receipt-name">{{item.name}}</text>
+          <text class="receipt-meta">{{item.dateText}} · #{{item.orderNo}}</text>
+        </view>
+        <view class="receipt-value">
+          <text>已省</text>
+          <text>¥{{item.amountText}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <image class="empty-icon" src="/runtime-assets/icons/3d-present.png" mode="aspectFit" />
+    <text class="empty-title">省钱账户还是空的</text>
+    <text class="muted">完成一张模拟订单，并确认“没买”，第一笔省钱就会出现在这里。</text>
+    <button class="primary-btn empty-btn" bindtap="goShop">去完成第一单</button>
+  </view>
+
+  <view class="saved-rule section">
+    <text class="rule-title">这里不做虚假的省钱数字</text>
+    <text>订单到达冷静箱后，由你确认最终结果。买了也可以诚实记录，但不会计入已省金额。</text>
+  </view>
+</view>

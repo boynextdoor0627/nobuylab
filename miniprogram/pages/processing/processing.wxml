@@ -1,0 +1,40 @@
+<view class="processing-page">
+  <view class="processing-visual">
+    <view class="pulse-ring ring-one"></view>
+    <view class="pulse-ring ring-two"></view>
+    <view class="processing-icon {{step === 2 ? 'done' : ''}}">
+      <image wx:if="{{step < 2}}" src="/runtime-assets/icons/3d-paper-bag.png" mode="aspectFit" />
+      <text wx:else>✓</text>
+    </view>
+  </view>
+
+  <text class="processing-title">{{title}}</text>
+  <text class="processing-copy">{{copy}}</text>
+
+  <view class="order-chip">
+    <text>{{itemCount}} 件商品</text>
+    <text>¥{{totalText}}</text>
+  </view>
+
+  <view class="progress-list">
+    <view class="progress-item {{step >= 0 ? 'active' : ''}}">
+      <text class="progress-mark">{{step > 0 ? '✓' : '1'}}</text>
+      <text>核对订单</text>
+    </view>
+    <view class="progress-line {{step >= 1 ? 'active' : ''}}"></view>
+    <view class="progress-item {{step >= 1 ? 'active' : ''}}">
+      <text class="progress-mark">{{step > 1 ? '✓' : '2'}}</text>
+      <text>虚拟支付</text>
+    </view>
+    <view class="progress-line {{step >= 2 ? 'active' : ''}}"></view>
+    <view class="progress-item {{step >= 2 ? 'active' : ''}}">
+      <text class="progress-mark">3</text>
+      <text>进入研究</text>
+    </view>
+  </view>
+
+  <view class="safety-note">
+    <text>不会产生真实交易</text>
+    <text>页面不会请求微信支付、银行卡或任何付款信息。</text>
+  </view>
+</view>

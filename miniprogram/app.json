@@ -2,8 +2,11 @@
   "pages": [
     "pages/today/today",
     "pages/records/records",
-    "pages/plaza/plaza",
+    "pages/saved/saved",
+    "pages/checkout/checkout",
+    "pages/processing/processing",
     "pages/review/review",
+    "pages/plaza/plaza",
     "pages/post/post"
   ],
   "window": {
@@ -20,15 +23,15 @@
     "list": [
       {
         "pagePath": "pages/today/today",
-        "text": "今日"
+        "text": "点单"
       },
       {
         "pagePath": "pages/records/records",
-        "text": "记录"
+        "text": "订单"
       },
       {
-        "pagePath": "pages/plaza/plaza",
-        "text": "广场"
+        "pagePath": "pages/saved/saved",
+        "text": "已省"
       }
     ]
   },
